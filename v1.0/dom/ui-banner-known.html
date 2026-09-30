@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>ui-banner-known · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:90px"><div class="b-ui" style="width:375px;padding:16px;background:#fafafa"><button class="dr-banner" type="button" data-el="banner"><span class="ic warn" data-el="b-icon"><i></i></span><span class="txt"><span class="t" data-el="b-title">Hệ thống đang bảo trì</span><span class="s" data-el="b-sub">Dữ liệu tính đến 28/09/2026 14:30:00</span></span><span class="ic chev" data-el="b-chev"><i></i></span></button></div>
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

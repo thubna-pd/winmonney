@@ -1,0 +1,5 @@
+.DS_Store
+__pycache__/
+*.pyc
+# file tạm khi chạy kiểm tra flow
+v1.0/_*.html

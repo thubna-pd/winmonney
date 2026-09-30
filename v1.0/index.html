@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Handoff · DR Mode WinMoney · v1.0</title>
+<style>
+:root{
+  --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --text-primary:#0a0a0a; --text-secondary:#737373; --text-placeholder:#a3a3a3; --text-inverse:#fff;
+  --bg:#fff; --layer-01:#fafafa; --bg-inverse:#262626;
+  --border-subtle:#e5e5e5; --border-subtle-01:#d4d4d4; --border-strong:#737373;
+  --positive:#16a34a; --negative:#dc2626; --warning:#f97316; --highlight:#facc15;
+  --link:#2563eb;
+  --gap-1:4px; --gap-2:8px; --gap-3:12px; --gap-4:16px; --gap-6:24px; --gap-8:32px;
+  --rounded-lg:8px; --rounded-xl:12px; --rounded-2xl:16px;
+  --text-xs:12px; --text-sm:14px; --text-base:16px; --text-lg:18px; --text-xl:20px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-body);color:var(--text-primary);background:var(--layer-01);
+  font-size:var(--text-base);line-height:1.5}
+a{color:inherit;text-decoration:none}
+a.lnk{color:var(--link);text-decoration:underline}
+code{background:var(--layer-01);border:1px solid var(--border-subtle);padding:1px 5px;
+  border-radius:6px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.md code{background:#f3f4f6}
+/* topbar */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:var(--gap-4);
+  padding:var(--gap-3) var(--gap-4);background:var(--bg);border-bottom:1px solid var(--border-subtle)}
+.topbar .brand{font-weight:600;font-size:var(--text-base)}
+.topbar .ver{font-size:var(--text-sm);color:var(--text-secondary)}
+.spacer{flex:1}
+.toggle{display:inline-flex;border:1px solid var(--border-subtle);border-radius:9999px;overflow:hidden}
+.toggle button{border:0;background:transparent;padding:7px 15px;font:inherit;font-size:var(--text-sm);
+  cursor:pointer;color:var(--text-secondary);white-space:nowrap}
+.toggle button.on{background:var(--text-primary);color:var(--text-inverse);font-weight:500}
+.burger{display:none;border:1px solid var(--border-subtle);background:var(--bg);border-radius:var(--rounded-lg);
+  padding:6px 10px;font:inherit;cursor:pointer}
+/* layout */
+.wrap{display:grid;grid-template-columns:262px 1fr;min-height:calc(100vh - 53px)}
+.side{border-right:1px solid var(--border-subtle);background:var(--bg);padding:var(--gap-4);
+  overflow:auto;position:sticky;top:53px;height:calc(100vh - 53px)}
+.side h4{margin:var(--gap-6) 0 var(--gap-2);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--text-placeholder)}
+.side h4:first-child{margin-top:0}
+.side a{display:block;padding:6px 9px;border-radius:var(--rounded-lg);font-size:var(--text-sm);
+  color:var(--text-secondary)}
+.side a:hover{background:var(--layer-01)}
+.side a.active{background:var(--layer-01);font-weight:600;color:var(--text-primary)}
+.main{padding:var(--gap-8) var(--gap-8) 96px;min-width:0}
+.main>p,.main .md p,.main .md li{max-width:100ch}
+/* Doc-Elements · Typo (scale 0.5): Section title 32 · H1 18 + divider · H2 16 · H3 14 · Paragraph 14 */
+h1{font-size:32px;font-weight:600;line-height:1.25;margin:0 0 var(--gap-2);letter-spacing:.64px;color:#000;text-wrap:balance}
+h2{font-size:18px;font-weight:600;letter-spacing:.36px;color:#000;margin:var(--gap-8) 0 var(--gap-4);padding-bottom:10px;
+  border-bottom:1px solid var(--border-subtle);scroll-margin-top:70px}
+h3{font-size:16px;font-weight:600;line-height:1.5;letter-spacing:.32px;color:#000;margin:var(--gap-6) 0 var(--gap-2);scroll-margin-top:70px}
+h4{font-size:var(--text-sm);margin:var(--gap-4) 0 var(--gap-1);color:var(--text-secondary);
+  text-transform:uppercase;letter-spacing:.05em}
+p{margin:0 0 var(--gap-3);line-height:1.5;letter-spacing:.28px}
+.muted{color:var(--text-secondary)}
+.lead{font-size:18px;color:#000;max-width:65ch;line-height:1.5;letter-spacing:.36px}
+.eyebrow{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-placeholder);
+  margin-bottom:var(--gap-1)}
+table{border-collapse:collapse;width:100%;font-size:var(--text-sm);margin:var(--gap-3) 0}
+th,td{border:1px solid var(--border-subtle);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--layer-01);font-weight:600}
+.tblwrap{overflow-x:auto}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:9999px;
+  background:var(--layer-01);border:1px solid var(--border-subtle);color:var(--text-secondary);
+  white-space:nowrap}
+.badge.b-req{border-color:#d4d4d4}
+.badge.b-no{background:#fee2e2;border-color:#fecaca;color:#b91c1c;font-weight:600}
+.badge.b-todo{background:#ffedd5;border-color:#fed7aa;color:#c2410c;font-weight:600}
+.badge.b-ok{background:#dcfce7;border-color:#bbf7d0;color:#15803d;font-weight:600}
+.badge.b-node{font-family:ui-monospace,Menlo,monospace;font-size:10.5px}
+/* device strip */
+.devices{display:flex;gap:var(--gap-6);overflow-x:auto;padding:var(--gap-2) 0 var(--gap-4)}
+.device{flex:0 0 auto}
+.device .frame{border:1px solid var(--border-subtle);border-radius:var(--rounded-xl);
+  overflow:hidden;background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.device iframe{border:0;display:block}
+.device .cap{font-size:var(--text-xs);color:var(--text-secondary);margin-top:6px;text-align:center}
+/* anatomy preview */
+.anat{display:flex;gap:var(--gap-6);align-items:flex-start;flex-wrap:wrap}
+.anat .shot{position:relative;flex:0 0 auto;width:375px;border:1px solid var(--border-subtle);
+  border-radius:var(--rounded-xl);overflow:hidden;background:var(--bg)}
+.anat .shot img{display:block;width:375px}
+.anat .shot .num{position:absolute;width:22px;height:22px;border-radius:50%;
+  background:var(--negative);color:#fff;font-size:12px;font-weight:700;display:flex;
+  align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff}
+.anat .tbl{flex:1 1 340px;min-width:320px}
+/* nav map */
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:var(--gap-3)}
+.map a{display:block;border:1px solid var(--border-subtle);border-radius:var(--rounded-xl);
+  overflow:hidden;background:var(--bg);transition:box-shadow .15s}
+.map a:hover{box-shadow:0 2px 10px rgba(0,0,0,.09)}
+.map a img{display:block;width:100%;background:var(--layer-01)}
+.map a .lbl{padding:var(--gap-2) var(--gap-3);font-size:var(--text-xs);line-height:1.4}
+.map a .lbl b{display:block;font-size:11px;color:var(--text-placeholder);letter-spacing:.04em}
+/* flow strip */
+.strip{display:flex;gap:var(--gap-3);overflow-x:auto;padding:var(--gap-2) 0 var(--gap-4);
+  align-items:flex-start}
+.strip .st{flex:0 0 auto;width:140px}
+.strip .st img{display:block;width:140px;border:1px solid var(--border-subtle);
+  border-radius:var(--rounded-lg);background:var(--bg)}
+.strip .st .cap{font-size:11px;margin-top:5px;line-height:1.35}
+.strip .st .cap b{display:block;color:var(--text-placeholder);letter-spacing:.04em}
+.strip .arrow{flex:0 0 auto;align-self:center;color:var(--text-placeholder);font-size:20px;
+  padding-top:18px}
+/* sơ đồ flow */
+.flowwrap{border:1px solid var(--border-subtle);border-radius:var(--rounded-xl);
+  background:var(--bg);margin:var(--gap-3) 0;overflow:hidden}
+.flowbar{display:flex;align-items:center;gap:var(--gap-2);padding:var(--gap-2) var(--gap-3);
+  border-bottom:1px solid var(--border-subtle);background:var(--layer-01);flex-wrap:wrap}
+.zbtn{width:28px;height:28px;border:1px solid var(--border-subtle);background:var(--bg);
+  border-radius:var(--rounded-lg);font:inherit;font-size:15px;line-height:1;cursor:pointer;
+  color:var(--text-primary);display:inline-flex;align-items:center;justify-content:center;padding:0}
+.zbtn:hover{background:var(--layer-01)}
+.zbtn:disabled{opacity:.35;cursor:default}
+.zbtn.wide{width:auto;padding:0 11px;font-size:var(--text-xs)}
+.zval{min-width:52px;text-align:center;font-size:var(--text-xs);font-weight:600;
+  font-variant-numeric:tabular-nums}
+.zhint{margin-left:auto;font-size:11px;color:var(--text-placeholder)}
+.flowbox{overflow:auto;padding:var(--gap-3);cursor:grab;max-height:78vh;
+  overscroll-behavior:contain}
+.flowbox.panning{cursor:grabbing}
+.flowbox.panning *{pointer-events:none}
+.flowsvg{display:block;max-width:none}
+.flowsvg .fo{transform-origin:0 0;overflow:hidden;background:#fff;pointer-events:none}
+.flowsvg .fo iframe{border:0;display:block;pointer-events:none}
+.flowsvg a{cursor:pointer}
+.flowsvg a{cursor:zoom-in}
+.flowsvg a:hover rect[stroke]{stroke:#6b21a8;stroke-width:2}
+.flowlegend{display:flex;gap:var(--gap-4);flex-wrap:wrap;font-size:var(--text-xs);
+  color:var(--text-secondary);margin:0 0 var(--gap-3)}
+.flowlegend span{display:inline-flex;align-items:center;gap:6px}
+.flowlegend i{display:inline-flex;flex:0 0 auto;align-items:center}
+/* callout */
+.callout{border:1px solid var(--border-subtle);border-left:3px solid var(--border-strong);
+  border-radius:var(--rounded-lg);padding:var(--gap-3) var(--gap-4);margin:var(--gap-3) 0;
+  background:var(--bg);font-size:var(--text-sm)}
+.callout.c-block{border-left-color:var(--negative);background:#fef2f2}
+.callout.c-todo{border-left-color:var(--warning);background:#fff7ed}
+.callout.c-info{border-left-color:var(--link);background:#f8fafc}
+.callout p:last-child{margin-bottom:0}
+/* Handoff UI */
+.uivars{display:flex;gap:var(--gap-6);flex-wrap:wrap;align-items:flex-start;margin-bottom:var(--gap-4)}
+.uiv{max-width:375px;min-width:0}
+.uiv>b{display:block;font-size:var(--text-sm);margin-top:8px}
+.uiv>span{display:block;font-size:var(--text-xs);color:var(--text-secondary);line-height:1.45;margin-top:2px}
+.uistr{margin:6px 0 0;padding-left:16px;font-size:var(--text-xs);color:var(--text-secondary)}
+.uifr{position:relative;overflow:hidden;border:1px solid var(--border-subtle);border-radius:var(--rounded-lg);background:var(--bg);max-width:100%}
+.uifr iframe{border:0;display:block;transform-origin:0 0}
+.uimk{position:absolute;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:#6b21a8;color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #f3e8ff;pointer-events:none}
+.uimk.s{position:static;transform:none;display:inline-flex}
+.tk{font-size:var(--text-xs);line-height:1.6}
+/* ai view */
+.ai-actions{display:flex;gap:var(--gap-3);align-items:center;margin:var(--gap-3) 0 var(--gap-6);
+  flex-wrap:wrap}
+.btn{border:1px solid var(--border-subtle);background:var(--bg);border-radius:9999px;
+  padding:7px 16px;font:inherit;font-size:var(--text-sm);cursor:pointer;color:var(--text-primary)}
+.btn:hover{background:var(--layer-01)}
+.btn.primary{background:var(--bg-inverse);color:var(--text-inverse);border-color:var(--bg-inverse)}
+.btn.primary:hover{opacity:.9}
+.md{font-size:var(--text-sm)}
+.md h1{font-size:var(--text-xl);margin:var(--gap-6) 0 var(--gap-2)}
+.md h2{font-size:var(--text-base);margin:var(--gap-6) 0 var(--gap-2)}
+.md h3{font-size:var(--text-sm);margin:var(--gap-4) 0 var(--gap-1)}
+.md ul{margin:0 0 var(--gap-3);padding-left:22px}
+.md li{margin-bottom:3px}
+.md blockquote{margin:var(--gap-3) 0;padding:var(--gap-2) var(--gap-4);
+  border-left:3px solid var(--border-subtle-01);background:var(--layer-01);color:var(--text-secondary)}
+.md pre{background:var(--layer-01);border:1px solid var(--border-subtle);border-radius:var(--rounded-lg);
+  padding:var(--gap-3);overflow-x:auto}
+.cardgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--gap-3)}
+.cardgrid .c{border:1px solid var(--border-subtle);border-radius:var(--rounded-xl);
+  padding:var(--gap-3) var(--gap-4);background:var(--bg)}
+.cardgrid .c b{display:block;margin-bottom:4px}
+.cardgrid .c p{margin:0;font-size:var(--text-sm);color:var(--text-secondary)}
+.toc{display:flex;gap:var(--gap-2);flex-wrap:wrap;margin:var(--gap-3) 0 var(--gap-6)}
+.toc a{font-size:var(--text-xs);border:1px solid var(--border-subtle);border-radius:9999px;
+  padding:4px 11px;color:var(--text-secondary);background:var(--bg)}
+.toc a:hover{background:var(--layer-01);color:var(--text-primary)}
+.states{display:flex;gap:var(--gap-4);overflow-x:auto;padding:var(--gap-2) 0 var(--gap-3)}
+.states .st{flex:0 0 auto;width:188px}
+.states .st img{display:block;width:188px;border:1px solid var(--border-subtle);border-radius:var(--rounded-lg);background:var(--bg)}
+.states .st .ph{width:188px;height:407px;border:1.5px dashed var(--border-subtle-01);border-radius:var(--rounded-lg);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:var(--text-xs);color:var(--text-secondary);background:var(--bg)}
+.states .st b{display:block;font-size:var(--text-sm);margin-top:8px}
+.states .st span{display:block;font-size:var(--text-xs);color:var(--text-secondary);line-height:1.45;margin-top:2px}
+.phbox{width:375px;height:420px;border:2px dashed var(--border-subtle-01);border-radius:var(--rounded-xl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--bg);text-align:center;padding:24px;color:var(--text-secondary)}
+/* xem trước màn (thay trang đặc tả màn — ticket này không có màn hình chi tiết) */
+.scrgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--gap-4)}
+.scrgrid button{all:unset;cursor:pointer;display:block;border-radius:var(--rounded-lg)}
+.scrgrid button:focus-visible{outline:2px solid #6b21a8;outline-offset:3px}
+.scrgrid .mini{width:100%;aspect-ratio:375/812;overflow:hidden;border:1px solid var(--border-subtle);border-radius:var(--rounded-lg);background:var(--bg);position:relative;container-type:inline-size}
+.scrgrid .mfo{width:375px;transform-origin:0 0;transform:scale(calc(100cqw / 375px));pointer-events:none}
+.scrgrid .mfo iframe{border:0;display:block}
+.scrgrid .ph2{display:block;width:100%;aspect-ratio:375/812;border:1px solid var(--border-subtle);border-radius:var(--rounded-lg);background:var(--bg);object-fit:cover}
+.scrgrid .ph2{border:1.5px dashed #6b21a8;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;color:#6b21a8;padding:10px;box-sizing:border-box}
+.scrgrid b{display:block;font-size:12px;margin-top:6px}.scrgrid span{display:block;font-size:11px;color:var(--text-secondary)}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(10,10,10,.6);display:flex;align-items:center;justify-content:center;padding:24px}
+.lb[hidden]{display:none}
+.lb .box{background:var(--bg);border-radius:var(--rounded-2xl);padding:16px;display:flex;gap:20px;max-height:100%;max-width:100%;overflow:auto;align-items:flex-start;flex-wrap:wrap}
+.lb .lbf{border:1px solid var(--border-subtle);border-radius:var(--rounded-lg);max-height:calc(100vh - 80px)}
+.lb .ph3{width:375px;max-width:100%;border:1px solid var(--border-subtle);border-radius:var(--rounded-lg)}
+.lb .ph3{height:500px;border:2px dashed #6b21a8;display:flex;align-items:center;justify-content:center;color:#6b21a8;font-weight:600}
+.lb .meta{max-width:300px;font-size:14px}
+.lb .meta h3{margin-top:0}
+.lnk.scr{cursor:pointer}
+@media(max-width:860px){
+  .zhint{display:none}
+  .wrap{grid-template-columns:1fr}
+  .side{display:none;position:static;height:auto}
+  .side.open{display:block}
+  .burger{display:block}
+  .main{padding:var(--gap-6) var(--gap-4) 80px}
+  .anat .shot{width:100%;max-width:375px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <button class="burger" id="burger" aria-label="Mở mục lục">☰</button>
+  <span class="brand">Handoff · DR Mode WinMoney · Phase 1</span>
+  <span class="ver" id="verlbl"></span>
+  <span class="spacer"></span>
+  <div class="toggle" id="modeToggle" role="tablist" aria-label="Chế độ xem">
+    <button data-mode="human" class="on">Người đọc</button>
+    <button data-mode="ai">AI của dev đọc</button>
+  </div>
+</div>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Xem màn"><div class="box"></div></div>
+<div class="wrap">
+  <nav class="side" id="side"></nav>
+  <main class="main" id="main"></main>
+</div>
+
+<script>
+window.ANCH = {
+"dom/scr-01.html": {
+"__h": 812,
+"avatar": [
+12,
+56,
+32,
+32
+],
+"bell": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+100,
+343,
+58
+],
+"qr": [
+161.7,
+181.5,
+80.3,
+32
+],
+"bank-chip": [
+248,
+181.5,
+68,
+32
+],
+"nap-rut": [
+0,
+386,
+119.7,
+76
+],
+"quet-qr": [
+127.7,
+386,
+119.7,
+76
+],
+"chuyen-tien": [
+255.3,
+386,
+119.7,
+76
+],
+"slide-cta": [
+39.5,
+574.8,
+108,
+30.6
+],
+"xem-them": [
+291.3,
+657,
+67.7,
+20
+]
+},
+"dom/scr-01b.html": {
+"__h": 812,
+"avatar": [
+12,
+56,
+32,
+32
+],
+"bell": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+100,
+343,
+58
+],
+"qr": [
+161.7,
+181.5,
+80.3,
+32
+],
+"bank-chip": [
+248,
+181.5,
+68,
+32
+],
+"nap-rut": [
+0,
+386,
+119.7,
+76
+],
+"quet-qr": [
+127.7,
+386,
+119.7,
+76
+],
+"chuyen-tien": [
+255.3,
+386,
+119.7,
+76
+],
+"slide-cta": [
+39.5,
+574.8,
+108,
+30.6
+],
+"xem-them": [
+291.3,
+657,
+67.7,
+20
+]
+},
+"dom/scr-02.html": {
+"__h": 812,
+"avatar": [
+12,
+56,
+32,
+32
+],
+"bell": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+100,
+343,
+58
+],
+"qr": [
+161.7,
+181.5,
+80.3,
+32
+],
+"bank-chip": [
+248,
+181.5,
+68,
+32
+],
+"nap-rut": [
+0,
+386,
+119.7,
+76
+],
+"quet-qr": [
+127.7,
+386,
+119.7,
+76
+],
+"chuyen-tien": [
+255.3,
+386,
+119.7,
+76
+],
+"slide-cta": [
+39.5,
+574.8,
+108,
+30.6
+],
+"xem-them": [
+291.3,
+657,
+67.7,
+20
+],
+"dlg-close": [
+40,
+506,
+295,
+48
+]
+},
+"dom/scr-03.html": {
+"__h": 812,
+"avatar": [
+12,
+56,
+32,
+32
+],
+"bell": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+100,
+343,
+58
+],
+"qr": [
+161.7,
+181.5,
+80.3,
+32
+],
+"bank-chip": [
+248,
+181.5,
+68,
+32
+],
+"nap-rut": [
+0,
+386,
+119.7,
+76
+],
+"quet-qr": [
+127.7,
+386,
+119.7,
+76
+],
+"chuyen-tien": [
+255.3,
+386,
+119.7,
+76
+],
+"slide-cta": [
+39.5,
+574.8,
+108,
+30.6
+],
+"xem-them": [
+291.3,
+657,
+67.7,
+20
+],
+"dlg-close": [
+40,
+454,
+295,
+48
+],
+"dlg-learn": [
+40,
+510,
+295,
+48
+]
+},
+"dom/scr-10.html": {
+"__h": 812,
+"avatar": [
+12,
+56,
+32,
+32
+],
+"bell": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+100,
+343,
+58
+],
+"qr": [
+161.7,
+237.5,
+80.3,
+32
+],
+"bank-chip": [
+248,
+237.5,
+68,
+32
+],
+"nap-rut": [
+0,
+442,
+119.7,
+76
+],
+"quet-qr": [
+127.7,
+442,
+119.7,
+76
+],
+"chuyen-tien": [
+255.3,
+442,
+119.7,
+76
+],
+"slide-cta": [
+39.5,
+630.8,
+108,
+30.6
+],
+"xem-them": [
+291.3,
+713,
+67.7,
+20
+]
+},
+"dom/scr-11.html": {
+"__h": 812,
+"avatar": [
+12,
+56,
+32,
+32
+],
+"bell": [
+331,
+56,
+32,
+32
+],
+"qr": [
+161.7,
+123.5,
+80.3,
+32
+],
+"bank-chip": [
+248,
+123.5,
+68,
+32
+],
+"nap-rut": [
+0,
+328,
+119.7,
+76
+],
+"quet-qr": [
+127.7,
+328,
+119.7,
+76
+],
+"chuyen-tien": [
+255.3,
+328,
+119.7,
+76
+],
+"slide-cta": [
+39.5,
+516.8,
+108,
+30.6
+],
+"xem-them": [
+291.3,
+599,
+67.7,
+20
+],
+"toast": [
+16,
+648,
+343,
+40
+]
+},
+"dom/scr-11b.html": {
+"__h": 812,
+"avatar": [
+12,
+56,
+32,
+32
+],
+"bell": [
+331,
+56,
+32,
+32
+],
+"qr": [
+161.7,
+123.5,
+80.3,
+32
+],
+"bank-chip": [
+248,
+123.5,
+68,
+32
+],
+"nap-rut": [
+0,
+328,
+119.7,
+76
+],
+"quet-qr": [
+127.7,
+328,
+119.7,
+76
+],
+"chuyen-tien": [
+255.3,
+328,
+119.7,
+76
+],
+"slide-cta": [
+39.5,
+516.8,
+108,
+30.6
+],
+"xem-them": [
+291.3,
+599,
+67.7,
+20
+]
+},
+"dom/scr-04.html": {
+"__h": 812,
+"back": [
+12,
+56,
+32,
+32
+],
+"search": [
+287,
+56,
+32,
+32
+],
+"filter": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+120,
+343,
+58
+],
+"row-1": [
+16,
+266,
+343,
+90
+],
+"row-failed": [
+16,
+742,
+343,
+84
+],
+"amount-failed": [
+295.1,
+754,
+63.9,
+24
+],
+"status-failed": [
+312,
+798,
+47,
+16
+]
+},
+"dom/scr-05.html": {
+"__h": 812,
+"back": [
+12,
+56,
+32,
+32
+],
+"banner": [
+16,
+120,
+343,
+58
+]
+},
+"dom/scr-06.html": {
+"__h": 1046,
+"back": [
+12,
+56,
+80,
+32
+],
+"banner": [
+16,
+116,
+343,
+58
+],
+"xac-minh": [
+16,
+278,
+343,
+56
+],
+"cai-dat-thong-bao": [
+16,
+382,
+343,
+56
+],
+"doi-pin": [
+16,
+438,
+343,
+56
+],
+"sinh-trac": [
+16,
+494,
+343,
+73
+],
+"smart-otp": [
+269.8,
+579,
+89.2,
+32
+],
+"thanh-toan-tu-dong": [
+16,
+671,
+343,
+70
+],
+"lien-he": [
+16,
+789,
+343,
+56
+],
+"dieu-khoan": [
+16,
+845,
+343,
+56
+],
+"logout": [
+16,
+961,
+343,
+48
+]
+},
+"dom/scr-06b.html": {
+"__h": 1046,
+"back": [
+12,
+56,
+80,
+32
+],
+"banner": [
+16,
+116,
+343,
+58
+],
+"xac-minh": [
+16,
+278,
+343,
+56
+],
+"cai-dat-thong-bao": [
+16,
+382,
+343,
+56
+],
+"doi-pin": [
+16,
+438,
+343,
+56
+],
+"sinh-trac": [
+16,
+494,
+343,
+73
+],
+"smart-otp": [
+269.8,
+579,
+89.2,
+32
+],
+"thanh-toan-tu-dong": [
+16,
+671,
+343,
+70
+],
+"lien-he": [
+16,
+789,
+343,
+56
+],
+"dieu-khoan": [
+16,
+845,
+343,
+56
+],
+"logout": [
+16,
+961,
+343,
+48
+],
+"dlg-close": [
+40,
+571,
+295,
+48
+],
+"dlg-learn": [
+40,
+627,
+295,
+48
+]
+},
+"dom/scr-07.html": {
+"__h": 812,
+"back": [
+12,
+56,
+80,
+32
+],
+"banner": [
+16,
+120,
+343,
+58
+],
+"item-tcb": [
+16,
+194,
+343,
+66
+],
+"item-bidv": [
+16,
+276,
+343,
+66
+],
+"add-account": [
+16,
+727,
+343,
+48
+]
+},
+"dom/scr-08a.html": {
+"__h": 812,
+"amount": [
+170.5,
+244.5,
+34,
+48
+],
+"cta": [
+16,
+409,
+343,
+48
+]
+},
+"dom/scr-08.html": {
+"__h": 812,
+"amount": [
+170.5,
+244.5,
+34,
+48
+],
+"cta": [
+16,
+409,
+343,
+48
+],
+"dlg-close": [
+40,
+454,
+295,
+48
+],
+"dlg-learn": [
+40,
+510,
+295,
+48
+]
+},
+"dom/scr-09.html": {
+"__h": 812,
+"status": [
+32,
+284,
+311,
+28
+],
+"cta-dong": [
+16,
+727,
+343,
+48
+]
+},
+"dom/scr-13.html": {
+"__h": 812,
+"back": [
+12,
+56,
+32,
+32
+],
+"banner": [
+16,
+121,
+343,
+58
+],
+"chip-he-thong": [
+293.9,
+195,
+81.1,
+32
+],
+"doc-tat-ca": [
+235.8,
+243,
+134.3,
+32
+],
+"noti-dr": [
+1,
+275,
+373,
+103
+]
+},
+"dom/scr-14.html": {
+"__h": 812,
+"banner": [
+16,
+60,
+343,
+58
+],
+"pin": [
+109.5,
+230,
+156,
+16
+],
+"face": [
+16,
+286,
+343,
+48
+],
+"cta": [
+16,
+409,
+343,
+48
+],
+"forgot": [
+16,
+465,
+170,
+48
+],
+"switch": [
+189,
+465,
+170,
+48
+]
+},
+"dom/scr-14b.html": {
+"__h": 812,
+"banner": [
+16,
+60,
+343,
+58
+],
+"pin": [
+109.5,
+230,
+156,
+16
+],
+"face": [
+16,
+286,
+343,
+48
+],
+"cta": [
+16,
+409,
+343,
+48
+],
+"forgot": [
+16,
+465,
+170,
+48
+],
+"switch": [
+189,
+465,
+170,
+48
+],
+"dlg-close": [
+40,
+454,
+295,
+48
+],
+"dlg-learn": [
+40,
+510,
+295,
+48
+]
+},
+"dom/scr-16.html": {
+"__h": 1029,
+"back": [
+12,
+56,
+80,
+32
+],
+"more": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+120,
+343,
+58
+]
+},
+"dom/scr-16b.html": {
+"__h": 1029,
+"back": [
+12,
+56,
+80,
+32
+],
+"more": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+120,
+343,
+58
+],
+"dlg-close": [
+40,
+562.5,
+295,
+48
+],
+"dlg-learn": [
+40,
+618.5,
+295,
+48
+]
+},
+"dom/ui-banner-known.html": {
+"__h": 90,
+"banner": [
+16,
+16,
+343,
+58
+],
+"b-icon": [
+28,
+26,
+20,
+20
+],
+"b-title": [
+56,
+26,
+263,
+20
+],
+"b-sub": [
+56,
+48,
+263,
+16
+],
+"b-chev": [
+327,
+26,
+20,
+20
+]
+},
+"dom/ui-banner-unknown.html": {
+"__h": 90,
+"banner": [
+16,
+16,
+343,
+58
+],
+"b-icon": [
+28,
+26,
+20,
+20
+],
+"b-title": [
+56,
+26,
+263,
+20
+],
+"b-sub": [
+56,
+48,
+263,
+16
+],
+"b-chev": [
+327,
+26,
+20,
+20
+]
+},
+"dom/ui-dialog-explain.html": {
+"__h": 812,
+"d-overlay": [
+0,
+0,
+375,
+812
+],
+"dlg": [
+24,
+242,
+327,
+328
+],
+"d-illus": [
+147.5,
+258,
+80,
+80
+],
+"d-title": [
+93.7,
+346,
+187.5,
+28
+],
+"d-body": [
+40,
+382,
+295,
+80
+],
+"d-eta": [
+47.3,
+470,
+280.4,
+20
+],
+"dlg-close": [
+40,
+506,
+295,
+48
+]
+},
+"dom/ui-dialog-block.html": {
+"__h": 812,
+"d-overlay": [
+0,
+0,
+375,
+812
+],
+"dlg": [
+24,
+238,
+327,
+336
+],
+"d-illus": [
+147.5,
+254,
+80,
+80
+],
+"d-title": [
+90,
+342,
+195.1,
+28
+],
+"d-body": [
+40,
+378,
+295,
+60
+],
+"dlg-close": [
+40,
+454,
+295,
+48
+],
+"dlg-learn": [
+40,
+510,
+295,
+48
+]
+},
+"dom/ui-scroll-0.html": {
+"__h": 812,
+"back": [
+12,
+56,
+80,
+32
+],
+"banner": [
+16,
+116,
+343,
+58
+],
+"xac-minh": [
+16,
+278,
+343,
+56
+],
+"cai-dat-thong-bao": [
+16,
+382,
+343,
+56
+],
+"doi-pin": [
+16,
+438,
+343,
+56
+],
+"sinh-trac": [
+16,
+494,
+343,
+73
+],
+"smart-otp": [
+269.8,
+579,
+89.2,
+32
+],
+"thanh-toan-tu-dong": [
+16,
+671,
+343,
+70
+],
+"lien-he": [
+16,
+789,
+343,
+56
+],
+"dieu-khoan": [
+16,
+845,
+343,
+56
+],
+"logout": [
+16,
+961,
+343,
+48
+]
+},
+"dom/ui-scroll-1.html": {
+"__h": 812,
+"back": [
+12,
+56,
+80,
+32
+],
+"banner": [
+16,
+116,
+343,
+58
+],
+"xac-minh": [
+16,
+44,
+343,
+56
+],
+"cai-dat-thong-bao": [
+16,
+148,
+343,
+56
+],
+"doi-pin": [
+16,
+204,
+343,
+56
+],
+"sinh-trac": [
+16,
+260,
+343,
+73
+],
+"smart-otp": [
+269.8,
+345,
+89.2,
+32
+],
+"thanh-toan-tu-dong": [
+16,
+437,
+343,
+70
+],
+"lien-he": [
+16,
+555,
+343,
+56
+],
+"dieu-khoan": [
+16,
+611,
+343,
+56
+],
+"logout": [
+16,
+727,
+343,
+48
+]
+},
+"dom/ov-explain.html": {
+"__h": 812,
+"dlg-close": [
+40,
+506,
+295,
+48
+]
+},
+"dom/ov-block.html": {
+"__h": 812,
+"dlg-close": [
+40,
+454,
+295,
+48
+],
+"dlg-learn": [
+40,
+510,
+295,
+48
+]
+},
+"dom/ov-toast.html": {
+"__h": 812,
+"toast": [
+16,
+648,
+343,
+40
+]
+},
+"dom/scr-04c.html": {
+"__h": 956,
+"back": [
+12,
+56,
+32,
+32
+],
+"search": [
+287,
+56,
+32,
+32
+],
+"filter": [
+331,
+56,
+32,
+32
+],
+"banner": [
+16,
+120,
+343,
+58
+],
+"row-1": [
+16,
+266,
+343,
+90
+],
+"row-failed": [
+16,
+742,
+343,
+84
+],
+"amount-failed": [
+295.1,
+754,
+63.9,
+24
+],
+"status-failed": [
+297.3,
+798,
+61.7,
+16
+],
+"list-note": [
+0,
+892,
+375,
+64
+]
+}
+};
+</script>
+<!-- Dữ liệu nhúng trực tiếp (nguồn: data.js) để trang chạy được cả khi mở bằng file://
+     hoặc trong preview pane không phân giải được đường dẫn tương đối. -->
+<script>
+window.DATA = {
+project: "DR Mode trên App WinMoney · View Mode · Phase 1",
+version: "1.0",
+date: "29/09/2026",
+ticket: "#17137",
+figma: { fileKey: "L8SweQCDdHX93TJFBPjGsp", name: "[Overview] WinMoney Masterflow" },
+
+/* ================= FLOW TỔNG THỂ (Overview) ================= */
+overallFlow: {
+  sections: [
+    { label: "① Mở app & tap action bị chặn", x: 26, y: 140, w: 1290 },
+    { label: "② Pull-to-refresh", x: 780, y: 640, w: 536 },
+    { label: "③ DR bật khi đang giao dịch", x: 26, y: 1000, w: 560 }
+  ],
+  nodes: [
+    { id: "start", type: "terminal", label: "DR mode bật", x: 80, y: 320 },
+    { id: "dA", type: "decision", label: "Lần đầu mở app trong session DR?", x: 300, y: 320 },
+    { id: "SCR-02", type: "screenL", x: 520, y: 320 },
+    { id: "SCR-01", type: "screenL", x: 740, y: 320 },
+    { id: "SCR-03", type: "screenL", x: 980, y: 320 },
+    { id: "SCR-02#b", ref: "SCR-02", type: "screenL", x: 1220, y: 320 },
+    { id: "SCR-10", type: "screenL", x: 740, y: 800 },
+    { id: "dE", type: "decision", label: "DR mode đã tắt?", x: 980, y: 800 },
+    { id: "SCR-11", type: "screenL", x: 1220, y: 800 },
+    { id: "SCR-01#c", ref: "SCR-01", type: "screenL", x: 980, y: 1080 },
+    { id: "start2", type: "terminal", label: "DR bật khi đang giao dịch", x: 70, y: 1170 },
+    { id: "dF", type: "decision", label: "Đã submit trước khi chuyển site?", x: 270, y: 1170 },
+    { id: "SCR-09", type: "screenL", x: 470, y: 1170 },
+    { id: "SCR-08#a", ref: "SCR-08", dom: "dom/scr-08a.html", type: "screenL", x: 270, y: 1480 },
+    { id: "SCR-08", type: "screenL", x: 470, y: 1480 }
+  ],
+  edges: [
+    { from: "start", to: "dA" },
+    { from: "dA", to: "SCR-02", label: "YES" },
+    { from: "SCR-02", to: "SCR-01", fromEl: "dlg-close", fromSide: "right" },
+    { from: "dA", to: "SCR-01", label: "NO", via: [{ x: 300, y: 165 }, { x: 740, y: 165 }] },
+    { from: "SCR-01", to: "SCR-03", fromEl: "chuyen-tien", fromSide: "right" },
+    { from: "SCR-03", to: "SCR-02#b", fromEl: "dlg-learn", fromSide: "right" },
+    { from: "SCR-01", to: "SCR-10", label: "Kéo xuống" },
+    { from: "SCR-10", to: "dE" },
+    { from: "dE", to: "SCR-11", label: "YES" },
+    { from: "dE", to: "SCR-01#c", label: "NO" },
+    { from: "start2", to: "dF" },
+    { from: "dF", to: "SCR-09", label: "YES" },
+    { from: "dF", to: "SCR-08#a", label: "NO" },
+    { from: "SCR-08#a", to: "SCR-08", fromEl: "cta", fromSide: "right" }
+  ]
+},
+
+/* ================= LUỒNG ================= */
+flows: [
+{
+  id: "FL-01", name: "User biết app đang ở DR mode", uc: "UC1",
+  desc: "Banner luôn hiện trên mọi màn xem. Dialog giải thích tự bật 1 lần mỗi session DR.",
+  diagrams: [
+    { id: "sc-0", name: "Mở app hoặc app quay lại foreground",
+      note: "User mất mạng không phải DR: hiện lỗi mạng như hiện tại, không hiện banner.",
+      dg: { nodes: [
+        { id: "s", type: "terminal", label: "Mở app / quay lại foreground", x: 0, y: 0 },
+        { id: "d0", type: "decision", label: "Backend báo DR mode on?", x: 200, y: 0 },
+        { id: "e0", type: "terminal", label: "App chạy bình thường", x: 200, y: 230 },
+        { id: "d1", type: "decision", label: "Lần đầu trong session DR?", x: 420, y: 0 },
+        { id: "a", ref: "SCR-02", type: "screen", x: 620, y: 0 },
+        { id: "b", ref: "SCR-01", type: "screen", x: 820, y: 0 } ],
+      edges: [
+        { from: "s", to: "d0" }, { from: "d0", to: "d1", label: "YES" }, { from: "d0", to: "e0", label: "NO" },
+        { from: "d1", to: "a", label: "YES" }, { from: "a", to: "b", fromEl: "dlg-close", fromSide: "right" },
+        { from: "d1", to: "b", label: "NO", via: [{ x: 420, y: 170 }, { x: 820, y: 170 }] } ] } },
+    { id: "sc-1", name: "DR mode bật khi user đang dùng app",
+      note: "Màn đang xem không bị đóng, không bật dialog. Banner hiện từ lần chuyển màn hoặc refresh kế tiếp.",
+      dg: { nodes: [
+        { id: "s", type: "terminal", label: "DR bật khi đang dùng", x: 0, y: 0 },
+        { id: "d", type: "decision", label: "Chuyển màn hoặc refresh?", x: 200, y: 0 },
+        { id: "a", ref: "SCR-04", type: "screen", x: 400, y: 0 },
+        { id: "e2", type: "terminal", label: "Giữ màn đang xem", x: 200, y: 230 } ],
+      edges: [ { from: "s", to: "d" }, { from: "d", to: "a", label: "YES" }, { from: "d", to: "e2", label: "NO" } ] } },
+    { id: "sc-2", name: "Mở app khi cần đăng nhập",
+      note: "Màn Login không tự bật dialog giải thích. Mọi nút đăng nhập đều mở Dialog chặn, không gửi request đăng nhập.",
+      dg: { nodes: [
+        { id: "s", type: "terminal", label: "Mở app, cần đăng nhập", x: 0, y: 0 },
+        { id: "d", type: "decision", label: "Backend báo DR mode on?", x: 200, y: 0 },
+        { id: "e", type: "terminal", label: "Đăng nhập như thường", x: 200, y: 230 },
+        { id: "a", ref: "SCR-14", type: "screen", x: 420, y: 0 },
+        { id: "b", ref: "SCR-14", dom: "dom/scr-14b.html", type: "screen", x: 640, y: 0 } ],
+      edges: [ { from: "s", to: "d" }, { from: "d", to: "a", label: "YES" }, { from: "d", to: "e", label: "NO" },
+        { from: "a", to: "b", fromEl: "cta", fromSide: "right" } ] } }
+  ],
+  cases: [
+    ["Mở app khi cần đăng nhập (hết phiên, cài mới)", "SCR-14", "Banner; không cho đăng nhập", "—"],
+    ["Tap Đăng nhập, Đăng nhập bằng khuôn mặt, Quên mã PIN?, Đổi tài khoản hoặc nhập đủ 6 số PIN", "SCR-14 + Dialog chặn", "Dialog chặn; không gửi request đăng nhập", "Đóng → SCR-14, xoá PIN đã nhập. Tìm hiểu thêm → SCR-02"],
+    ["Mở app, lần đầu trong session DR", "SCR-02 trên SCR-01", "Dialog giải thích + banner", "Đóng → SCR-01"],
+    ["Mở lại app, cùng session", "SCR-01", "Chỉ banner", "—"],
+    ["App quay lại foreground", "Màn đang xem", "Check DR status trước khi nhận tap vào action giao dịch", "—"],
+    ["DR bật khi đang dùng app", "Màn đang xem", "Giữ nguyên; banner hiện từ lần chuyển màn / refresh kế tiếp", "—"],
+    ["Tap banner", "SCR-02", "Dialog giải thích", "Đóng → màn cũ"],
+    ["DR bật lại (session mới)", "SCR-02", "Dialog giải thích bật lại 1 lần", "Đóng → SCR-01"],
+    ["User mất mạng", "Màn đang xem", "Lỗi mạng như hiện tại, không banner", "—"],
+    ["Trong suốt DR mode", "Mọi màn", "Không logout, không xoá data đang hiển thị", "—"]
+  ],
+  stops: []
+},
+{
+  id: "FL-02", name: "Xem thông tin khi đang DR mode", uc: "UC2",
+  desc: "Mọi màn xem chạy như thường. Mốc dữ liệu (data timestamp) nằm trong banner.",
+  diagrams: [
+    { id: "sc-0", name: "Từ Trang chủ đi các màn xem",
+      note: "SCR-04 cuối list: có note về giao dịch sau mốc và row “Đang xử lý” cho giao dịch chưa có kết quả.",
+      dg: { nodes: [
+        { id: "s", type: "terminal", label: "Vào Trang chủ", x: 0, y: 0 },
+        { id: "d", type: "decision", label: "Lấy được data timestamp?", x: 200, y: 0 },
+        { id: "h", ref: "SCR-01", type: "screen", x: 400, y: 0 },
+        { id: "hb", ref: "SCR-01", dom: "dom/scr-01b.html", type: "screen", x: 200, y: 280 },
+        { id: "l", ref: "SCR-04", type: "screen", x: 620, y: 0 },
+        { id: "lc", ref: "SCR-04", dom: "dom/scr-04c.html", type: "screen", x: 620, y: 300 },
+        { id: "t", ref: "SCR-05", type: "screen", x: 850, y: 0 },
+        { id: "ac", ref: "SCR-06", type: "screen", x: 400, y: 280 },
+        { id: "sr", ref: "SCR-07", type: "screen", x: 400, y: -300 },
+        { id: "nc", ref: "SCR-13", type: "screen", x: 620, y: -300 } ],
+      edges: [
+        { from: "s", to: "d" }, { from: "d", to: "h", label: "YES" }, { from: "d", to: "hb", label: "NO" },
+        { from: "h", to: "l", fromEl: "xem-them", fromSide: "right" }, { from: "l", to: "t", fromEl: "row-1", fromSide: "right" },
+        { from: "l", to: "lc", label: "Scroll tới cuối" },
+        { from: "h", to: "ac", fromEl: "avatar", fromSide: "down" }, { from: "h", to: "sr", fromEl: "bank-chip", fromSide: "up" },
+        { from: "h", to: "nc", fromEl: "bell", fromSide: "up" } ] } }
+  ],
+  cases: [
+    ["Có data timestamp", "Mọi màn xem", "Banner: “Dữ liệu tính đến 28/09/2026 14:30:00”", "—"],
+    ["Không lấy được timestamp", "Mọi màn xem", "Banner: “Dữ liệu có thể chưa được cập nhật mới nhất”; vẫn hiện số dư", "—"],
+    ["Scroll tới cuối Lịch sử", "SCR-04", "Note: giao dịch sau mốc sẽ hiện sau khi bảo trì xong", "—"],
+    ["Giao dịch chưa có kết quả tại mốc", "SCR-04", "Label “Đang xử lý” (support-warning) thay chỗ “Thất bại”; số tiền màu thường", "—"],
+    ["Vào Notification center", "SCR-13", "List như thường + 1 noti “Hệ thống đang bảo trì”; mark as read xử lý ngầm", "—"],
+    ["Ẩn/hiện số dư, filter lịch sử, FAQ, hotline, điều khoản", "Màn tương ứng", "Như thường", "—"]
+  ],
+  stops: []
+},
+{
+  id: "FL-03", name: "Tap vào action bị chặn", uc: "UC3",
+  desc: "Mọi entry point vào giao dịch hoặc đổi thông tin → Dialog chặn ngay khi tap, trước màn nhập và OTP/PIN. Nút giữ nguyên style.",
+  diagrams: [
+    { id: "sc-0", name: "Mọi entry point đều dẫn tới Dialog chặn",
+      note: "Dialog hiện đè lên đúng màn user vừa tap. Đóng: ở lại màn đó. SCR-16: ⋯ mở sheet, tap Huỷ liên kết mới bị chặn.",
+      dg: { nodes: [
+        { id: "m1", ref: "SCR-01", type: "screen", x: 0, y: 0 },
+        { id: "m2", ref: "SCR-06", type: "screen", x: 0, y: 260 },
+        { id: "m3", ref: "SCR-07", type: "screen", x: 0, y: 520 },
+        { id: "m4", ref: "SCR-16", type: "screen", x: 0, y: 780 },
+        { id: "s", type: "terminal", label: "Deeplink / QR ngoài / push", x: 0, y: 1040 },
+        { id: "dl", type: "decision", label: "Đích là tính năng giao dịch?", x: 200, y: 1040 },
+        { id: "el", type: "terminal", label: "Mở màn đích như thường", x: 200, y: 1260 },
+        { id: "b", ref: "SCR-03", type: "screen", x: 460, y: 520 },
+        { id: "x", ref: "SCR-02", type: "screen", x: 680, y: 520 } ],
+      edges: [
+        { from: "m1", to: "b", fromEl: "chuyen-tien", fromSide: "right", toSide: "left", mergeX: 250 },
+        { from: "m2", to: "b", fromEl: "logout", fromSide: "right", toSide: "left", mergeX: 250 },
+        { from: "m3", to: "b", fromEl: "add-account", fromSide: "right", toSide: "left", mergeX: 250 },
+        { from: "m4", to: "b", fromEl: "more", fromSide: "right", toSide: "left", mergeX: 250 },
+        { from: "s", to: "dl" },
+        { from: "dl", to: "b", label: "YES", toSide: "left", via: [{ x: 340, y: 1040 }, { x: 340, y: 520 }] },
+        { from: "dl", to: "el", label: "NO" },
+        { from: "b", to: "x", fromEl: "dlg-learn", fromSide: "right" } ] } }
+  ],
+  cases: [
+    ["Nạp/Rút · Quét QR · Chuyển tiền", "SCR-01", "Dialog chặn", "Đóng → ở lại · Tìm hiểu thêm → SCR-02"],
+    ["Mã QR trên thẻ số dư", "SCR-01", "Dialog chặn", "như trên"],
+    ["“Liên kết ngay” trên slide banner", "SCR-01", "Dialog chặn", "như trên"],
+    ["Thêm tài khoản", "SCR-07", "Dialog chặn", "như trên"],
+    ["⋯ → Huỷ liên kết", "SCR-16", "Sheet mở như thường; tap Huỷ liên kết → Dialog chặn", "như trên"],
+    ["Xác minh tài khoản · Cài đặt thông báo · Đổi PIN · Biometric · Smart OTP · Thanh toán tự động · Đăng xuất", "SCR-06", "Dialog chặn; toggle giữ nguyên state", "như trên"],
+    ["Deeplink / QR ngoài / push tới giao dịch", "SCR-01", "Dialog chặn, không mở màn nhập", "Đóng → SCR-01"],
+    ["Bấm CTA đi tiếp giữa luồng giao dịch", "SCR-08", "Dialog chặn", "Xem FL-04"]
+  ],
+  stops: []
+},
+{
+  id: "FL-04", name: "DR mode bật khi user đang giao dịch", uc: "UC4",
+  desc: "Không trừ tiền khi user không biết, không bắt nhập lại.",
+  diagrams: [
+    { id: "sc-0", name: "Đã submit hay còn ở màn nhập",
+      note: "Áp dụng mọi màn nhập: Chuyển tiền, Nạp, Rút, Thanh toán. Đóng dialog thì data đã nhập giữ nguyên.",
+      dg: { nodes: [
+        { id: "s", type: "terminal", label: "DR bật khi đang giao dịch", x: 0, y: 0 },
+        { id: "d1", type: "decision", label: "Đã submit giao dịch?", x: 200, y: 0 },
+        { id: "p", ref: "SCR-09", type: "screen", x: 410, y: 0 },
+        { id: "i", ref: "SCR-08", dom: "dom/scr-08a.html", type: "screen", x: 200, y: 260 },
+        { id: "d2", type: "decision", label: "Bấm CTA khi DR còn on?", x: 440, y: 260 },
+        { id: "b", ref: "SCR-08", type: "screen", x: 660, y: 260 },
+        { id: "e3", type: "terminal", label: "Đi tiếp như thường", x: 440, y: 480 } ],
+      edges: [
+        { from: "s", to: "d1" }, { from: "d1", to: "p", label: "YES" },
+        { from: "d1", to: "i", label: "NO" }, { from: "i", to: "d2", fromEl: "cta", fromSide: "right" },
+        { from: "d2", to: "b", label: "YES" }, { from: "d2", to: "e3", label: "NO" } ] } }
+  ],
+  cases: [
+    ["Đang ở màn nhập khi DR bật", "SCR-08", "Giữ nguyên, màn không bị đóng", "—"],
+    ["Bấm CTA khi DR còn on", "SCR-08", "Dialog chặn", "Đóng → ở lại, data còn nguyên"],
+    ["Đã submit trước khi chuyển site", "SCR-09", "Giao dịch đang xử lý, không báo thất bại", "—"],
+    ["DR tắt khi vẫn ở màn nhập", "SCR-08", "CTA hoạt động lại", "—"]
+  ],
+  stops: []
+},
+{
+  id: "FL-05", name: "DR mode tắt, app về bình thường", uc: "UC5",
+  desc: "Toast chỉ hiện khi user đang trong app và pull-to-refresh. Không cần login lại.",
+  diagrams: [
+    { id: "sc-0", name: "Pull-to-refresh", note: "Có ở Trang chủ và Lịch sử giao dịch.",
+      dg: { nodes: [
+        { id: "h", ref: "SCR-01", type: "screen", x: 0, y: 0 },
+        { id: "r", ref: "SCR-10", type: "screen", x: 220, y: 0 },
+        { id: "d", type: "decision", label: "DR mode đã tắt?", x: 440, y: 0 },
+        { id: "ok", ref: "SCR-11", type: "screen", x: 660, y: 0 },
+        { id: "no", ref: "SCR-01", type: "screen", x: 440, y: 260 } ],
+      edges: [
+        { from: "h", to: "r", label: "Kéo xuống" }, { from: "r", to: "d" },
+        { from: "d", to: "ok", label: "YES" }, { from: "d", to: "no", label: "NO" } ] } },
+    { id: "sc-1", name: "Mở lại app hoặc chuyển màn", note: "Banner mất nhưng không có toast.",
+      dg: { nodes: [
+        { id: "s", type: "terminal", label: "Mở lại app / chuyển màn", x: 0, y: 0 },
+        { id: "d", type: "decision", label: "DR mode đã tắt?", x: 200, y: 0 },
+        { id: "ok", ref: "SCR-11", dom: "dom/scr-11b.html", type: "screen", x: 410, y: 0 },
+        { id: "no", ref: "SCR-01", type: "screen", x: 200, y: 260 } ],
+      edges: [ { from: "s", to: "d" }, { from: "d", to: "ok", label: "YES" }, { from: "d", to: "no", label: "NO" } ] } }
+  ],
+  cases: [
+    ["Pull-to-refresh, DR đã tắt", "SCR-10 → SCR-11", "Banner mất + toast 1 lần", "—"],
+    ["Pull-to-refresh, DR còn on", "SCR-10 → SCR-01", "Giữ banner, không báo gì thêm", "—"],
+    ["Mở lại app / chuyển màn, DR đã tắt", "Màn tiếp theo", "Banner mất, không toast", "—"],
+    ["Sau khi về site chính", "SCR-01, SCR-04", "Số dư, lịch sử đầy đủ; hết data timestamp", "—"],
+    ["DR bật lại", "SCR-02", "Session mới, dialog giải thích bật lại (FL-01)", "—"]
+  ],
+  stops: []
+}
+],
+
+/* ================= HANDOFF UI (component mới / dùng lại) ================= */
+ui: [
+{
+  id: "UI-01", name: "Banner bảo trì", kind: "Component mới", node: "Chưa có trong Figma (dựng theo token WIN-DLS)",
+  desc: "Báo app đang bảo trì và mốc dữ liệu (data timestamp). Hiện ở đầu mọi màn xem trong suốt DR mode.",
+  css: ".dr-banner-wrap > .dr-banner",
+  variants: [
+    { id: "known", name: "Có data timestamp", dom: "dom/ui-banner-known.html", when: "Backend trả được mốc dữ liệu.", strings: ["Hệ thống đang bảo trì", "Dữ liệu tính đến {dd/mm/yyyy hh:mm:ss}"] },
+    { id: "unknown", name: "Không có data timestamp", dom: "dom/ui-banner-unknown.html", when: "Backend không trả mốc, hoặc lỗi khi lấy mốc. Vẫn hiện số dư như thường.", strings: ["Hệ thống đang bảo trì", "Dữ liệu có thể chưa được cập nhật mới nhất"] }
+  ],
+  anatomy: [
+    { n: 1, el: "banner", name: "Container", spec: "Nền support-warning-subtle, bo góc rounded-xl, padding 10 / 12, gap 8. Cả banner là 1 vùng tap.",
+      tokens: [["background", "alias/support/support-warning-subtle", "#fff7ed"], ["radius", "border-radius/rounded-xl", "12px"], ["padding", "gap/gap-2-5 · gap/gap-3", "10px 12px"], ["gap", "gap/gap-2", "8px"]] },
+    { n: 2, el: "b-icon", name: "Icon Warning 20", spec: "Canh trên cùng dòng tiêu đề.", tokens: [["color", "alias/support/support-warning", "#f97316"], ["size", "—", "20×20 (live area 17.78)"]] },
+    { n: 3, el: "b-title", name: "Tiêu đề", spec: "1 dòng, cố định.", tokens: [["type", "Small/Semi Bold", "14/20 · 600"], ["color", "alias/text/text-primary", "#0a0a0a"]] },
+    { n: 4, el: "b-sub", name: "Dòng phụ", spec: "Theo variant. Chữ dài thì xuống dòng, không cắt. Cách tiêu đề 2px.", tokens: [["type", "X-Small/Regular", "12/16 · 400"], ["color", "alias/text/text-secondary", "#737373"], ["gap", "gap/gap-0-5", "2px"]] },
+    { n: 5, el: "b-chev", name: "Chevron right 20", spec: "Báo banner tap được.", tokens: [["color", "alias/icon/icon-secondary", "#737373"], ["size", "—", "20×20"]] }
+  ],
+  behavior: [
+    ["Tap banner", "Mở Dialog giải thích (UI-02, variant Giải thích) đè lên màn đang xem. Đóng dialog: ở lại màn cũ."],
+    ["Scroll nội dung", "Banner sticky ở mép trên vùng cuộn, ngay dưới header/navbar của màn. Nội dung cuộn phía dưới banner. Nền quanh banner (phần lề) lấy đúng màu nền của vùng cuộn để nội dung không lộ qua lề."],
+    ["Pull-to-refresh", "Banner đứng yên; vùng Loading cao 56 hiện ngay dưới banner (SCR-10)."],
+    ["DR mode tắt", "Banner mất ở lần refresh / chuyển màn kế tiếp. Nếu vừa pull-to-refresh thì hiện Toast Positive (SCR-11)."],
+    ["Lề theo màn", "Lề 16 hai bên. Khoảng cách trên/dưới banner giữ theo layout của từng màn (vd Tài khoản 16 / 8, Trang chủ 0)."]
+  ],
+  scroll: [
+    { name: "Đầu trang", dom: "dom/ui-scroll-0.html" },
+    { name: "Đã scroll 260px", dom: "dom/ui-scroll-1.html" }
+  ],
+  usedIn: ["SCR-01", "SCR-04", "SCR-05", "SCR-06", "SCR-07", "SCR-10", "SCR-13", "SCR-14", "SCR-16"],
+  assets: [["icon-warning.svg", "WIN DLS icon Warning", "dùng làm mask, tô màu bằng token"], ["icon-chevron-right.svg", "WIN DLS icon Chevron right", "dùng làm mask"]]
+},
+{
+  id: "UI-02", name: "Dialog bảo trì", kind: "Dùng lại", node: "Dialog 1672:2730 · khuôn “Dialog - Feature locked” 107:6796",
+  desc: "Dialog dùng chung khuôn Dialog của WIN DLS, 2 variant: giải thích DR mode và chặn action.",
+  css: ".dlg-overlay > .dlg",
+  variants: [
+    { id: "explain", name: "Giải thích", dom: "dom/ui-dialog-explain.html", screen: "dom/scr-02.html",
+      when: "Tự bật 1 lần mỗi session DR khi mở app; hoặc khi tap banner; hoặc tap Tìm hiểu thêm ở Dialog chặn.",
+      strings: ["Hệ thống đang bảo trì", "Bạn vẫn xem được số dư, lịch sử giao dịch và thông tin tài khoản. Giao dịch và thay đổi thông tin sẽ thực hiện được sau khi bảo trì hoàn tất.", "Dự kiến hoàn tất lúc {dd/mm/yyyy hh:mm:ss}.", "Đóng"] },
+    { id: "block", name: "Chặn action", dom: "dom/ui-dialog-block.html", screen: "dom/scr-03.html",
+      when: "Tap vào action bị chặn: giao dịch, thay đổi thông tin, đăng nhập (SCR-14).",
+      strings: ["Tính năng đang bảo trì", "Hệ thống đang bảo trì nên chưa thực hiện được thao tác này. Bạn vui lòng thử lại sau khi bảo trì hoàn tất.", "Đóng", "Tìm hiểu thêm"] }
+  ],
+  anatomy: [
+    { n: 1, el: "d-overlay", name: "Overlay", spec: "Phủ toàn màn, padding 48 / 24, dialog canh giữa.", tokens: [["background", "alias/miscellaneous/overlay", "rgba(10,10,10,.5)"], ["padding", "gap/gap-12 · gap/gap-6", "48px 24px"]] },
+    { n: 2, el: "dlg", name: "Container", spec: "Rộng theo màn (max 540), padding 16, gap 16 giữa nội dung và nút.", tokens: [["background", "alias/background/background", "#ffffff"], ["radius", "border-radius/rounded-2xl", "16px"], ["padding · gap", "gap/gap-4", "16px"]] },
+    { n: 3, el: "d-illus", name: "Illus/Warning", spec: "80×80, cả 2 variant dùng chung.", tokens: [["size", "—", "80×80"]] },
+    { n: 4, el: "d-title", name: "Tiêu đề", spec: "Canh giữa. Cách illus và nội dung 8.", tokens: [["type", "Large/Semi Bold", "18/28 · 600"], ["color", "alias/text/text-primary", "#0a0a0a"], ["gap", "gap/gap-2", "8px"]] },
+    { n: 5, el: "d-body", name: "Nội dung", spec: "Canh giữa, xuống dòng tự do.", tokens: [["type", "Small/Regular", "14/20 · 400"]] },
+    { n: 6, el: "d-eta", name: "Dòng dự kiến (chỉ variant Giải thích)", spec: "Ẩn cả dòng nếu backend không trả giờ dự kiến.", tokens: [["type", "Small/Regular", "14/20 · 400"]] },
+    { n: 7, el: "dlg-close", name: "Nút Đóng (Primary)", spec: "Cao 48, full width, bo tròn.", tokens: [["background", "alias/background/background-inverse", "#262626"], ["text", "alias/text/text-inverse · Base/Medium", "#ffffff · 16/24 · 500"], ["radius", "border-radius/rounded-circle", "10000px"]] },
+    { n: 8, el: "dlg-learn", name: "Nút Tìm hiểu thêm (Secondary, chỉ variant Chặn)", spec: "Cao 48, viền 1px, cách nút Đóng 8.", tokens: [["border", "alias/border/border-strong-01", "1px #737373"], ["text", "alias/text/text-primary · Base/Medium", "#0a0a0a · 16/24 · 500"], ["gap", "gap/gap-2", "8px"]] }
+  ],
+  behavior: [
+    ["Đóng", "Đóng dialog, ở lại màn cũ. Data và input đang có trên màn giữ nguyên (riêng Login: xoá PIN đã nhập)."],
+    ["Tìm hiểu thêm (variant Chặn)", "Đóng Dialog chặn, mở Dialog giải thích."],
+    ["Tap overlay", "Không đóng dialog, không nhận tap vào màn phía sau."],
+    ["Back Android", "Như Đóng."],
+    ["Tự bật (variant Giải thích)", "Tối đa 1 lần mỗi session DR. Session DR mới (DR bật lại) thì bật lại 1 lần."],
+    ["Motion", "Overlay fade in 200ms; dialog fade + scale 0.96 → 1, 200ms ease-out. prefers-reduced-motion: chỉ fade."]
+  ],
+  usedIn: ["SCR-02", "SCR-03", "SCR-06", "SCR-08", "SCR-14", "SCR-16"],
+  assets: [["illus-warning.png", "Illus/Warning (Figma)", "dùng chung 2 variant"]]
+}
+],
+
+/* ================= MÀN (xem trước trên flow) ================= */
+screens: [
+{ id: "SCR-01", name: "Trang chủ · DR mode", node: "1:13043", dom: "dom/scr-01.html", purpose: "Banner dưới navbar, data timestamp trong banner. Nút giữ style, tap thì bị chặn." },
+{ id: "SCR-02", name: "Dialog giải thích DR", node: "khuôn 107:6796", dom: "dom/scr-02.html", purpose: "Xem được gì, chưa làm được gì, dự kiến xong lúc nào. Dòng dự kiến ẩn nếu backend không trả." },
+{ id: "SCR-03", name: "Dialog chặn action", node: "khuôn 107:6796", dom: "dom/scr-03.html", purpose: "Đóng: ở lại màn cũ. Tìm hiểu thêm: mở SCR-02." },
+{ id: "SCR-04", name: "Lịch sử giao dịch · DR mode", node: "1:37591", dom: "dom/scr-04.html", purpose: "Data tới mốc. Cuối list có note; giao dịch chưa có kết quả hiện “Đang xử lý”." },
+{ id: "SCR-05", name: "Chi tiết giao dịch · DR mode", node: "1:37605", dom: "dom/scr-05.html", purpose: "Như thường, thêm banner." },
+{ id: "SCR-06", name: "Tài khoản · DR mode", node: "1:41327", dom: "dom/scr-06.html", purpose: "Xem như thường. Bảo mật, định danh, thanh toán, thông báo, Đăng xuất: tap thì bị chặn." },
+{ id: "SCR-07", name: "Quản lý tài khoản/thẻ · DR mode", node: "1:27571", dom: "dom/scr-07.html", purpose: "List như thường. Thêm tài khoản: bị chặn." },
+{ id: "SCR-08", name: "Chuyển tiền · DR bật giữa luồng", node: "1:31946", dom: "dom/scr-08.html", purpose: "Màn không bị đóng. Bấm Chuyển tiền khi DR còn on: Dialog chặn, data giữ nguyên." },
+{ id: "SCR-09", name: "Kết quả · đang xử lý", node: "1:31824", dom: "dom/scr-09.html", purpose: "Dùng lại màn Pending hiện có, không đổi." },
+{ id: "SCR-10", name: "Trang chủ · pull-to-refresh", node: "1:13043 + Loading", dom: "dom/scr-10.html", purpose: "Icon Loading 24 xoay trong vùng cao 56 dưới banner." },
+{ id: "SCR-11", name: "Trang chủ · DR tắt", node: "1:13043 + Toast bar", dom: "dom/scr-11.html", purpose: "Banner mất. Toast Positive chỉ khi vừa pull-to-refresh." },
+{ id: "SCR-13", name: "Notification center · DR mode", node: "21:8494", dom: "dom/scr-13.html", purpose: "List như thường + banner + 1 noti “Hệ thống đang bảo trì” (demo)." },
+{ id: "SCR-14", name: "Login · DR mode", node: "1:8132", dom: "dom/scr-14.html", purpose: "Không cho đăng nhập. Banner dưới status bar; tap nút đăng nhập bất kỳ: Dialog chặn." },
+{ id: "SCR-16", name: "Chi tiết nguồn tiền · DR mode", node: "1:27572", dom: "dom/scr-16.html", purpose: "Như thường, thêm banner. ⋯ → Huỷ liên kết: Dialog chặn." }
+]
+};
+</script>
+<script>
+const D = window.DATA;
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){ /* private window, file://, site data bị chặn */ } }
+};
+let mode = store.get('lh-mode') || 'human';
+
+document.getElementById('verlbl').textContent = 'v' + D.version + ' · ' + D.date;
+
+/* ---------- markdown (đủ cho các file out/ai) ---------- */
+function inline(t){
+  return esc(t)
+    .replace(/`([^`]+)`/g,'<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a class="lnk" href="$2">$1</a>');
+}
+function mdToHtml(md){
+  const L = md.split('\n'); let h=''; let i=0;
+  while(i<L.length){
+    let l = L[i];
+    if(/^#{1,4}\s/.test(l)){const n=l.match(/^#+/)[0].length;h+=`<h${Math.min(n,4)}>${inline(l.replace(/^#+\s/,''))}</h${Math.min(n,4)}>`;i++;continue;}
+    if(/^```/.test(l)){i++;let b='';while(i<L.length&&!/^```/.test(L[i])){b+=L[i]+'\n';i++;}i++;h+=`<pre>${esc(b)}</pre>`;continue;}
+    if(/^\s*\|/.test(l)){
+      const t=[];while(i<L.length&&/^\s*\|/.test(L[i])){t.push(L[i].trim());i++;}
+      const rows=t.filter(r=>!/^\|[\s|:-]+\|?$/.test(r)).map(r=>r.replace(/^\||\|$/g,'').split('|').map(c=>c.trim()));
+      if(rows.length){const head=rows.shift();
+        h+='<div class="tblwrap"><table><thead><tr>'+head.map(c=>`<th>${inline(c)}</th>`).join('')+'</tr></thead><tbody>'+
+           rows.map(r=>'<tr>'+r.map(c=>`<td>${inline(c)}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>';}
+      continue;}
+    if(/^>\s?/.test(l)){let b='';while(i<L.length&&/^>\s?/.test(L[i])){b+=L[i].replace(/^>\s?/,'')+' ';i++;}h+=`<blockquote>${inline(b.trim())}</blockquote>`;continue;}
+    if(/^(-|\d+\.)\s/.test(l)){const ol=/^\d/.test(l);h+=ol?'<ol>':'<ul>';
+      while(i<L.length&&/^(-|\d+\.)\s/.test(L[i])){h+=`<li>${inline(L[i].replace(/^(-|\d+\.)\s/,''))}</li>`;i++;}
+      h+=ol?'</ol>':'</ul>';continue;}
+    if(/^---+$/.test(l.trim())){h+='<hr style="border:0;border-top:1px solid var(--border-subtle);margin:24px 0">';i++;continue;}
+    if(l.trim()===''){i++;continue;}
+    h+=`<p>${inline(l)}</p>`;i++;
+  }
+  return h;
+}
+
+/* ---------- sidebar ---------- */
+function sidebar(route){
+  const A=(href,label)=>`<a href="${href}" class="${('#/'+route)===href?'active':''}">${esc(label)}</a>`;
+  document.getElementById('side').innerHTML =
+    '<h4>Bản bàn giao</h4>'+A('#/overview','Overview')+
+    '<h4>Luồng người dùng</h4>'+D.flows.map(f=>A('#/'+f.id, f.id+' · '+f.name)).join('')+
+    '<h4>Handoff UI</h4>'+D.ui.map(u=>A('#/'+u.id, u.id+' · '+u.name)).join('')+
+    (mode==='ai'?'<h4>Màn</h4>'+A('#/screens','02 · Danh sách màn (máy đọc)'):'');
+}
+
+/* ---------- overview ---------- */
+function renderOverview(){
+  if(mode==='ai') return aiView(aiOverview(), 'out/ai/00-overview.md');
+  const fl = D.flows.map(f=>`<div class="c"><b><a class="lnk" href="#/${f.id}">${f.id} · ${esc(f.name)}</a></b>
+      <p>${esc(f.desc)}</p><p class="muted" style="margin-top:6px">${f.uc} · ${f.cases.length} case</p></div>`).join('');
+  return `<div class="eyebrow">Ticket ${esc(D.ticket)}</div>
+  <h1>${esc(D.project)}</h1>
+  <p class="lead">Site chính sự cố → app chạy site dự phòng: chỉ xem được, mọi thao tác đổi tiền hoặc dữ liệu bị chặn khi chạm. UI gọi là “Hệ thống đang bảo trì”.</p>
+  ${location.protocol==='data:' ? `<div class="callout c-todo"><p><b>Chế độ snapshot:</b> chữ và sơ đồ đủ, ảnh màn không nạp được.
+  Chạy <code>python3 -m http.server 4323</code> rồi mở <code>http://localhost:4323</code>.</p></div>` : ''}
+
+  <h2 id="overview--o-so-do" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">Overview
+    <a class="lnk" href="prototype.html" target="_blank" rel="noopener" style="font-size:14px;font-weight:500;letter-spacing:0">Xem prototype ↗</a></h2>
+  ${renderFlowSVG(D.overallFlow,'ov')}
+  <p class="muted" style="font-size:var(--text-xs)">Bấm vào màn để xem lớn. SCR-06, SCR-07, SCR-16 nằm trong FL-02, FL-03; SCR-14 nằm trong FL-01.</p>
+
+  <h2 id="overview--o-luong">Luồng người dùng</h2>
+  <div class="cardgrid">${fl}</div>
+
+  <h2 id="overview--o-tung-trang">Danh sách màn</h2>
+  <div class="scrgrid">${D.screens.map(s=>`<button type="button" data-scr="${s.id}" aria-label="Xem ${esc(s.id)}">${s.placeholder?`<div class="ph2">Chưa thiết kế</div>`:`<div class="mini"><div class="mfo" style="height:${(ANCH[s.dom]&&ANCH[s.dom].__h)||812}px"><iframe src="${s.dom}" width="375" height="${(ANCH[s.dom]&&ANCH[s.dom].__h)||812}" loading="lazy" tabindex="-1" title="${s.id}"></iframe></div></div>`}<b>${s.id}</b><span>${esc(s.name)}</span></button>`).join('')}</div>`;
+}
+
+/* ---------- helpers ---------- */
+function navBlock(s){
+  if(!s.nav||!s.nav.length) return '';
+  return `<h2 id="${s.id}--b-vao-tu">Vào từ · đi tiếp (từng case)</h2>
+  <div class="tblwrap"><table><thead><tr><th>Khi / thao tác</th><th>Kết quả</th><th>Luồng</th></tr></thead><tbody>
+  ${s.nav.map(n=>`<tr><td>${esc(n[0])}</td><td>${linkIds(n[1])}</td><td>${linkIds(n[2])}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function linkIds(t){ return esc(t).replace(/\bFL-(\d\d)\b/g,'<a class="lnk" href="#/FL-$1">FL-$1</a>').replace(/\bSCR-(\d\d)\b/g,'<a class="lnk scr" data-scr="SCR-$1">SCR-$1</a>'); }
+/* ---------- flow ---------- */
+function renderFlow(f){
+  if(mode==='ai') return aiView(aiFlow(f), 'out/ai/01-flows/'+f.id+'.md');
+  const dgs = f.diagrams.map((g,i)=>
+    `<h3 id="${f.id}--${g.id}">${esc(g.name)}</h3>
+     ${g.note?`<p class="muted" style="font-size:var(--text-sm)">${linkIds(g.note)}</p>`:''}
+     ${renderFlowSVG(g.dg||seqDiagram(g.seq), f.id.replace(/\W/g,'')+i)}`).join('');
+  const cases = `<h2 id="${f.id}--a-case">Case theo màn</h2>
+    <div class="tblwrap"><table><thead><tr><th>Khi</th><th>Màn</th><th>Hiển thị</th><th>Tiếp theo</th></tr></thead>
+    <tbody>${f.cases.map(c=>`<tr><td>${esc(c[0])}</td><td>${linkIds(c[1])}</td><td>${esc(c[2])}</td><td>${linkIds(c[3])}</td></tr>`).join('')}</tbody></table></div>`;
+  return `<div class="eyebrow">${f.id} · ${f.uc}</div>
+  <h1 id="${f.id}--a-kich-ban">${esc(f.name)}</h1>
+  <p class="lead">${esc(f.desc)}</p>
+  <h2 id="${f.id}--a-so-do">Sơ đồ</h2>
+  ${dgs}
+  ${cases}`;
+}
+
+/* ---------- Handoff UI (component) · bản Người đọc ---------- */
+const HH = d => (ANCH[d]&&ANCH[d].__h)||812;
+function scaledFrame(dom, w, marks){
+  const h=HH(dom), k=w/375;
+  const mk=(marks||[]).map(m=>`<span class="uimk" style="left:${Math.round(m.x*k)}px;top:${Math.round(m.y*k)}px">${m.n}</span>`).join('');
+  return `<div class="uifr" style="width:${w}px;height:${Math.round(h*k)}px"><iframe src="${dom}" width="375" height="${h}" loading="lazy" title="${esc(dom)}" style="transform:scale(${k})"></iframe>${mk}</div>`;
+}
+/* điểm đánh số: container (vùng lớn) → góc trên-trái bên ngoài; thành phần nhỏ → tâm */
+function marksFor(u, dom){
+  const A=ANCH[dom]||{}, W=375, H=HH(dom);
+  const box=A.dlg||A.banner, colX=Math.max(9, Math.round((box?box[0]:16)/2));   /* cột số bên trái, trong phần lề */
+  return u.anatomy.filter(a=>A[a.el]).map(a=>{ const [x,y,w,h]=A[a.el];
+    if(w*h>=W*H*0.9) return {n:a.n, x:x+14, y:y+14};                          /* overlay: góc trong */
+    if(a.el==='banner'||a.el==='dlg') return {n:a.n, x:Math.max(9,x-9), y:Math.max(9,y-9)};  /* container: góc ngoài */
+    if(/icon|chev/.test(a.el)) return {n:a.n, x:x+w/2, y:y+h/2};         /* icon: tâm */
+    return {n:a.n, x:colX, y:y+h/2}; });                                         /* chữ, nút: cột trái, ngang hàng */
+}
+function renderUI(u){
+  if(mode==='ai') return aiView(aiUI(u), 'out/ai/03-ui/'+u.id+'.md');
+  const isDlg=u.id==='UI-02', W=isDlg?262:375;
+  const vars=u.variants.map(v=>`<div class="uiv">${isDlg?scaledFrame(v.screen,W):scaledFrame(v.dom,W)}
+      <b>${esc(v.name)}</b><span>${esc(v.when)}</span>
+      <ul class="uistr">${v.strings.map(s=>`<li>“${esc(s)}”</li>`).join('')}</ul></div>`).join('');
+  const anatFr=(isDlg?u.variants:u.variants.slice(0,1)).map(v=>`<div class="uiv">${scaledFrame(v.dom, 375, marksFor(u,v.dom))}<b>${esc(v.name)}</b></div>`).join('');
+  const rows=u.anatomy.map(a=>`<tr><td><span class="uimk s">${a.n}</span></td><td><b>${esc(a.name)}</b><div class="muted" style="font-size:var(--text-xs);margin-top:2px">${esc(a.spec)}</div></td>
+      <td>${a.tokens.map(t=>`<div class="tk"><span class="muted">${esc(t[0])}</span> <code>${esc(t[1])}</code> ${esc(t[2])}</div>`).join('')}</td></tr>`).join('');
+  const beh=u.behavior.map(b=>`<tr><td><b>${esc(b[0])}</b></td><td>${linkIds(b[1])}</td></tr>`).join('');
+  const scroll=u.scroll?`<h3 id="${u.id}--u-scroll">Behavior khi scroll</h3>
+    <p class="muted" style="font-size:var(--text-sm)">Ví dụ ở màn Tài khoản (SCR-06). Khung bên trái cuộn thử được.</p>
+    <div class="uivars">${u.scroll.map(s=>`<div class="uiv">${scaledFrame(s.dom,262)}<b>${esc(s.name)}</b></div>`).join('')}</div>`:'';
+  return `<div class="eyebrow">${u.id} · ${esc(u.kind)}</div>
+  <h1 id="${u.id}--u-tong-quan">${esc(u.name)}</h1>
+  <p class="lead">${esc(u.desc)}</p>
+  <p class="muted" style="font-size:var(--text-xs)">Figma: ${esc(u.node)}</p>
+  <h2 id="${u.id}--u-variant">${u.variants.length} variant</h2>
+  <div class="uivars">${vars}</div>
+  <h2 id="${u.id}--u-anatomy">Anatomy</h2>
+  <div class="uivars">${anatFr}</div>
+  <div class="tblwrap"><table><thead><tr><th>#</th><th>Thành phần</th><th>Token · giá trị</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <h2 id="${u.id}--u-behavior">Behavior</h2>
+  <div class="tblwrap"><table><thead><tr><th>Khi</th><th>Hành vi</th></tr></thead><tbody>${beh}</tbody></table></div>
+  ${scroll}
+  <h2 id="${u.id}--u-dung-o">Dùng ở</h2>
+  <p>${u.usedIn.map(id=>`<a class="lnk scr" data-scr="${id}">${id}</a>`).join(' · ')}</p>`;
+}
+
+/* ---------- bản AI của dev đọc: markdown sinh từ CÙNG nguồn data.js + anchors.js (GHL-04, GHL-07 mục 7) ---------- */
+const mc = t => String(t==null?'':t).replace(/\|/g,'/').replace(/\n/g,' ');
+const mrow = a => '| '+a.map(mc).join(' | ')+' |';
+const mtbl = (head, rows) => [mrow(head), '|'+head.map(()=>'---').join('|')+'|', ...rows.map(mrow)].join('\n');
+const rect = (dom, el) => { const r=ANCH[dom]&&ANCH[dom][el]; return r? r.map(v=>Math.round(v)) : null; };
+const scrOf = id => D.screens.find(s=>s.id===id);
+function nodeLabel(n){
+  if(n.type==='terminal') return ['Start/End', n.label, '—'];
+  if(n.type==='decision') return ['Decision (YES/NO)', n.label, '—'];
+  const s=scrOf(n.ref||n.id)||{}; return ['Màn', (n.ref||n.id)+' · '+(s.name||''), '`'+(n.dom||s.dom||'—')+'`'];
+}
+function aiDiagram(dg, prefix){
+  const by={}; dg.nodes.forEach(n=>by[n.id]=n);
+  const nodes=mtbl(['Node','Loại','Nội dung','Markup'], dg.nodes.map(n=>['`'+n.id+'`', ...nodeLabel(n)]));
+  const edges=mtbl(['Cạnh','Từ','Đến','Điều kiện / thao tác','Neo nguồn (data-el · x,y,w,h)'], dg.edges.map((e,i)=>{
+    const f=by[e.from], dom=f&&(f.dom||(scrOf(f.ref||f.id)||{}).dom), r=e.fromEl&&dom?rect(dom,e.fromEl):null;
+    return [prefix+'E'+String(i+1).padStart(2,'0'), '`'+e.from+'`', '`'+e.to+'`',
+      e.label || (e.fromEl?'tap `'+e.fromEl+'`':'tiếp theo'), e.fromEl? '`'+e.fromEl+'`'+(r?' · '+r.join(','):'') : '—'];
+  }));
+  return '### Node\n'+nodes+'\n\n### Cạnh\n'+edges;
+}
+function aiOverview(){
+  const L=[];
+  L.push(`# ${D.project} — đặc tả cho máy đọc`, '',
+    `Ticket ${D.ticket} · bản ${D.version} · ${D.date} · Figma file \`${D.figma.fileKey}\` (${D.figma.name})`, '',
+    '## Phạm vi',
+    '- Site chính sự cố → app chạy site dự phòng. User chỉ xem được thông tin; mọi action làm đổi tiền hoặc dữ liệu bị chặn khi tap.',
+    '- Chữ trên UI dùng “Hệ thống đang bảo trì” / “đang bảo trì”. Không dùng “chế độ chỉ xem”, “tạm dừng”, “dự phòng” trên UI.',
+    '- Ngày giờ trên UI: `dd/mm/yyyy hh:mm:ss`.', '',
+    '## File trong bộ này',
+    mtbl(['File','Nội dung'], [['`00-overview.md`','Phạm vi, danh sách luồng, màn, component, sơ đồ Overview'],
+      ...D.flows.map(f=>['`01-flows/'+f.id+'.md`', f.name]), ['`02-screens.md`','Từng màn: markup, chiều cao, điểm neo data-el'],
+      ...D.ui.map(u=>['`03-ui/'+u.id+'.md`', u.name])]), '',
+    '## Luồng', mtbl(['ID','Tên','UC','Mô tả'], D.flows.map(f=>[f.id, f.name, f.uc, f.desc])), '',
+    '## Handoff UI', mtbl(['ID','Tên','Loại','Variant','Figma'], D.ui.map(u=>[u.id, u.name, u.kind, u.variants.map(v=>v.name).join(', '), u.node])), '',
+    '## Màn', mtbl(['ID','Tên','Figma node','Markup','Mục đích'], D.screens.map(s=>[s.id, s.name, s.node, '`'+(s.dom||'—')+'`', s.purpose])), '',
+    '## Sơ đồ Overview', aiDiagram(D.overallFlow, 'OV.'));
+  return L.join('\n');
+}
+function aiFlow(f){
+  const L=[`# ${f.id} · ${f.name} — đặc tả cho máy đọc`, '', `${f.uc} · ${f.desc}`, ''];
+  f.diagrams.forEach(g=>{ L.push(`## Kịch bản ${g.id} · ${g.name}`, ''); if(g.note) L.push('> '+g.note, ''); L.push(aiDiagram(g.dg, f.id+'.'+g.id+'.'), ''); });
+  L.push('## Case theo màn', mtbl(['Khi','Màn','Hiển thị','Tiếp theo'], f.cases));
+  return L.join('\n');
+}
+function aiScreens(){
+  const L=['# Màn — đặc tả cho máy đọc', '', 'Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ độ data-el tính trong root màn (rộng 375), đo trên bản dựng bằng Chrome headless. Status bar, bàn phím iOS: `data-mock="os"` — KHÔNG DỰNG, do OS vẽ.', ''];
+  D.screens.forEach(s=>{
+    L.push(`## ${s.id} · ${s.name}`, '', `- Figma node: ${s.node}`, `- Markup: \`${s.dom}\` · khổ 375×${HH(s.dom)}`, `- Mục đích: ${s.purpose}`, '');
+    const A=ANCH[s.dom]||{}, ks=Object.keys(A).filter(k=>k!=='__h');
+    if(ks.length) L.push(mtbl(['data-el','X','Y','W','H'], ks.map(k=>['`'+k+'`', ...A[k].map(v=>Math.round(v))])), '');
+  });
+  return L.join('\n');
+}
+function aiUI(u){
+  const L=[`# ${u.id} · ${u.name} — đặc tả cho máy đọc`, '',
+    `- Loại: ${u.kind}`, `- Figma: ${u.node}`, `- CSS: \`${u.css}\` (\`dom/_dr.css\`)`, '', '## Mục đích', u.desc, '',
+    '## Variant', mtbl(['Variant','Khi nào','Markup mẫu'], u.variants.map(v=>['`'+v.id+'` '+v.name, v.when, '`'+v.dom+'`'])), '',
+    '## Token', mtbl(['#','Thành phần','Thuộc tính','Token','Giá trị'], u.anatomy.flatMap(a=>a.tokens.map((t,i)=>[i?'':a.n, i?'':a.name, t[0], '`'+t[1]+'`', t[2]]))), '',
+    '## Hình học', `Toạ độ trong khung markup mẫu (rộng 375), đo trên bản dựng theo token WIN-DLS.${u.id==='UI-01'?' Component chưa có trong Figma nên không có node để đối chiếu.':''}`, '',
+    mtbl(['#','Thành phần','data-el','Variant','X','Y','W','H'], u.variants.flatMap(v=>u.anatomy.map(a=>{const r=rect(v.dom,a.el); return r?[a.n,a.name,'`'+a.el+'`',v.id,...r]:null;}).filter(Boolean))), '',
+    '## Quy tắc từng thành phần', ...u.anatomy.map(a=>`- ${a.n}. ${a.name}: ${a.spec}`), '',
+    '## Behavior', mtbl(['Khi','Hành vi'], u.behavior), ''];
+  if(u.scroll) L.push('Markup mẫu scroll: '+u.scroll.map(s=>'`'+s.dom+'` ('+s.name+')').join(', ')+'.', '');
+  L.push('## Chuỗi chữ', ...u.variants.map(v=>`- ${v.name}: `+v.strings.map(s=>'“'+s+'”').join(' · ')), '',
+    '## Asset', mtbl(['File','Nguồn','Ghi chú'], u.assets.map(a=>['`assets/'+a[0]+'`', a[1], a[2]])), '',
+    '## Dùng ở', u.usedIn.join(', '));
+  return L.join('\n');
+}
+function aiView(md, file){
+  return `<div class="eyebrow">Cho AI của dev đọc · <code>${esc(file)}</code></div>
+  <div class="ai-actions"><button class="btn primary" type="button" data-copymd>Chép toàn bộ markdown</button><span class="muted" id="copyok" style="font-size:var(--text-sm)"></span></div>
+  <div class="md" id="mdbody">${mdToHtml(md)}</div><textarea id="mdsrc" hidden>${esc(md)}</textarea>`;
+}
+function aiFiles(){
+  return [['00-overview.md', aiOverview()], ...D.flows.map(f=>['01-flows/'+f.id+'.md', aiFlow(f)]),
+    ['02-screens.md', aiScreens()], ...D.ui.map(u=>['03-ui/'+u.id+'.md', aiUI(u)])];
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('[data-copymd]')) return;
+  copyText(document.getElementById('mdsrc').value).then(ok=>{ document.getElementById('copyok').textContent = ok?'Đã chép':'Không chép được, hãy bôi đen và chép tay'; });
+});
+
+/* ============================================================
+   Sơ đồ flow — SVG
+   Quy tắc (yêu cầu người dùng):
+   1. Mỗi mũi tên nối rõ node bắt đầu → node kết thúc.
+   2. Đường thẳng hoặc gấp khúc vuông góc. Điểm start = hình tròn, điểm end = mũi arrow.
+   3. Start/end nằm ở GIỮA một trong 4 cạnh của node, chọn cặp cho đường nối NGẮN NHẤT.
+   4. Flow tổng thể: Start/End = hình tròn có text; điểm quyết định = hình thoi có câu
+      hỏi yes/no, phân nhánh theo đúng câu trả lời.
+   ============================================================ */
+/* Kích thước node. Màn giữ theo GHL-07; shape/arrow/status theo Doc-Elements (GHL-10). */
+const FLNODE = {
+  screen:   {w:90,  h:195},   // thumbnail màn — sơ đồ từng kịch bản
+  screenL:  {w:110, h:238},   // thumbnail màn — flow tổng thể
+  decision: {w:112, h:112},   // Flow shape · decision (thoi vuông, bo góc)
+  terminal: {w:102, h:102},   // Flow shape · start&end (tròn đặc + vòng purple/10)
+};
+/* Token Doc-Elements (9JVtqpJRPAsSK7pojcXdzM) */
+const FLC = {
+  p80:'#6b21a8', p10:'#f3e8ff', p05:'#faf5ff',
+  g70:'#15803d', g20:'#bbf7d0', g05:'#f0fdf4',
+  r60:'#dc2626', r10:'#fee2e2', r05:'#fef2f2',
+  text:'#000000', sub:'#737373', border:'#d4d4d4', white:'#ffffff',
+};
+/* Màn = UI thật (iframe dom/*.html), không dùng ảnh. Chiều cao node theo chiều cao trang đo được. */
+const ANCH = window.ANCH || {};
+function pageOf(n){ const scr=D.screens.find(x=>x.id===(n.ref||n.id)); return n.dom || (scr&&scr.dom) || null; }
+function sz(n){
+  if(n.w&&n.h) return {w:n.w,h:n.h};
+  const b=FLNODE[n.type]; if(!b) return {w:0,h:0};
+  if(n.type==='screen'||n.type==='screenL'){ const pg=pageOf(n), H=(ANCH[pg]&&ANCH[pg].__h)||812; return {w:b.w, h:Math.round(b.w*H/375)}; }
+  return b;
+}
+/* Điểm neo trên element trong màn (GHL-14): rect của data-el trong trang, quy về toạ độ sơ đồ */
+function elBox(n, el){
+  const pg=pageOf(n), r=ANCH[pg]&&ANCH[pg][el]; if(!r) return null;
+  const s=sz(n), k=s.w/375, x0=n.x-s.w/2, y0=n.y-s.h/2;
+  return {x:x0+(r[0]+r[2]/2)*k, y:y0+(r[1]+r[3]/2)*k, w:Math.max(r[2]*k,4), h:Math.max(r[3]*k,4), el};
+}
+function flAnchors(n){
+  const s=sz(n);
+  const x0=n.x-s.w/2, x1=n.x+s.w/2, y0=n.y-s.h/2, y1=n.y+s.h/2;
+  return [{x:n.x,y:y0,dir:'up'},{x:x1,y:n.y,dir:'right'},{x:n.x,y:y1,dir:'down'},{x:x0,y:n.y,dir:'left'}];
+}
+function flPickAnchors(a,b){
+  const A=flAnchors(a), B=flAnchors(b);
+  const ok=(p,q)=>({up:q.y<=p.y, down:q.y>=p.y, left:q.x<=p.x, right:q.x>=p.x})[p.dir];
+  let best=null;
+  for(const pa of A) for(const pb of B){
+    if(!ok(pa,pb) || !ok(pb,pa)) continue;
+    const cost=Math.abs(pa.x-pb.x)+Math.abs(pa.y-pb.y);
+    if(!best || cost<best.cost) best={pa,pb,cost};
+  }
+  if(best) return [best.pa,best.pb];
+  const dx=b.x-a.x, dy=b.y-a.y;
+  if(Math.abs(dx)>=Math.abs(dy)) return dx>=0?[A[1],B[3]]:[A[3],B[1]];
+  return dy>=0?[A[2],B[0]]:[A[0],B[2]];
+}
+function flRoute(pa,pb,via){
+  if(via && via.length) return [pa,...via,pb];
+  if(pa.x===pb.x || pa.y===pb.y) return [pa,pb];
+  if(pa.dir==='left'||pa.dir==='right'){ const mx=(pa.x+pb.x)/2; return [pa,{x:mx,y:pa.y},{x:mx,y:pb.y},pb]; }
+  const my=(pa.y+pb.y)/2; return [pa,{x:pa.x,y:my},{x:pb.x,y:my},pb];
+}
+/* Đường vuông góc, góc gấp bo tròn như Flow arrow (corner/curved) của Doc-Elements */
+function flPath(pts){
+  const R=14; let d=`M${pts[0].x},${pts[0].y}`;
+  for(let i=1;i<pts.length-1;i++){
+    const a=pts[i-1], b=pts[i], c=pts[i+1];
+    const l1=Math.hypot(b.x-a.x,b.y-a.y), l2=Math.hypot(c.x-b.x,c.y-b.y), r=Math.min(R,l1/2,l2/2);
+    const p1={x:b.x-(b.x-a.x)/l1*r, y:b.y-(b.y-a.y)/l1*r}, p2={x:b.x+(c.x-b.x)/l2*r, y:b.y+(c.y-b.y)/l2*r};
+    d+=` L${p1.x},${p1.y} Q${b.x},${b.y} ${p2.x},${p2.y}`;
+  }
+  const z=pts[pts.length-1]; return d+` L${z.x},${z.y}`;
+}
+function flWrap(t,max){
+  const w=String(t).split(/\s+/); const out=[]; let cur='';
+  for(const x of w){ if(!cur){cur=x;continue;} if((cur+' '+x).length<=max) cur+=' '+x; else {out.push(cur);cur=x;} }
+  if(cur) out.push(cur); return out;
+}
+function flLines(lines,cx,cy,lh){
+  const y0=cy-((lines.length-1)*lh)/2+lh*0.35;
+  return lines.map((l,i)=>`<tspan x="${cx}" y="${y0+i*lh}">${esc(l)}</tspan>`).join('');
+}
+/* Flow status (Doc-Elements): .Yes / .No / Text — pill đặt cạnh đầu bắt đầu, không đè lên đường */
+function flPill(label, pa, seg){
+  const t=String(label), kind=/^YES\b/i.test(t)?'yes':/^NO\b/i.test(t)?'no':'text';
+  const c = kind==='yes'?[FLC.g05,FLC.g20,FLC.g70] : kind==='no'?[FLC.r05,FLC.r10,FLC.r60] : [FLC.p05,FLC.p10,FLC.p80];
+  const w=Math.round(t.length*6.1+16), h=18, d=pa.dir;
+  let x,y;
+  if(kind!=='text' && seg){ const mx=(seg[0].x+seg[1].x)/2, my=(seg[0].y+seg[1].y)/2; x=mx-w/2; y=my-h/2; }
+  else if(d==='right'){ x=pa.x+10; y=pa.y-h-6; }
+  else if(d==='left'){ x=pa.x-10-w; y=pa.y-h-6; }
+  else if(d==='down'){ x=pa.x+8; y=pa.y+10; }
+  else { x=pa.x+8; y=pa.y-10-h; }
+  return `<g class="pill${kind!=='text'?' on-arrow':''}" data-bb="${x},${y},${x+w},${y+h}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" fill="${c[0]}" stroke="${c[1]}" stroke-width="1.5"/>`
+       + `<text x="${x+w/2}" y="${y+12.5}" text-anchor="middle" font-size="10" font-weight="600" fill="${c[2]}">${esc(t)}</text></g>`;
+}
+
+function renderFlowSVG(dg, uid){
+  const byId={}; dg.nodes.forEach(n=>byId[n.id]=n);
+  const pad=28;
+  let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
+  const bump=(x,y)=>{minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);};
+  dg.nodes.forEach(n=>{const s=sz(n); bump(n.x-s.w/2,n.y-s.h/2); bump(n.x+s.w/2,n.y+s.h/2);});
+
+  let edges='', labels='', hots=''; const segs=[];
+  (dg.edges||[]).forEach(e=>{
+    const a=byId[e.from], b=byId[e.to]; if(!a||!b) return;
+    const ea=e.fromEl?elBox(a,e.fromEl):null;
+    if(ea) hots += `<rect class="hot" data-anchor data-bb="${ea.x-ea.w/2},${ea.y-ea.h/2},${ea.x+ea.w/2},${ea.y+ea.h/2}" x="${ea.x-ea.w/2}" y="${ea.y-ea.h/2}" width="${ea.w}" height="${ea.h}" fill="none" stroke="none" pointer-events="none"/>`;  // không vẽ khung: mũi tên xuất phát ngay tại element
+    let [pa,pb]=flPickAnchors(ea||a,b);
+    if(e.fromSide){ // ép cạnh xuất phát của element (đi ra khỏi màn nguồn theo hướng này)
+      pa=flAnchors(ea||a).find(q=>q.dir===e.fromSide);
+      const B=flAnchors(b), ok=(p,q)=>({up:q.y<=p.y, down:q.y>=p.y, left:q.x<=p.x, right:q.x>=p.x})[p.dir];
+      const cand=B.filter(q=>ok(q,pa)); pb=(cand.length?cand:B).reduce((m,q)=>Math.abs(q.x-pa.x)+Math.abs(q.y-pa.y)<Math.abs(m.x-pa.x)+Math.abs(m.y-pa.y)?q:m);
+    }
+    if(e.via&&e.via.length){
+      const A=flAnchors(ea||a),B=flAnchors(b);
+      const near=(list,p)=>list.reduce((m,c)=>Math.abs(c.x-p.x)+Math.abs(c.y-p.y)<Math.abs(m.x-p.x)+Math.abs(m.y-p.y)?c:m);
+      pa=near(A,e.via[0]); pb=near(B,e.via[e.via.length-1]);
+    }
+    if(e.toSide) pb=flAnchors(b).find(q=>q.dir===e.toSide);  // ép cạnh đích (vd gộp nhiều nguồn vào một điểm — merge)
+    const via = e.mergeX!=null ? [{x:e.mergeX,y:pa.y},{x:e.mergeX,y:pb.y}] : e.via;  // merge: mọi nguồn dùng chung 1 trục dọc
+    const pts=flRoute(pa,pb,via); pts.forEach(p=>bump(p.x,p.y)); for(let i=1;i<pts.length;i++) segs.push([pts[i-1],pts[i]]);
+    // Flow arrow · solid-thin (hoặc dash): đầu bắt đầu trơn, đầu kết thúc mũi chevron hở
+    edges += `<path class="edge" data-from="${esc(e.from)}" data-to="${esc(e.to)}" data-pts="${pts.map(p=>p.x+','+p.y).join(' ')}" d="${flPath(pts)}" fill="none" stroke="${FLC.p80}"`
+          +  ` stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"${e.dashed?' stroke-dasharray="5 4"':''} marker-end="url(#flarr-${uid})"/>`;
+    if(e.label){ const pl=flPill(e.label, e.labelAt==='end'?pb:pa, e.labelAt==='end'?[pts[pts.length-2],pts[pts.length-1]]:[pts[0],pts[1]]); /* labelAt:'end' khi nhánh tách (split) dùng chung điểm đầu */ labels+=pl; const m=pl.match(/data-bb="([^"]+)"/)[1].split(',').map(Number); bump(m[0],m[1]); bump(m[2],m[3]); }
+  });
+
+  let secs='';
+  (dg.sections||[]).forEach(sc=>{
+    bump(sc.x, sc.y-16); bump(sc.x+sc.w, sc.y+10);
+    secs += `<text x="${sc.x}" y="${sc.y}" font-size="13" font-weight="600" fill="${FLC.text}" letter-spacing=".26">${esc(sc.label)}</text>`
+         +  `<line x1="${sc.x}" y1="${sc.y+9}" x2="${sc.x+sc.w}" y2="${sc.y+9}" stroke="${FLC.border}" stroke-width="1"/>`;
+  });
+
+  let nodes='', scrLabels='';
+  dg.nodes.forEach(n=>{
+    const s=sz(n), x0=n.x-s.w/2, y0=n.y-s.h/2, bb=`data-node data-nid="${esc(n.id)}" data-bb="${x0},${y0},${x0+s.w},${y0+s.h}"`;
+    if(n.type==='terminal'){
+      // Flow shape · start&end: tròn purple/80 đặc + vòng purple/10, chữ trắng. Nét đứt nếu chưa xác định.
+      const dash=n.tentative?' stroke-dasharray="5 4"':'';
+      nodes += n.tentative
+        ? `<g ${bb}><circle cx="${n.x}" cy="${n.y}" r="${s.w/2-1}" fill="${FLC.white}" stroke="${FLC.p80}" stroke-width="1.5"${dash}/>`
+          + `<text text-anchor="middle" font-size="10.5" font-weight="600" fill="${FLC.p80}">${flLines(flWrap(n.label,12),n.x,n.y,13)}</text></g>`
+        : `<g ${bb}><circle cx="${n.x}" cy="${n.y}" r="${s.w/2-3}" fill="${FLC.p80}" stroke="${FLC.p10}" stroke-width="6"/>`
+          + `<text text-anchor="middle" font-size="11" font-weight="600" fill="${FLC.white}">${flLines(flWrap(n.label,12),n.x,n.y,13.5)}</text></g>`;
+    } else if(n.type==='decision'){
+      // Flow shape · decision: thoi vuông bo góc, nền purple/05, viền + chữ purple/80
+      const h=s.w/2, r=7, k=r/Math.SQRT2;
+      const T=[n.x,y0],R=[n.x+h,n.y],B=[n.x,y0+s.h],L=[x0,n.y];
+      const d=`M${T[0]-k},${T[1]+k} Q${T[0]},${T[1]} ${T[0]+k},${T[1]+k} L${R[0]-k},${R[1]-k} Q${R[0]},${R[1]} ${R[0]-k},${R[1]+k}`
+             +` L${B[0]+k},${B[1]-k} Q${B[0]},${B[1]} ${B[0]-k},${B[1]-k} L${L[0]+k},${L[1]+k} Q${L[0]},${L[1]} ${L[0]+k},${L[1]-k} Z`;
+      nodes += `<g ${bb}><path d="${d}" fill="${FLC.p05}" stroke="${FLC.p80}" stroke-width="1.5"/>`
+            +  `<text text-anchor="middle" font-size="10" font-weight="600" fill="${FLC.p80}">${flLines(flWrap(n.label,14),n.x,n.y,12)}</text></g>`;
+    } else {
+      const rid=n.ref||n.id, scr=D.screens.find(x=>x.id===rid), nm=scr?scr.name:rid, shot=n.shot||(scr&&scr.shot);
+      // Tên màn: chữ xám nhỏ, ngoài màn, trên-trái. Nếu mũi tên cắt qua tên đầy đủ → chỉ hiện ID (tên đủ ở tooltip)
+      const full=`${rid} · ${nm}`, maxc=Math.floor(s.w/5.6);
+      const hitL=(txt)=>{ const bx0=x0-1, bx1=x0+txt.length*5.6+2, by0=y0-18, by1=y0-3;
+        return segs.some(([a,b])=>Math.max(a.x,b.x)>bx0&&Math.min(a.x,b.x)<bx1&&Math.max(a.y,b.y)>by0&&Math.min(a.y,b.y)<by1); };
+      let short=full.length>maxc?full.slice(0,maxc-1).trimEnd()+'…':full;
+      if(hitL(short)) short=rid;
+      scrLabels += `<text class="scrlabel" x="${x0}" y="${y0-7}" font-size="10" font-weight="500" fill="${FLC.sub}">${esc(short)}<title>${esc(full)}</title></text>`;
+      bump(x0, y0-20);
+      if(scr&&scr.placeholder){
+        // Màn chưa thiết kế (GHL-09): khung nét đứt purple/80, không thumbnail
+        nodes += `<a class="scrnode" data-scr="${rid}"><g ${bb}><title>${esc(rid)} · ${esc(nm)} · Chưa thiết kế</title>`
+              +  `<rect x="${x0}" y="${y0}" width="${s.w}" height="${s.h}" rx="7" fill="${FLC.white}" stroke="${FLC.p80}" stroke-width="1.5" stroke-dasharray="5 4"/>`
+              +  `<text text-anchor="middle" font-size="10" font-weight="600" fill="${FLC.p80}">${flLines(['Chưa thiết kế'],n.x,n.y,13)}</text></g></a>`;
+        return;
+      }
+      const pg=pageOf(n), H=(ANCH[pg]&&ANCH[pg].__h)||812, k=s.w/375;
+      nodes += `<a class="scrnode" data-scr="${rid}"${n.dom?` data-dom="${n.dom}"`:''}><g ${bb}><title>${esc(rid)} · ${esc(nm)}</title>`
+            +  `<foreignObject x="${x0}" y="${y0}" width="${s.w}" height="${s.h}" pointer-events="none"><div xmlns="http://www.w3.org/1999/xhtml" class="fo" style="width:375px;height:${H}px;transform:scale(${k});border-radius:${7/k}px">`
+            +  `<iframe src="${pg}" width="375" height="${H}" loading="lazy" tabindex="-1" title="${esc(rid)}"></iframe></div></foreignObject>`
+            +  `<rect x="${x0}" y="${y0}" width="${s.w}" height="${s.h}" rx="7" fill="transparent" stroke="${FLC.border}" stroke-width="1.5"/></g></a>`;
+    }
+  });
+
+  const w=Math.round(maxX-minX+pad*2), h=Math.round(maxY-minY+pad*2);
+  const svgHtml = `<svg class="flowsvg" width="${w}" height="${h}" viewBox="${Math.round(minX-pad)} ${Math.round(minY-pad)} ${w} ${h}" role="img" aria-label="Sơ đồ luồng" font-family="Inter,-apple-system,sans-serif">`
+    + `<defs><marker id="flarr-${uid}" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="9" refY="6" viewBox="0 0 12 12" orient="auto">`
+    + `<path d="M3,1.5 L9,6 L3,10.5" fill="none" stroke="${FLC.p80}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`
+    + `${secs}${scrLabels}${nodes}${hots}${edges}${labels}</svg>`;  // cạnh vẽ SAU màn để thấy điểm xuất phát từ element
+  return `<div class="flowwrap" data-bw="${w}" data-bh="${h}" data-z="1">
+    <div class="flowbar">
+      <button class="zbtn" data-z="out" title="Thu nhỏ" aria-label="Thu nhỏ">−</button>
+      <span class="zval">100%</span>
+      <button class="zbtn" data-z="in" title="Phóng to" aria-label="Phóng to">+</button>
+      <button class="zbtn wide" data-z="fit">Vừa khung</button>
+      <button class="zbtn wide" data-z="reset">100%</button>
+      <span class="zhint">⌘/Ctrl + cuộn để zoom · kéo để di chuyển · nhấn đúp để phóng to</span>
+    </div>
+    <div class="flowbox">${svgHtml}</div>
+  </div>`;
+}
+
+/* ---------- zoom / pan cho sơ đồ ---------- */
+const ZSTEPS=[0.4,0.5,0.65,0.8,1,1.25,1.5,2,2.5,3,4];
+function zGet(){ const v=parseFloat(store.get('lh-flowzoom')); return (v>=0.4&&v<=4)?v:1; }
+function applyZoom(wrap, z, anchor){
+  const box=wrap.querySelector('.flowbox'), svg=wrap.querySelector('.flowsvg');
+  const bw=+wrap.dataset.bw, bh=+wrap.dataset.bh;
+  z=Math.min(4,Math.max(0.4,z));
+  const prev=+wrap.dataset.z||1;      // hệ số chính xác, KHÔNG suy từ pixel đã làm tròn
+  const ax=anchor?anchor.x:box.clientWidth/2, ay=anchor?anchor.y:box.clientHeight/2;
+  const rx=(box.scrollLeft+ax)/prev, ry=(box.scrollTop+ay)/prev;
+  svg.setAttribute('width', Math.round(bw*z));
+  svg.setAttribute('height', Math.round(bh*z));
+  wrap.dataset.z = z;
+  box.scrollLeft=rx*z-ax; box.scrollTop=ry*z-ay;
+  wrap.querySelector('.zval').textContent=Math.round(z*100)+'%';
+  wrap.querySelector('[data-z="out"]').disabled = z<=0.4001;
+  wrap.querySelector('[data-z="in"]').disabled  = z>=3.9999;
+  store.set('lh-flowzoom', String(z));
+}
+function initZoom(scope){
+  (scope||document).querySelectorAll('.flowwrap').forEach(w=>applyZoom(w, zGet()));
+}
+document.addEventListener('click', e=>{
+  const b=e.target.closest('.zbtn'); if(!b) return;
+  const wrap=b.closest('.flowwrap'), box=wrap.querySelector('.flowbox');
+  const cur=+wrap.dataset.z||1;
+  const k=b.dataset.z;
+  if(k==='reset') return applyZoom(wrap,1);
+  if(k==='fit'){
+    const avail=box.clientWidth-2*parseFloat(getComputedStyle(box).paddingLeft);
+    return applyZoom(wrap, avail/+wrap.dataset.bw);
+  }
+  const EPS=1e-4;
+  const next = k==='in'
+    ? (ZSTEPS.find(v=>v>cur+EPS) ?? 4)
+    : ([...ZSTEPS].reverse().find(v=>v<cur-EPS) ?? 0.4);
+  applyZoom(wrap,next);
+});
+document.addEventListener('wheel', e=>{
+  if(!(e.ctrlKey||e.metaKey)) return;
+  const box=e.target.closest('.flowbox'); if(!box) return;
+  e.preventDefault();
+  const wrap=box.closest('.flowwrap'), r=box.getBoundingClientRect();
+  const cur=+wrap.dataset.z||1;
+  applyZoom(wrap, cur*(e.deltaY<0?1.12:1/1.12), {x:e.clientX-r.left, y:e.clientY-r.top});
+},{passive:false});
+document.addEventListener('dblclick', e=>{
+  const box=e.target.closest('.flowbox'); if(!box) return;
+  const wrap=box.closest('.flowwrap'), r=box.getBoundingClientRect();
+  const cur=+wrap.dataset.z||1;
+  applyZoom(wrap, cur*1.5, {x:e.clientX-r.left, y:e.clientY-r.top});
+});
+/* kéo để di chuyển — chỉ coi là kéo khi đi quá 5px, để không chặn click mở màn */
+let pan=null;
+document.addEventListener('pointerdown', e=>{
+  if(e.button!==0) return;
+  const box=e.target.closest('.flowbox'); if(!box) return;
+  pan={box, x:e.clientX, y:e.clientY, sl:box.scrollLeft, st:box.scrollTop, moved:false, id:e.pointerId};
+});
+document.addEventListener('pointermove', e=>{
+  if(!pan||e.pointerId!==pan.id) return;
+  const dx=e.clientX-pan.x, dy=e.clientY-pan.y;
+  if(!pan.moved && Math.hypot(dx,dy)<5) return;
+  if(!pan.moved){ pan.moved=true; pan.box.classList.add('panning'); pan.box.setPointerCapture?.(e.pointerId); }
+  pan.box.scrollLeft=pan.sl-dx; pan.box.scrollTop=pan.st-dy;
+});
+document.addEventListener('pointerup', e=>{
+  if(!pan) return;
+  const was=pan.moved, box=pan.box; pan=null;
+  box.classList.remove('panning');
+  if(was){ const kill=ev=>{ev.stopPropagation();ev.preventDefault();};
+    document.addEventListener('click',kill,{capture:true,once:true}); }
+});
+
+/* Dựng sơ đồ tuyến tính cho một kịch bản: seq gồm
+   {t:'start'|'end', l} · {t:'s', id} · {t:'d', l} — mỗi node có thể mang a = nhãn cạnh vào nó */
+function seqDiagram(seq){
+  const nodes=[], edges=[]; let x=0; const cy=0;
+  const type=it=>it.t==='s'?'screen':it.t==='d'?'decision':'terminal';
+  seq.forEach((it,i)=>{
+    const half=FLNODE[type(it)].w/2;
+    if(i){ const lw=it.a?String(it.a).length*6.1+16+10+26:0; x += Math.max(70, lw); }
+    x += half;
+    nodes.push({id:'n'+i, ref:it.t==='s'?it.id:undefined, shot:it.shot, type:type(it), x, y:cy, label:it.l, tentative:it.tentative});
+    if(i) edges.push({from:'n'+(i-1), to:'n'+i, label:it.a, dashed:it.dashed});
+    x += half;
+  });
+  return {nodes, edges};
+}
+
+function flowLegend(){
+  return `<div class="flowlegend">
+    <span><i><svg width="26" height="14"><line x1="2" y1="7" x2="22" y2="7" stroke="#6b21a8" stroke-width="1.5" stroke-linecap="round"/><path d="M17,3 L22,7 L17,11" fill="none" stroke="#6b21a8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Flow arrow (mũi ở đầu kết thúc)</span>
+    <span><i><svg width="26" height="14"><line x1="2" y1="7" x2="22" y2="7" stroke="#6b21a8" stroke-width="1.5" stroke-dasharray="4 3"/></svg></i>nhánh chưa có đích</span>
+    <span><i><svg width="26" height="16"><circle cx="13" cy="8" r="6" fill="#6b21a8" stroke="#f3e8ff" stroke-width="3"/></svg></i>Start &amp; End</span>
+    <span><i><svg width="26" height="16"><rect x="7" y="2" width="12" height="12" rx="2" transform="rotate(45 13 8)" fill="#faf5ff" stroke="#6b21a8" stroke-width="1.3"/></svg></i>Decision (YES / NO)</span>
+    <span><i><svg width="44" height="16"><rect x="1" y="1" width="42" height="14" rx="7" fill="#f0fdf4" stroke="#bbf7d0"/><text x="22" y="11.5" text-anchor="middle" font-size="9" font-weight="600" fill="#15803d">YES</text></svg></i><i><svg width="36" height="16"><rect x="1" y="1" width="34" height="14" rx="7" fill="#fef2f2" stroke="#fee2e2"/><text x="18" y="11.5" text-anchor="middle" font-size="9" font-weight="600" fill="#dc2626">NO</text></svg></i><i><svg width="44" height="16"><rect x="1" y="1" width="42" height="14" rx="7" fill="#faf5ff" stroke="#f3e8ff"/><text x="22" y="11.5" text-anchor="middle" font-size="9" font-weight="600" fill="#6b21a8">TEXT</text></svg></i>Flow status</span>
+    <span><i><svg width="26" height="16"><rect x="8" y="1" width="10" height="14" rx="2" fill="#fff" stroke="#d4d4d4" stroke-width="1.5"/></svg></i>màn UI (bấm để xem lớn)</span>
+    <span><i><svg width="26" height="16"><rect x="8" y="1" width="10" height="14" rx="2" fill="#fff" stroke="#6b21a8" stroke-width="1.3" stroke-dasharray="3 2"/></svg></i>màn chưa thiết kế</span>
+  </div>`;
+}
+/* ---------- router ---------- */
+function setMode(m){
+  mode=m; store.set('lh-mode',m);
+  document.querySelectorAll('#modeToggle button').forEach(b=>b.classList.toggle('on', b.dataset.mode===m));
+  render();
+}
+window.setMode=setMode;
+document.getElementById('modeToggle').addEventListener('click', e=>{
+  const b=e.target.closest('button'); if(b) setMode(b.dataset.mode);
+});
+document.getElementById('burger').addEventListener('click', ()=>{
+  document.getElementById('side').classList.toggle('open');
+});
+
+function notFound(r){return `<h1>Không tìm thấy</h1><p class="muted">Route <code>${esc(r)}</code> không có trong bản này.</p>`;}
+
+function render(){
+  const hash = location.hash.replace(/^#\//,'') || 'overview';
+  const route = hash.split('--')[0];
+  sidebar(route);
+  const main = document.getElementById('main');
+  if(route==='overview') main.innerHTML = renderOverview();
+  else if(route.startsWith('SCR-')){ location.replace('#/overview--o-tung-trang'); openScr(route); return; }
+  else if(route.startsWith('FL-')){
+    const f = D.flows.find(x=>x.id===route);
+    main.innerHTML = f ? renderFlow(f) : notFound(route);
+  }
+  else if(route.startsWith('UI-')){
+    const u = D.ui.find(x=>x.id===route);
+    main.innerHTML = u ? renderUI(u) : notFound(route);
+  }
+  else if(route==='screens') main.innerHTML = mode==='ai' ? aiView(aiScreens(), 'out/ai/02-screens.md') : renderOverview();
+  else if(route==='__export'){ main.innerHTML = aiFiles().map(([f,m])=>`<pre data-file="${esc(f)}">${esc(m)}</pre>`).join(''); return; }
+  else main.innerHTML = notFound(route);
+  document.getElementById('side').classList.remove('open');
+  initZoom(main);
+  const anchor = location.hash.slice(1);
+  if(anchor.includes('--')){ const t=document.getElementById(anchor); if(t) t.scrollIntoView({block:'start'}); }
+  else window.scrollTo(0,0);
+}
+function copyText(text){
+  if(navigator.clipboard && window.isSecureContext){
+    return navigator.clipboard.writeText(text).then(()=>true, ()=>fallbackCopy(text));
+  }
+  return Promise.resolve(fallbackCopy(text));
+}
+function fallbackCopy(text){
+  try{
+    const ta=document.createElement('textarea');
+    ta.value=text; ta.setAttribute('readonly','');
+    ta.style.cssText='position:fixed;left:-9999px;top:0';
+    document.body.appendChild(ta); ta.select();
+    const ok=document.execCommand('copy'); ta.remove(); return ok;
+  }catch(e){ return false; }
+}
+/* ---------- xem trước màn ---------- */
+function openScr(id, dom){
+  const s=D.screens.find(x=>x.id===id); if(!s) return;
+  const lb=document.getElementById('lb');
+  const where=[...new Set(D.flows.filter(f=>JSON.stringify(f.diagrams).includes('"'+id+'"')||JSON.stringify(f.cases).includes(id)).map(f=>f.id))];
+  lb.querySelector('.box').innerHTML=(s.placeholder?`<div class="ph3">Chưa thiết kế</div>`:`<iframe class="lbf" src="${dom||s.dom}" width="375" height="${Math.min((ANCH[dom||s.dom]&&ANCH[dom||s.dom].__h)||812, 812)}" title="${esc(s.name)}"></iframe>`)+
+    `<div class="meta"><div class="eyebrow">${s.id}${s.placeholder?' · placeholder':''}</div><h3>${esc(s.name)}</h3><p>${esc(s.purpose)}</p>
+     <p class="muted" style="font-size:var(--text-xs)">Figma: ${esc(s.node)}</p>
+     <p class="muted" style="font-size:var(--text-xs)">Xuất hiện trong: ${where.map(f=>`<a class="lnk" href="#/${f}">${f}</a>`).join(' · ')||'—'}</p>
+     <button class="btn" type="button" data-lbclose>Đóng</button></div>`;
+  lb.hidden=false; lb.querySelector('[data-lbclose]').focus();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-scr]'); if(t){ e.preventDefault(); openScr(t.dataset.scr, t.dataset.dom); return; }
+  if(e.target.closest('[data-lbclose]')||e.target.id==='lb'){ document.getElementById('lb').hidden=true; }
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.getElementById('lb').hidden=true; });
+window.addEventListener('hashchange', render);
+try { setMode(mode); }
+catch(err){
+  document.getElementById('main').innerHTML =
+    '<div class="eyebrow">Lỗi khi dựng trang</div><h1>Không hiển thị được nội dung</h1>'+
+    '<p class="lead">'+esc(err && (err.name+': '+err.message))+'</p>'+
+    '<p class="muted">Thử mở qua HTTP: <code>python3 -m http.server 4323</code></p>';
+  console.error(err);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>scr-04c · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:956px"><style>[data-el=status-failed]{color:var(--support-warning)!important}[data-el=amount-failed],[data-el=amount-failed] *{color:var(--text-primary)!important;opacity:1!important}</style><style>
+.b-history{position:relative;width:375px;height:812px;overflow:hidden;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:var(--gap\/gap-1,4px);isolation:isolate;background:linear-gradient(to bottom,var(--global\/orange\/10,#ffedd5),var(--global\/red\/40,#f87171));font-family:var(--font-family\/inter,'Inter'),'Inter',sans-serif;color:var(--alias\/text\/text-primary,#0a0a0a);-webkit-font-smoothing:antialiased}
+.b-history *{box-sizing:border-box;margin:0}
+.b-history p{white-space:nowrap}
+.b-history img{display:block;max-width:none}
+.b-history .ic{position:relative;overflow:hidden;flex-shrink:0}
+.b-history .ic>img{position:absolute;inset:5.56%;width:88.88%;height:88.88%}
+.b-history .ic24{width:24px;height:24px}
+.b-history .ic20{width:20px;height:20px}
+.b-history .header{position:relative;z-index:2;display:flex;flex-direction:column;width:100%;flex-shrink:0}
+.b-history .sb{position:relative;height:44px;width:100%;overflow:hidden}
+.b-history .sb img{position:absolute}
+.b-history .nav{display:flex;align-items:center;gap:var(--gap\/gap-3,12px);padding:var(--gap\/gap-3,12px);width:100%}
+.b-history .btn32{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex-shrink:0}
+.b-history .nav .title{flex:1 0 0;min-width:1px;font-weight:600;font-size:var(--font-size\/text-lg,18px);line-height:var(--line-height\/leading-7,28px)}
+.b-history .main{position:relative;z-index:1;flex:1 0 0;min-height:1px;width:100%;display:flex;flex-direction:column;align-items:center;background:var(--alias\/background\/background,#fff);border-radius:var(--border-radius\/rounded-3xl,24px) var(--border-radius\/rounded-3xl,24px) 0 0}
+.b-history .chips{display:flex;gap:var(--gap\/gap-2,8px);align-items:flex-start;padding:var(--gap\/gap-4,16px) var(--gap\/gap-4,16px) var(--gap\/gap-2,8px);width:100%}
+.b-history .chip{display:flex;align-items:center;justify-content:center;gap:var(--gap\/gap-1\,5,6px);height:32px;flex-shrink:0;overflow:hidden;padding:0 var(--gap\/gap-2,8px) 0 var(--gap\/gap-2\,5,10px);border-radius:10000px;border:1px solid var(--alias\/border\/border-subtle-01,#d4d4d4);background:var(--alias\/background\/background,#fff)}
+.b-history .chip.on{gap:var(--gap\/gap-1,4px);padding:0 var(--gap\/gap-3,12px) 0 var(--gap\/gap-1\,5,6px);border-color:var(--alias\/border\/border-strong-01,#737373);background:var(--alias\/layer\/layer-01,#fafafa)}
+.b-history .chip p{font-weight:500;font-size:var(--font-size\/text-sm,14px);line-height:var(--line-height\/leading-5,20px);text-align:center}
+.b-history .grp{display:flex;flex-direction:column;width:100%;flex-shrink:0}
+.b-history .sec{display:flex;align-items:center;padding:0 var(--gap\/gap-4,16px);width:100%}
+.b-history .sec p{flex:1 0 0;min-width:1px;font-weight:600;font-size:var(--font-size\/text-lg,18px);line-height:var(--line-height\/leading-7,28px)}
+.b-history .sec .nb{width:32px;height:32px;border-radius:10000px;background:var(--alias\/background\/background,#fff);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.b-history .sec .nb .ic>img{inset:8.33%;width:83.34%;height:83.34%}
+.b-history .list{display:flex;flex-direction:column;padding:0 var(--gap\/gap-4,16px);width:100%}
+.b-history .tx{display:flex;gap:var(--gap\/gap-3,12px);align-items:flex-start;padding:var(--gap\/gap-3,12px) 0;width:100%;border-radius:var(--border-radius\/rounded-xl,12px)}
+.b-history .tx-ic{width:36px;height:36px;flex-shrink:0;border-radius:10000px;background:var(--alias\/layer\/layer-01,#fafafa);display:flex;align-items:center;justify-content:center;padding:var(--gap\/gap-2,8px)}
+.b-history .tx-d{flex:1 0 0;min-width:1px;display:flex;flex-direction:column;justify-content:center;gap:var(--gap\/gap-0\,5,2px)}
+.b-history .tx-d .n{font-size:16px;line-height:var(--line-height\/leading-6,24px);white-space:normal;overflow:hidden;text-overflow:ellipsis;width:100%}
+.b-history .tx-d .dt{font-size:12px;line-height:var(--line-height\/leading-4,16px);color:var(--alias\/text\/text-secondary,#737373)}
+.b-history .tx-a{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:var(--gap\/gap-0\,5,2px);flex-shrink:0}
+.b-history .amt{display:flex;gap:var(--gap\/gap-0\,5,2px);align-items:flex-start;font-weight:600;font-size:16px;line-height:var(--line-height\/leading-6,24px)}
+.b-history .amt.pos{color:var(--alias\/support\/support-positive,#16a34a)}
+.b-history .cur{display:flex;align-items:center;gap:var(--gap\/gap-px,1px)}
+.b-history .amt .cur .c,.b-history .cur.big .c{font-weight:500;font-size:10.32px;line-height:24px}
+.b-history .cur.big{font-weight:600;font-size:16px;line-height:var(--line-height\/leading-6,24px)}
+.b-history .cur.dis{color:var(--alias\/text\/text-disabled,rgba(10,10,10,.25))}
+.b-history .blc{display:flex;gap:2px;align-items:flex-start;font-size:12px;line-height:var(--line-height\/leading-4,16px);color:var(--alias\/text\/text-secondary,#737373)}
+.b-history .blc .cur{font-weight:600}
+.b-history .blc .cur .c{font-size:7.74px;line-height:16px}
+.b-history .st-fail{font-weight:600;font-size:var(--font-size\/text-xs,12px);line-height:var(--line-height\/leading-4,16px);color:var(--alias\/support\/support-negative,#dc2626);text-align:center}
+.b-history .hi{position:absolute;z-index:3;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;padding:8px 0}
+.b-history .hi i{display:block;width:139px;height:5px;border-radius:100px;background:var(--alias\/icon\/icon-primary,#0a0a0a)}
+</style>
+<div class="b-history" data-grow data-h="812">
+  <div class="hi" data-mock="os"><i></i></div>
+  <div class="header">
+    <div class="sb" data-mock="os">
+      <img src="../assets/figma/history/sb-battery.svg" alt="" style="right:17px;top:17.33px;width:22px;height:11.333px">
+      <img src="../assets/figma/history/sb-battery-cap.svg" alt="" style="right:14.67px;top:21px;width:1.328px;height:4px">
+      <img src="../assets/figma/history/sb-battery-fill.svg" alt="" style="right:19px;top:19.33px;width:18px;height:7.333px">
+      <img src="../assets/figma/history/sb-wifi.svg" alt="" style="right:44.03px;top:17.33px;width:15.272px;height:10.966px">
+      <img src="../assets/figma/history/sb-signal.svg" alt="" style="right:64.33px;top:17.67px;width:17px;height:10.667px">
+      <img src="../assets/figma/history/sb-time.svg" alt="" style="left:33.45px;top:17.17px;width:28.426px;height:11.089px">
+    </div>
+    <div class="nav">
+      <div class="btn32" data-el="back"><div class="ic ic24"><img src="../assets/figma/history/ic-chevron-left.svg" alt=""></div></div>
+      <p class="title">Lịch sử giao dịch</p>
+      <div class="btn32" data-el="search"><div class="ic ic24"><img src="../assets/figma/history/ic-search.svg" alt=""></div></div>
+      <div class="btn32" data-el="filter"><div class="ic ic24"><img src="../assets/figma/history/ic-filter.svg" alt=""></div></div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="dr-banner-wrap" style="padding:16px 16px 0"><button class="dr-banner" type="button" data-el="banner"><span class="ic warn"><i></i></span><span class="txt"><span class="t">Hệ thống đang bảo trì</span><span class="s">Dữ liệu tính đến 28/09/2026 14:30:00</span></span><span class="ic chev"><i></i></span></button></div>
+    <div class="chips">
+      <div class="chip on"><div class="ic ic20"><img src="../assets/figma/history/ic-circle-check.svg" alt=""></div><p>Tất cả</p></div>
+      <div class="chip"><p>Nạp tiền</p></div>
+      <div class="chip"><p>Rút tiền</p></div>
+      <div class="chip"><p>Chuyển tiền</p></div>
+      <div class="chip"><p>Mua sắm</p></div>
+    </div>
+    <div class="grp">
+      <div class="sec"><p>Tháng 12/2025</p><div class="nb"><div class="ic ic20"><img src="../assets/figma/history/ic-eye-slash.svg" alt=""></div></div></div>
+      <div class="list">
+        <div class="tx" data-el="row-1">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/history/ic-dollar-out.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Chuyền tiền đến DU THI BICH NHI</p><p class="dt">17:16, 20/12/2025</p></div>
+          <div class="tx-a">
+            <div class="amt"><p>-</p><div class="cur"><p>300.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>210.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/history/ic-deposit.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Nạp tiền vào Ví</p><p class="dt">17:16, 20/12/2025</p></div>
+          <div class="tx-a">
+            <div class="amt pos"><p>+</p><div class="cur"><p>0.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>510.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/history/ic-withdraw.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Rút tiền từ ví về Techcombank</p><p class="dt">17:16, 20/12/2025</p></div>
+          <div class="tx-a">
+            <div class="amt"><p>-</p><div class="cur"><p>450.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>10.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grp">
+      <div class="sec"><p>Tháng 11/2025</p><div class="nb"><div class="ic ic20"><img src="../assets/figma/history/ic-eye-slash.svg" alt=""></div></div></div>
+      <div class="list">
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/history/ic-deposit.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Nạp tiền vào ví</p><p class="dt">17:16, 20/11/2025</p></div>
+          <div class="tx-a">
+            <div class="amt pos"><p>+</p><div class="cur"><p>0.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>460.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/history/ic-invoice.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Thanh toán dịch vụ</p><p class="dt">17:16, 20/11/2025</p></div>
+          <div class="tx-a">
+            <div class="amt"><p>-</p><div class="cur"><p>32.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>10.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/history/ic-deposit.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Nạp tiền vào Ví</p><p class="dt">17:16, 20/11/2025</p></div>
+          <div class="tx-a">
+            <div class="amt pos"><p>+</p><div class="cur"><p>0.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>10.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+        <div class="tx" data-el="row-failed">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/history/ic-deposit.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Nạp tiền vào Ví</p><p class="dt">17:16, 20/11/2025</p></div>
+          <div class="tx-a">
+            <div class="cur big dis" data-el="amount-failed"><p>32.000</p><p class="c">₫</p></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>10.000</p><p class="c">₫</p></div></div>
+            <p class="st-fail" data-el="status-failed">Đang xử lý</p>
+          </div>
+        </div>
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/history/ic-withdraw.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Rút tiền từ ví về BIDV</p><p class="dt">17:16, 20/11/2025</p></div>
+          <div class="tx-a">
+            <div class="amt"><p>-</p><div class="cur"><p>450.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>0.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="dr-list-note" data-el="list-note">Giao dịch sau 28/09/2026 14:30:00 sẽ hiển thị sau khi bảo trì hoàn tất.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

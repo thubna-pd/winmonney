@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>scr-16b · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:1029px"><style>
+.b-source-detail{position:relative;width:375px;height:948px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;gap:var(--gap\/gap-1,4px);align-items:flex-start;font-family:Inter,sans-serif;color:var(--alias\/text\/text-primary,#0a0a0a);background-image:linear-gradient(180deg,var(--global\/lime\/10,#ecfccb) 0%,var(--global\/sky\/40,#38bdf8) 100%)}
+.b-source-detail *{box-sizing:border-box;margin:0}
+.b-source-detail p{word-break:break-word}
+.b-source-detail .hdr{position:relative;z-index:2;display:flex;flex-direction:column;width:100%;flex-shrink:0}
+.b-source-detail .sb{position:relative;width:100%;height:44px;overflow:hidden;flex-shrink:0}
+.b-source-detail .sb img{position:absolute;display:block}
+.b-source-detail .sb .bat{right:17px;top:17.33px;width:22px;height:11.333px}
+.b-source-detail .sb .cap{right:14.67px;top:21px;width:1.328px;height:4px}
+.b-source-detail .sb .fill{right:19px;top:19.33px;width:18px;height:7.333px}
+.b-source-detail .sb .wifi{right:44.03px;top:17.33px;width:15.272px;height:10.966px}
+.b-source-detail .sb .sig{right:64.33px;top:17.67px;width:17px;height:10.667px}
+.b-source-detail .sb .time{left:33.45px;top:17.17px;width:28.426px;height:11.089px}
+.b-source-detail .nav{display:flex;gap:var(--gap\/gap-3,12px);align-items:center;padding:var(--gap\/gap-3,12px);width:100%}
+.b-source-detail .nav .btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex-shrink:0}
+.b-source-detail .nav .ttl{flex:1 0 0;min-width:1px;font-weight:600;font-size:var(--font-size\/text-lg,18px);line-height:var(--line-height\/leading-7,28px)}
+.b-source-detail .ic{position:relative;overflow:hidden;flex-shrink:0}
+.b-source-detail .ic .la{position:absolute;inset:5.56%}
+.b-source-detail .ic img{position:absolute;display:block;inset:0;width:100%;height:100%;max-width:none}
+.b-source-detail .i32{width:32px;height:32px}
+.b-source-detail .i24{width:24px;height:24px}
+.b-source-detail .i16{width:16px;height:16px}
+.b-source-detail .main{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%;flex-shrink:0;background:var(--alias\/background\/background,#fff);border-radius:var(--border-radius\/rounded-3xl,24px) var(--border-radius\/rounded-3xl,24px) 0 0}
+.b-source-detail .content{display:flex;flex-direction:column;align-items:flex-start;padding:0 0 var(--gap\/gap-4,16px);width:100%}
+.b-source-detail .s-bank{display:flex;flex-direction:column;padding:var(--gap\/gap-4,16px) var(--gap\/gap-4,16px) 0;width:100%}
+.b-source-detail .card{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;height:160px;padding:var(--gap\/gap-4,16px);width:100%;background:var(--alias\/background\/background,#fff);border:1.5px solid var(--alias\/border\/border-subtle-00,#e5e5e5);border-radius:24px}
+.b-source-detail .it{display:flex;gap:var(--gap\/gap-2,8px);align-items:center;width:100%}
+.b-source-detail .logo{position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--border-radius\/rounded-circle,10000px);overflow:hidden}
+.b-source-detail .logo img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}
+.b-source-detail .bn{flex:1 0 0;min-width:1px;font-weight:500;font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px)}
+.b-source-detail .acn{display:flex;flex-direction:column;gap:var(--gap\/gap-1,4px);height:52px;width:268px}
+.b-source-detail .acn .k{font-size:var(--font-size\/text-sm,14px);line-height:var(--line-height\/leading-5,20px);color:var(--alias\/text\/text-secondary,#737373);white-space:nowrap}
+.b-source-detail .acn .v{font-weight:600;font-size:var(--font-size\/text-lg,18px);line-height:var(--line-height\/leading-7,28px)}
+.b-source-detail .sec{display:flex;flex-direction:column;gap:var(--gap\/gap-2,8px);align-items:flex-start;overflow:hidden;padding:var(--gap\/gap-4,16px) 0;width:100%;background:var(--alias\/background\/background,#fff);backdrop-filter:blur(2px)}
+.b-source-detail .sttl{display:flex;align-items:center;padding:0 var(--gap\/gap-4,16px);width:100%}
+.b-source-detail .sttl p{flex:1 0 0;min-width:1px;font-weight:600;font-size:var(--font-size\/text-lg,18px);line-height:var(--line-height\/leading-7,28px)}
+.b-source-detail .list{display:flex;flex-direction:column;padding:0 var(--gap\/gap-4,16px);width:100%}
+.b-source-detail .row{display:flex;gap:var(--gap\/gap-3,12px);align-items:flex-start;padding:var(--gap\/gap-3,12px) 0;width:100%}
+.b-source-detail .row.bd{border-bottom:1px solid var(--alias\/border\/border-subtle-00,#e5e5e5)}
+.b-source-detail .row .k{flex:1 0 0;min-width:1px;align-self:stretch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px;line-height:var(--line-height\/leading-6,24px)}
+.b-source-detail .row .v{flex-shrink:0;font-weight:600;font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px);text-align:center;white-space:nowrap}
+.b-source-detail .cur{display:flex;gap:var(--gap\/gap-px,1px);align-items:center;flex-shrink:0}
+.b-source-detail .cur .u{font-weight:500;font-size:10.32px;line-height:24px;white-space:nowrap}
+.b-source-detail .alert-w{display:flex;flex-direction:column;padding:0 var(--gap\/gap-4,16px);width:100%}
+.b-source-detail .alert{display:flex;gap:var(--gap\/gap-2,8px);align-items:center;padding:var(--gap\/gap-2,8px);width:100%;border-radius:var(--border-radius\/rounded-lg,8px);background:var(--alias\/layer\/layer-01,#fafafa)}
+.b-source-detail .alert .aic{display:flex;align-self:stretch;align-items:flex-start;padding-top:var(--gap\/gap-0\,5,2px);flex-shrink:0}
+.b-source-detail .alert p{flex:1 0 0;min-width:1px;font-size:var(--font-size\/text-sm,14px);line-height:var(--line-height\/leading-5,20px)}
+.b-source-detail .home{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;padding:8px 0}
+.b-source-detail .home i{display:block;width:139px;height:5px;border-radius:100px;background:var(--alias\/icon\/icon-primary,#0a0a0a)}
+</style>
+<div class="b-source-detail" data-grow data-h="948">
+  <div class="hdr">
+    <div class="sb" data-mock="os">
+      <img class="bat" src="../assets/figma/source-detail/sb-battery.svg" alt="">
+      <img class="cap" src="../assets/figma/source-detail/sb-battery-cap.svg" alt="">
+      <img class="fill" src="../assets/figma/source-detail/sb-battery-fill.svg" alt="">
+      <img class="wifi" src="../assets/figma/source-detail/sb-wifi.svg" alt="">
+      <img class="sig" src="../assets/figma/source-detail/sb-signal.svg" alt="">
+      <img class="time" src="../assets/figma/source-detail/sb-time.svg" alt="">
+    </div>
+    <div class="nav">
+      <div class="btn" data-el="back"><div class="ic i24"><div class="la"><img src="../assets/figma/source-detail/ic-back.svg" alt=""></div></div></div>
+      <p class="ttl">Thông tin tài khoản</p>
+      <div class="ic i32" data-el="more"><div class="la"><img src="../assets/figma/source-detail/ic-more.svg" alt=""></div></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="dr-banner-wrap" style="padding:16px 16px 0"><button class="dr-banner" type="button" data-el="banner"><span class="ic warn"><i></i></span><span class="txt"><span class="t">Hệ thống đang bảo trì</span><span class="s">Dữ liệu tính đến 28/09/2026 14:30:00</span></span><span class="ic chev"><i></i></span></button></div>
+    <div class="content">
+      <div class="s-bank">
+        <div class="card">
+          <div class="it">
+            <div class="logo"><img src="../assets/figma/source-detail/logo-tcb.png" alt=""></div>
+            <p class="bn">Techcombank</p>
+          </div>
+          <div class="acn">
+            <p class="k">Số tài khoản/thẻ</p>
+            <p class="v">***** 0111</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sttl"><p>Hạn mức giao dịch</p></div>
+        <div class="list">
+          <div class="row bd"><p class="k">Nạp tiền tối thiểu</p><div class="cur"><p class="v">10.000</p><p class="u">₫</p></div></div>
+          <div class="row bd"><p class="k">Nạp tiền tối đa</p><div class="cur"><p class="v">50.000.000</p><p class="u">₫</p></div></div>
+          <div class="row bd"><p class="k">Thanh toán tối thiểu</p><div class="cur"><p class="v">10.000</p><p class="u">₫</p></div></div>
+          <div class="row bd"><p class="k">Thanh toán tối đa</p><div class="cur"><p class="v">50.000.000</p><p class="u">₫</p></div></div>
+          <div class="row bd"><p class="k">Rút tiền tối thiểu</p><div class="cur"><p class="v">10.000</p><p class="u">₫</p></div></div>
+          <div class="row"><p class="k">Rút tiền tối đa</p><div class="cur"><p class="v">50.000.000</p><p class="u">₫</p></div></div>
+        </div>
+        <div class="alert-w">
+          <div class="alert">
+            <div class="aic"><div class="ic i16"><div class="la"><img src="../assets/figma/source-detail/ic-info.svg" alt=""></div></div></div>
+            <p>Đây là hạn mức tham khảo của ngân hàng. Tùy vào dịch vụ sử dụng và định danh tài khoản, hạn mức có thể thay đổi.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sttl"><p>Dịch vụ hỗ trợ</p></div>
+        <div class="list">
+          <div class="row bd"><p class="k">Nạp tiền</p><p class="v">Miễn phí</p></div>
+          <div class="row bd"><p class="k">Chuyển tiền</p><p class="v">Miễn phí</p></div>
+          <div class="row"><p class="k">Rút tiền</p><p class="v">Miễn phí</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="home" data-mock="os"><i></i></div>
+  </div>
+</div>
+<div class="dlg-overlay"><div class="dlg"><div class="content"><img alt="" src="../assets/illus-warning.png"><p class="title">Tính năng đang bảo trì</p><p class="body">Hệ thống đang bảo trì nên chưa thực hiện được thao tác này. Bạn vui lòng thử lại sau khi bảo trì hoàn tất.</p></div><div class="btns"><button class="btn primary" type="button" data-el="dlg-close">Đóng</button><button class="btn secondary" type="button" data-el="dlg-learn">Tìm hiểu thêm</button></div></div></div>
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

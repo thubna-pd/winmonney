@@ -1,0 +1,119 @@
+<style>
+.b-notification{position:relative;width:375px;height:812px;overflow:hidden;display:flex;flex-direction:column;gap:var(--gap-1,4px);isolation:isolate;background:linear-gradient(180deg,#fecdd3 0%,#fef3c7 50%);font-family:Inter,sans-serif;color:var(--alias-text-text-primary,#0a0a0a)}
+.b-notification *{box-sizing:border-box;margin:0}
+.b-notification .ic{position:relative;flex-shrink:0;overflow:hidden}
+.b-notification .ic img{position:absolute;display:block;max-width:none}
+.b-notification .hdr{display:flex;flex-direction:column;width:100%;flex-shrink:0;z-index:2}
+.b-notification .sb{position:relative;height:44px;width:100%;overflow:hidden}
+.b-notification .sb img{position:absolute;display:block}
+.b-notification .nav{display:flex;align-items:center;gap:var(--gap-3,12px);padding:var(--gap-3,12px);width:100%}
+.b-notification .nav-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.b-notification .nav-title{flex:1 0 0;min-width:1px;font-size:var(--font-size-text-lg,18px);line-height:28px;font-weight:600}
+.b-notification .body{flex:1 0 0;min-height:1px;width:100%;display:flex;flex-direction:column;justify-content:center;background:var(--global-basic-white-50,rgba(255,255,255,.5));border:1px solid #fff;border-radius:var(--border-radius-rounded-3xl,24px) var(--border-radius-rounded-3xl,24px) 0 0;z-index:1}
+.b-notification .ctr{position:relative;flex:1 0 0;min-height:1px;width:100%;display:flex;flex-direction:column;align-items:center;overflow:hidden;background:var(--alias-background-background,#fff);border-radius:var(--border-radius-rounded-3xl,24px) var(--border-radius-rounded-3xl,24px) 0 0}
+.b-notification .chips{display:flex;align-items:center;gap:var(--gap-2,8px);padding:var(--gap-4,16px);width:100%;flex-shrink:0}
+.b-notification .chip{height:32px;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8px 0 10px;border:1px solid var(--alias-border-border-subtle-01,#d4d4d4);background:var(--alias-background-background,#fff);border-radius:10000px;flex-shrink:0;overflow:hidden;font-size:14px;line-height:20px;font-weight:500;white-space:nowrap}
+.b-notification .chip.on{gap:4px;padding:0 12px 0 6px;border-color:var(--alias-border-border-strong-01,#737373);background:var(--alias-layer-layer-01,#fafafa)}
+.b-notification .sec{display:flex;align-items:center;padding:0 var(--gap-1,4px) 0 var(--gap-4,16px);width:100%;flex-shrink:0}
+.b-notification .sec-t{flex:1 0 0;min-width:1px;font-size:18px;line-height:28px;font-weight:600}
+.b-notification .rd{height:32px;min-width:64px;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;border-radius:10000px;background:var(--alias-background-background,#fff);font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;overflow:hidden}
+.b-notification .list{display:flex;flex-direction:column;width:100%;flex-shrink:0}
+.b-notification .it{display:flex;gap:12px;padding:0 var(--gap-4,16px);width:100%;flex-shrink:0}
+.b-notification .it-c{flex:1 0 0;min-width:1px;display:flex;gap:12px;align-items:flex-start}
+.b-notification .iw{display:flex;align-items:center;padding:16px 0;flex-shrink:0}
+.b-notification .tt{width:36px;height:36px;padding:8px;display:flex;align-items:center;justify-content:center;border-radius:10000px;background:var(--alias-layer-layer-01,#fafafa)}
+.b-notification .dt{flex:1 0 0;min-width:1px;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:16px 0;border-bottom:1px solid var(--alias-border-border-subtle-00,#e5e5e5)}
+.b-notification .row{display:flex;gap:8px;align-items:center;width:100%;font-size:14px;line-height:20px}
+.b-notification .row.rd0{align-items:flex-start}
+.b-notification .row .ttl{flex:1 0 0;min-width:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.b-notification .ts{display:flex;gap:2px;align-items:center;flex-shrink:0;white-space:nowrap;color:var(--alias-text-text-secondary,#737373)}
+.b-notification .dot{width:6px;height:6px;border-radius:10000px;background:var(--global-red-60,#dc2626);flex-shrink:0}
+.b-notification .msg{width:100%;font-size:16px;line-height:24px;font-weight:400;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.b-notification .msg.un{font-weight:600}
+.b-notification .home{position:absolute;left:-96px;right:-96px;bottom:0;display:flex;justify-content:center;padding:8px 0}
+.b-notification .home i{width:139px;height:5px;border-radius:100px;background:var(--alias-icon-icon-primary,#0a0a0a)}
+</style>
+<div class="b-notification" data-h="812">
+  <div class="hdr">
+    <div class="sb" data-mock="os">
+      <img src="../assets/figma/notification/sb-time.svg" alt="" style="left:33.45px;top:17.17px;width:28.426px;height:11.089px">
+      <img src="../assets/figma/notification/sb-signal.svg" alt="" style="right:64.33px;top:17.67px;width:17px;height:10.667px">
+      <img src="../assets/figma/notification/sb-wifi.svg" alt="" style="right:44.03px;top:17.33px;width:15.272px;height:10.966px">
+      <img src="../assets/figma/notification/sb-battery-body.svg" alt="" style="right:17px;top:17.33px;width:22px;height:11.333px">
+      <img src="../assets/figma/notification/sb-battery-cap.svg" alt="" style="right:14.67px;top:21px;width:1.328px;height:4px">
+      <img src="../assets/figma/notification/sb-battery-fill.svg" alt="" style="right:19px;top:19.33px;width:18px;height:7.333px">
+    </div>
+    <div class="nav">
+      <div class="nav-btn" data-el="back"><div class="ic" style="width:24px;height:24px"><img src="../assets/figma/notification/ic-chevron-left.svg" alt="" style="left:1.333px;top:1.333px;width:21.333px;height:21.333px"></div></div>
+      <p class="nav-title">Thông báo</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="ctr">
+      <div data-slot="banner"></div>
+      <div class="chips">
+        <div class="chip on"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/notification/ic-circle-check.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div>Tất cả</div>
+        <div class="chip">Giao dịch</div>
+        <div class="chip">Tài khoản</div>
+        <div class="chip" data-el="chip-he-thong">Hệ thống</div>
+      </div>
+      <div class="sec">
+        <p class="sec-t">Tất cả</p>
+        <div class="rd" data-el="doc-tat-ca"><div class="ic" style="width:16px;height:16px"><img src="../assets/figma/notification/ic-read-all.svg" alt="" style="left:0.889px;top:0.889px;width:14.222px;height:14.222px"></div>Đã đọc tất cả</div>
+      </div>
+      <div class="list">
+        <div data-slot="noti-first"></div>
+        <div class="it"><div class="it-c">
+          <div class="iw"><div class="tt"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/notification/ic-circle-dollar-out.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div></div>
+          <div class="dt">
+            <div class="row"><p class="ttl">Chuyển tiền</p><div class="ts"><span>Vừa xong</span></div><i class="dot"></i></div>
+            <p class="msg un">Bạn đã giao dịch thành công số tiền 300.000₫ đến DU THI BICH NHI (BIDV), tài khoản 47750997.</p>
+          </div>
+        </div></div>
+        <div class="it"><div class="it-c">
+          <div class="iw"><div class="tt"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/notification/ic-deposit.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div></div>
+          <div class="dt">
+            <div class="row"><p class="ttl">Nạp tiền</p><div class="ts"><span>1</span><span>phút</span></div><i class="dot"></i></div>
+            <p class="msg un">Bạn đã nạp thành công số tiền 500.000₫ từ tài khoản ngân hàng Techcombank.</p>
+          </div>
+        </div></div>
+        <div class="it"><div class="it-c">
+          <div class="iw"><div class="tt"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/notification/ic-withdraw.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div></div>
+          <div class="dt">
+            <div class="row rd0"><p class="ttl">Rút tiền</p><div class="ts"><span>5</span><span>phút</span></div></div>
+            <p class="msg">Bạn đã rút thành công số tiền 100.000₫ về tài khoản ngân hàng Techcombank.</p>
+          </div>
+        </div></div>
+        <div class="it"><div class="it-c">
+          <div class="iw"><div class="tt"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/notification/ic-invoice.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div></div>
+          <div class="dt">
+            <div class="row"><p class="ttl">Thanh toán</p><div class="ts"><span>1</span><span>giờ</span></div><i class="dot"></i></div>
+            <p class="msg un">Bạn đã thanh toán thành công số tiền 100.000₫.</p>
+          </div>
+        </div></div>
+        <div class="it"><div class="it-c">
+          <div class="iw"><div class="tt"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/notification/ic-invoice.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div></div>
+          <div class="dt">
+            <div class="row rd0"><p class="ttl">Thanh toán</p><div class="ts"><span>17/3/2026</span></div></div>
+            <p class="msg">Thanh toán không thành công, bạn cần nạp thêm 150.000₫ để thanh toán.</p>
+          </div>
+        </div></div>
+        <div class="it"><div class="it-c">
+          <div class="iw"><div class="tt"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/notification/ic-deposit.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div></div>
+          <div class="dt">
+            <div class="row rd0"><p class="ttl">Nạp tiền</p><div class="ts"><span>17/3/2026</span></div></div>
+            <p class="msg">Bạn đã nạp thành công số tiền 100.000₫ từ tài khoản ngân hàng Techcombank.</p>
+          </div>
+        </div></div>
+        <div class="it"><div class="it-c">
+          <div class="iw"><div class="tt"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/notification/ic-invoice.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div></div>
+          <div class="dt">
+            <div class="row rd0"><p class="ttl">Thanh toán</p><div class="ts"><span>17/3/2026</span></div></div>
+            <p class="msg">Thanh toán không thành công, bạn cần nạp thêm 100.000 để thanh toán.</p>
+          </div>
+        </div></div>
+      </div>
+      <div class="home" data-mock="os"><i></i></div>
+    </div>
+  </div>
+</div>

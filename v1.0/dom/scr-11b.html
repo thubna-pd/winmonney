@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>scr-11b · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:812px"><style>
+.b-home{position:relative;width:375px;height:812px;overflow:hidden;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;padding-bottom:21px;background:var(--alias\/background\/background,#fff);font-family:var(--font-family\/inter,'Inter'),'Inter',sans-serif;color:var(--alias\/text\/text-primary,#0a0a0a);-webkit-font-smoothing:antialiased}
+.b-home *{box-sizing:border-box;margin:0}
+.b-home p{white-space:nowrap}
+.b-home img{display:block;max-width:none}
+.b-home .ic{position:relative;overflow:hidden;flex-shrink:0}
+.b-home .ic>img{position:absolute;inset:5.56%;width:auto;height:auto}
+.b-home .ic>img{width:88.88%;height:88.88%}
+/* top section */
+.b-home .top{position:relative;display:flex;flex-direction:column;align-items:center;width:100%;margin-bottom:-20px;overflow:hidden;flex-shrink:0;background:linear-gradient(to bottom,var(--global\/rose\/20,#fecdd3),var(--global\/orange\/05,#fff7ed))}
+.b-home .header{display:flex;flex-direction:column;width:100%}
+.b-home .sb{position:relative;height:44px;width:100%;overflow:hidden;flex-shrink:0}
+.b-home .sb img{position:absolute}
+.b-home .nav{display:flex;align-items:center;gap:var(--gap\/gap-3,12px);height:56px;padding:var(--gap\/gap-3,12px);width:100%}
+.b-home .btn32{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex-shrink:0;position:relative}
+.b-home .ic24{width:24px;height:24px}
+.b-home .nav .fill{flex:1 0 0;height:28px;min-width:1px}
+.b-home .badge{position:absolute;top:0;right:0;width:16px;height:16px;border-radius:10000px;background:var(--global\/red\/60,#dc2626);display:flex;align-items:center;justify-content:center;padding:0 var(--gap\/gap-1,4px);overflow:hidden}
+.b-home .badge p{font-weight:700;font-size:12px;line-height:var(--line-height\/leading-4,16px);color:var(--alias\/text\/text-inverse,#fff)}
+/* card */
+.b-home .card-sec{display:flex;flex-direction:column;align-items:center;gap:var(--gap\/gap-8,32px);padding-bottom:var(--gap\/gap-12,48px);width:100%;overflow:hidden;flex-shrink:0}
+.b-home .card-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--gap\/gap-2,8px) 0;width:100%}
+.b-home .card{position:relative;width:288px;height:180px;padding:16px;display:flex;flex-direction:column;gap:16px;overflow:hidden;border:1.5px solid #fff;border-radius:var(--border-radius\/rounded-3xl,24px);box-shadow:2px 2px 3px 0 rgba(0,0,0,.1);background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 288 180' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(14.544 18.356 -29.54 25.395 134.62 -0.0000071356)'><stop stop-color='rgba(220,38,38,1)' offset='0.3'/><stop stop-color='rgba(235,77,30,1)' offset='0.475'/><stop stop-color='rgba(249,115,22,1)' offset='0.65'/><stop stop-color='rgba(235,77,30,1)' offset='0.825'/><stop stop-color='rgba(220,38,38,1)' offset='1'/></radialGradient></defs></svg>");background-size:100% 100%}
+.b-home .card-content{flex:1 0 0;min-height:1px;display:flex;flex-direction:column;justify-content:flex-end;gap:var(--gap\/gap-2,8px);width:100%}
+.b-home .bal{display:flex;flex-direction:column;gap:var(--gap\/gap-1,4px);width:100%}
+.b-home .bal-info{display:flex;align-items:center;gap:8px}
+.b-home .bal-info p{font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px);color:var(--alias\/text\/text-inverse,#fff)}
+.b-home .ic-eye>img{inset:8.33%;width:83.34%;height:83.34%}
+.b-home .bal-amt{display:flex;align-items:center;gap:var(--gap\/gap-0\,5,2px);color:var(--alias\/text\/text-inverse,#fff);font-weight:600;line-height:var(--line-height\/leading-10,40px)}
+.b-home .bal-amt .v{font-size:var(--font-size\/text-3xl,30px)}
+.b-home .bal-amt .c{font-size:23.22px}
+.b-home .actions{position:absolute;right:14.5px;top:14.5px;display:flex;gap:var(--gap\/gap-1\,5,6px);align-items:flex-start}
+.b-home .qr{display:flex;align-items:center;gap:var(--gap\/gap-1,4px);min-height:32px;max-height:32px;min-width:64px;padding:var(--gap\/gap-1,4px) var(--gap\/gap-2,8px);border-radius:10000px;background:var(--global\/red\/70,#b91c1c);overflow:hidden}
+.b-home .qr p{font-weight:500;font-size:var(--font-size\/text-sm,14px);line-height:var(--line-height\/leading-5,20px);color:var(--alias\/text\/text-inverse,#fff)}
+.b-home .ic16{width:16px;height:16px}
+.b-home .bank{display:flex;align-items:center;padding:var(--gap\/gap-1\,5,6px) var(--gap\/gap-0\,5,2px) var(--gap\/gap-1\,5,6px) var(--gap\/gap-1\,5,6px);border-radius:10000px;background:var(--global\/red\/70,#b91c1c)}
+.b-home .banks{display:flex;align-items:center}
+.b-home .bk{width:20px;height:20px;border-radius:10000px;background:var(--alias\/background\/background,#fff);border:.5px solid var(--alias\/border\/border-overlay,rgba(10,10,10,.15));display:flex;align-items:center;justify-content:center;overflow:hidden;margin-right:-8px;flex-shrink:0}
+.b-home .bk:last-child{margin-right:0}
+.b-home .bk .logo{position:relative;width:12.5px;height:12.5px;overflow:hidden}
+.b-home .bk .logo img{position:absolute}
+.b-home .bk p{font-weight:500;font-size:var(--font-size\/text-2xs,10px);line-height:var(--line-height\/leading-4,16px);color:var(--alias\/text\/text-secondary,#737373)}
+.b-home .pattern{position:absolute;width:140px;height:95.683px;right:156.5px;top:-21.5px}
+.b-home .pattern img{position:absolute;top:-13.47%;right:-11.43%;bottom:-19.98%;left:-11.43%;width:122.86%;height:133.45%}
+/* services */
+.b-home .svc{display:flex;gap:var(--gap\/gap-2,8px);align-items:flex-start;justify-content:center;width:100%}
+.b-home .svc-item{flex:1 0 0;min-width:1px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 8px}
+.b-home .svc-btn{width:48px;height:48px;border-radius:10000px;background:var(--alias\/background\/background,#fff);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.b-home .svc-item p{font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px);text-align:center;color:var(--alias\/text\/text-primary,#0a0a0a)}
+/* content */
+.b-home .content{position:relative;display:flex;flex-direction:column;align-items:flex-start;width:100%;overflow:hidden;flex-shrink:0;background:var(--alias\/background\/background,#fff);border-radius:var(--border-radius\/rounded-3xl,24px) var(--border-radius\/rounded-3xl,24px) 0 0}
+.b-home .slides{display:flex;gap:12px;align-items:center;padding:16px 0}
+.b-home .peek{position:relative;width:16px;height:115px;overflow:hidden;flex-shrink:0}
+.b-home .peek .im{position:absolute;top:0;aspect-ratio:1002/360}
+.b-home .peek .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.b-home .peek.l .im{left:-303px;right:0}
+.b-home .peek.r .im{left:0;right:-303px}
+.b-home .slide{position:relative;width:319px;height:115px;flex-shrink:0;display:flex;flex-direction:column}
+.b-home .slide>img{width:100%;aspect-ratio:1002/360;object-fit:cover}
+.b-home .slide-cta{position:absolute;left:11.5px;top:68.8px;width:108px;height:30.6px;border-radius:10000px}
+.b-home .recent{display:flex;flex-direction:column;gap:var(--gap\/gap-2,8px);padding:var(--gap\/gap-4,16px) 0;width:100%;overflow:hidden;background:var(--alias\/background\/background,#fff)}
+.b-home .rh{display:flex;align-items:center;justify-content:space-between;padding:0 var(--gap\/gap-4,16px);width:100%}
+.b-home .rh .t{font-weight:600;font-size:18px;line-height:var(--line-height\/leading-7,28px)}
+.b-home .rh .more{font-weight:500;font-size:var(--font-size\/text-sm,14px);line-height:var(--line-height\/leading-5,20px);color:var(--alias\/text\/text-interactive,#dc2626)}
+.b-home .list{display:flex;flex-direction:column;padding:0 var(--gap\/gap-4,16px);width:100%}
+.b-home .tx{display:flex;gap:var(--gap\/gap-3,12px);align-items:flex-start;padding:var(--gap\/gap-3,12px) 0;width:100%;border-radius:var(--border-radius\/rounded-xl,12px)}
+.b-home .tx-ic{width:36px;height:36px;flex-shrink:0;border-radius:10000px;background:var(--alias\/layer\/layer-01,#fafafa);display:flex;align-items:center;justify-content:center;padding:var(--gap\/gap-2,8px)}
+.b-home .ic20{width:20px;height:20px}
+.b-home .tx-d{flex:1 0 0;min-width:1px;display:flex;flex-direction:column;justify-content:center;gap:var(--gap\/gap-0\,5,2px)}
+.b-home .tx-d .n{font-size:16px;line-height:var(--line-height\/leading-6,24px);white-space:normal;overflow:hidden;text-overflow:ellipsis;width:100%}
+.b-home .tx-d .dt{font-size:12px;line-height:var(--line-height\/leading-4,16px);color:var(--alias\/text\/text-secondary,#737373)}
+.b-home .tx-a{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:var(--gap\/gap-0\,5,2px);flex-shrink:0}
+.b-home .amt{display:flex;gap:var(--gap\/gap-0\,5,2px);align-items:flex-start;font-weight:600;font-size:16px;line-height:var(--line-height\/leading-6,24px)}
+.b-home .amt.pos{color:var(--alias\/support\/support-positive,#16a34a)}
+.b-home .cur{display:flex;align-items:center;gap:var(--gap\/gap-px,1px)}
+.b-home .amt .cur .c{font-weight:500;font-size:10.32px;line-height:24px}
+.b-home .blc{display:flex;gap:2px;align-items:flex-start;font-size:12px;line-height:var(--line-height\/leading-4,16px);color:var(--alias\/text\/text-secondary,#737373)}
+.b-home .blc .cur{font-weight:600}
+.b-home .blc .cur .c{font-size:7.74px;line-height:16px}
+.b-home .hi{position:absolute;left:0;right:0;bottom:.48px;display:flex;justify-content:center;align-items:center;padding:8px 0}
+.b-home .hi i{display:block;width:139px;height:5px;border-radius:100px;background:var(--alias\/icon\/icon-primary,#0a0a0a)}
+</style>
+<div class="b-home" data-h="812">
+  <div class="top">
+    <div class="header">
+      <div class="sb" data-mock="os">
+        <img src="../assets/figma/home/sb-battery.svg" alt="" style="right:17px;top:17.33px;width:22px;height:11.333px">
+        <img src="../assets/figma/home/sb-battery-cap.svg" alt="" style="right:14.67px;top:21px;width:1.328px;height:4px">
+        <img src="../assets/figma/home/sb-battery-fill.svg" alt="" style="right:19px;top:19.33px;width:18px;height:7.333px">
+        <img src="../assets/figma/home/sb-wifi.svg" alt="" style="right:44.03px;top:17.33px;width:15.272px;height:10.966px">
+        <img src="../assets/figma/home/sb-signal.svg" alt="" style="right:64.33px;top:17.67px;width:17px;height:10.667px">
+        <img src="../assets/figma/home/sb-time.svg" alt="" style="left:33.45px;top:17.17px;width:28.426px;height:11.089px">
+      </div>
+      <div class="nav">
+        <div class="btn32" data-el="avatar"><div class="ic ic24"><img src="../assets/figma/home/ic-circle-user.svg" alt=""></div></div>
+        <div class="fill"></div>
+        <div class="btn32" data-el="bell">
+          <div class="ic ic24"><img src="../assets/figma/home/ic-bell.svg" alt=""></div>
+          <div class="badge"><p>1</p></div>
+        </div>
+      </div>
+    </div>
+    <div data-slot="banner"></div>
+    <div class="card-sec">
+      <div class="card-wrap">
+        <div class="card">
+          <div class="card-content">
+            <div class="bal">
+              <div class="bal-info"><p>Số dư Ví</p><div class="ic ic24 ic-eye"><img src="../assets/figma/home/ic-eye-slash.svg" alt=""></div></div>
+              <div class="bal-amt"><p class="v">500.000</p><p class="c">₫</p></div>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="qr" data-el="qr"><div class="ic ic16"><img src="../assets/figma/home/ic-qrcode.svg" alt=""></div><p>Mã QR</p></div>
+            <div class="bank" data-el="bank-chip">
+              <div class="banks">
+                <div class="bk"><div class="logo"><img src="../assets/figma/home/bank-1.svg" alt="" style="top:17.5%;bottom:15.96%;left:0;right:0;width:100%;height:66.54%"></div></div>
+                <div class="bk"><div class="logo"><img src="../assets/figma/home/bank-2.svg" alt="" style="top:32.5%;left:2.5%;width:96.68%;height:38.19%"></div></div>
+                <div class="bk"><p>+1</p></div>
+              </div>
+              <div class="ic ic16"><img src="../assets/figma/home/ic-chevron-right.svg" alt=""></div>
+            </div>
+          </div>
+          <div class="pattern"><img src="../assets/figma/home/card-pattern.svg" alt=""></div>
+        </div>
+      </div>
+      <div class="svc">
+        <div class="svc-item" data-el="nap-rut"><div class="svc-btn"><div class="ic ic24"><img src="../assets/figma/home/ic-deposit.svg" alt=""></div></div><p>Nạp/Rút</p></div>
+        <div class="svc-item" data-el="quet-qr"><div class="svc-btn"><div class="ic ic24"><img src="../assets/figma/home/ic-scan.svg" alt=""></div></div><p>Quét QR</p></div>
+        <div class="svc-item" data-el="chuyen-tien"><div class="svc-btn"><div class="ic ic24"><img src="../assets/figma/home/ic-transfer.svg" alt=""></div></div><p>Chuyển tiền</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="slides">
+      <div class="peek l"><div class="im"><img src="../assets/figma/home/banner-side.png" alt=""><img src="../assets/figma/home/banner-main.png" alt=""></div></div>
+      <div class="slide">
+        <img src="../assets/figma/home/banner-main.png" alt="Tiện ích thanh toán tự động — Thanh toán bằng khuôn mặt mọi lúc, mọi nơi.">
+        <div class="slide-cta" data-el="slide-cta" role="button" aria-label="Liên kết ngay"></div>
+      </div>
+      <div class="peek r"><div class="im"><img src="../assets/figma/home/banner-side.png" alt=""></div></div>
+    </div>
+    <div class="recent">
+      <div class="rh"><p class="t">Giao dịch gần đây</p><p class="more" data-el="xem-them">Xem thêm</p></div>
+      <div class="list">
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/home/ic-dollar-out.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Chuyển tiền đến DU THI BICH NHI</p><p class="dt">17:16, 20/12/2025</p></div>
+          <div class="tx-a">
+            <div class="amt"><p>-</p><div class="cur"><p>300.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>210.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/home/ic-deposit-sm.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Nạp tiền vào Ví</p><p class="dt">17:16, 20/12/2025</p></div>
+          <div class="tx-a">
+            <div class="amt pos"><p>+</p><div class="cur"><p>500.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>510.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+        <div class="tx">
+          <div class="tx-ic"><div class="ic ic20"><img src="../assets/figma/home/ic-withdraw.svg" alt=""></div></div>
+          <div class="tx-d"><p class="n">Rút tiền từ ví về BIDV</p><p class="dt">17:16, 20/12/2025</p></div>
+          <div class="tx-a">
+            <div class="amt"><p>-</p><div class="cur"><p>450.000</p><p class="c">₫</p></div></div>
+            <div class="blc"><p>Số dư ví:</p><div class="cur"><p>10.000</p><p class="c">₫</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hi" data-mock="os"><i></i></div>
+</div>
+
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

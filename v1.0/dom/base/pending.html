@@ -1,0 +1,81 @@
+<style>
+.b-pending{position:relative;width:375px;height:812px;overflow:hidden;display:flex;flex-direction:column;font-family:Inter,sans-serif;color:var(--alias-text-text-primary,#0a0a0a);background:var(--alias-background-background,#fff)}
+.b-pending *{box-sizing:border-box;margin:0}
+.b-pending .ic{position:relative;flex-shrink:0;overflow:hidden}
+.b-pending .ic img{position:absolute;display:block;max-width:none}
+.b-pending .dlg{position:relative;flex:1 0 0;min-height:1px;width:100%;display:flex;flex-direction:column;align-items:center;overflow:hidden;background:var(--alias-background-background,#fff)}
+.b-pending .body{position:relative;flex:1 0 0;min-height:1px;width:100%;display:flex;flex-direction:column;align-items:center;gap:var(--gap-10,40px);padding:156px var(--gap-4,16px) var(--gap-4,16px);background:linear-gradient(180deg,var(--global-amber-10,#fef3c7) 0%,var(--alias-background-background,#fff) 25%)}
+.b-pending .pattern{position:absolute;left:0;right:0;top:44px;height:328px;overflow:hidden}
+.b-pending .pattern img{position:absolute;left:calc(50% + 0.5px);transform:translateX(-50%);display:block}
+.b-pending .mc{position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--gap-4,16px);width:100%;flex-shrink:0}
+.b-pending .illus{width:96px;height:96px;object-fit:cover;display:block}
+.b-pending .txt{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%}
+.b-pending .status{width:100%;text-align:center;font-size:var(--font-size-text-lg,18px);line-height:28px;font-weight:600;color:var(--global-amber-60,#d97706)}
+.b-pending .cur{display:flex;align-items:center;gap:1px;white-space:nowrap;font-weight:600;line-height:28px}
+.b-pending .cur p{font-size:var(--font-size-text-xl,20px)}
+.b-pending .cur span{font-size:12.9px}
+.b-pending .time{width:100%;text-align:center;font-size:14px;line-height:20px;color:var(--alias-text-text-secondary,#737373)}
+.b-pending .st{position:relative;display:flex;flex-direction:column;gap:var(--gap-3,12px);width:100%;flex-shrink:0}
+.b-pending .box{display:flex;flex-direction:column;padding:var(--gap-2,8px) var(--gap-4,16px);background:var(--alias-layer-layer-01,#fafafa);border-radius:var(--border-radius-rounded-2xl,16px);width:100%}
+.b-pending .li{display:flex;gap:8px;align-items:flex-start;min-height:40px;padding:8px 0;width:311px}
+.b-pending .li .lb{font-size:16px;line-height:24px;white-space:nowrap}
+.b-pending .li .dt{flex:1 0 0;min-width:1px;display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.b-pending .li .dt p{flex:1 0 0;min-width:1px;text-align:right;font-size:16px;line-height:24px;font-weight:500;color:#2563eb;text-decoration:underline;text-underline-position:from-font}
+.b-pending .iw{width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.b-pending .alert{display:flex;gap:8px;align-items:stretch;padding:8px;background:var(--alias-layer-layer-01,#fafafa);border-radius:var(--border-radius-rounded-lg,8px);width:100%}
+.b-pending .alert .ico{padding-top:2px;display:flex;align-items:flex-start;flex-shrink:0}
+.b-pending .alert p{flex:1 0 0;min-width:1px;font-size:14px;line-height:20px}
+.b-pending .sb{position:absolute;left:0;right:0;top:0;height:44px;overflow:hidden}
+.b-pending .sb img{position:absolute;display:block}
+.b-pending .bottom{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column}
+.b-pending .btn-grp{display:flex;padding:var(--gap-4,16px);background:var(--alias-background-background,#fff)}
+.b-pending .btn{flex:1 0 0;height:48px;min-width:80px;display:flex;align-items:center;justify-content:center;padding:0 16px;border-radius:10000px;background:var(--alias-background-background-inverse,#262626);color:var(--alias-text-text-inverse,#fff);font-size:16px;line-height:24px;font-weight:500;white-space:nowrap;overflow:hidden}
+.b-pending .home{display:flex;justify-content:center;padding:8px 0;background:var(--alias-background-background,#fff)}
+.b-pending .home i{width:139px;height:5px;border-radius:100px;background:var(--alias-icon-icon-primary,#0a0a0a)}
+</style>
+<div class="b-pending" data-h="812">
+  <div class="dlg">
+    <div class="body">
+      <div class="pattern">
+        <img src="../assets/figma/pending/ripple-320.svg" alt="" style="top:0;width:320px;height:320px">
+        <img src="../assets/figma/pending/ripple-224.svg" alt="" style="top:48px;width:224px;height:224px">
+        <img src="../assets/figma/pending/ripple-128.svg" alt="" style="top:96px;width:128px;height:128px">
+      </div>
+      <div class="mc">
+        <img class="illus" src="../assets/figma/pending/clock-illustration.png" alt="">
+        <div class="txt">
+          <p class="status" data-el="status">Giao dịch đang xử lý</p>
+          <div class="cur"><p>500.000</p><span>₫</span></div>
+          <p class="time">20/10/2024 15:00:00</p>
+        </div>
+      </div>
+      <div class="st">
+        <div class="box">
+          <div class="li">
+            <p class="lb">Mã giao dịch</p>
+            <div class="dt">
+              <p>...42F5B3969B</p>
+              <div class="iw"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/pending/ic-clone.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="alert">
+          <div class="ico"><div class="ic" style="width:16px;height:16px"><img src="../assets/figma/pending/ic-circle-info.svg" alt="" style="left:0.889px;top:0.889px;width:14.222px;height:14.222px"></div></div>
+          <p>Chúng tôi đang xử lý giao dịch. Bạn sẽ nhận được thông báo khi có kết quả cuối.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sb" data-mock="os">
+      <img src="../assets/figma/pending/sb-time.svg" alt="" style="left:33.45px;top:17.17px;width:28.426px;height:11.089px">
+      <img src="../assets/figma/pending/sb-signal.svg" alt="" style="right:64.33px;top:17.67px;width:17px;height:10.667px">
+      <img src="../assets/figma/pending/sb-wifi.svg" alt="" style="right:44.03px;top:17.33px;width:15.272px;height:10.966px">
+      <img src="../assets/figma/pending/sb-battery-body.svg" alt="" style="right:17px;top:17.33px;width:22px;height:11.333px">
+      <img src="../assets/figma/pending/sb-battery-cap.svg" alt="" style="right:14.67px;top:21px;width:1.328px;height:4px">
+      <img src="../assets/figma/pending/sb-battery-fill.svg" alt="" style="right:19px;top:19.33px;width:18px;height:7.333px">
+    </div>
+    <div class="bottom">
+      <div class="btn-grp"><div class="btn" data-el="cta-dong">Đóng</div></div>
+      <div class="home" data-mock="os"><i></i></div>
+    </div>
+  </div>
+</div>

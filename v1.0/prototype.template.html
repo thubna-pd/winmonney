@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DR Mode Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: sidebar trái = menu 3 prototype (mỗi điểm Start 1 prototype); sân khấu tối bên phải = khung máy 375×812 chạy như app thật (UI thật từ dom/*.html). */
+:root{ --stage:#141218; --chip:#221f29; --line:#34303d; --ink:#f3f1f6; --muted:#9d97a9; --accent:#c084fc; --hot:rgba(107,33,168,.22);
+  --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--stage);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased}
+.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+.side{background:#1b1921;border-right:1px solid var(--line);padding:24px 14px;display:flex;flex-direction:column;gap:6px}
+.side .eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 10px 10px}
+.side button{font:inherit;text-align:left;color:var(--ink);background:transparent;border:1px solid transparent;border-radius:10px;padding:10px;cursor:pointer;display:flex;flex-direction:column;gap:3px}
+.side button b{font-size:14px;font-weight:600;line-height:1.35}
+.side button span{font-size:12px;color:var(--muted);line-height:1.45}
+.side button:hover{background:var(--chip)}
+.side button[aria-current="true"]{background:var(--chip);border-color:var(--line);box-shadow:inset 3px 0 0 var(--accent)}
+.side button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px 16px;min-width:0}
+@media (max-width:760px){.app{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid var(--line)}}
+.phone{position:relative;width:375px;height:812px;border-radius:44px;overflow:hidden;background:#fff;box-shadow:0 0 0 11px #0a090c,0 0 0 12px #2a2730,0 30px 80px rgba(0,0,0,.55);touch-action:pan-x}
+.scroller{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
+.scroller::-webkit-scrollbar{display:none}
+.canvas{position:relative;width:375px;transition:transform .18s ease-out}
+.phone iframe{display:block;border:0;width:375px;pointer-events:none;background:transparent}
+.layer{position:absolute;inset:0;pointer-events:none}
+.layer iframe{position:absolute;inset:0;height:812px}
+.hot{position:absolute;border:0;padding:0;background:transparent;cursor:pointer;border-radius:10px;pointer-events:auto}
+.hot.flash{background:var(--hot);box-shadow:0 0 0 2px #6b21a8}
+.hot:focus-visible{outline:2px solid #6b21a8;outline-offset:1px}
+.hint{font-size:12px;color:var(--muted);text-align:center;max-width:375px;line-height:1.5}
+.hint button{font:inherit;color:var(--accent);background:none;border:0;cursor:pointer;padding:0;text-decoration:underline}
+@media (max-height:900px){.phone{transform:scale(.88);margin:-48px 0}}
+@media (prefers-reduced-motion:reduce){.canvas{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<nav class="side" id="scenes" aria-label="Prototype"></nav>
+<div class="wrap">
+  <div class="phone" id="phone">
+    <div class="scroller" id="scroller"><div class="canvas" id="canvas"></div></div>
+    <div class="layer" id="layer"></div>
+  </div>
+  <p class="hint" id="hint"></p>
+</div>
+</div>
+
+<script src="anchors.js"></script>
+<script>
+/* Prototype chạy như production: chỉ có UI, bấm vào element để tương tác. Trạng thái hệ thống (lần đầu trong
+   session, DR tắt khi refresh…) được giả lập theo kịch bản — không hiện câu hỏi YES/NO. */
+const ANCH = window.ANCH || {};
+const BLOCK = '@block', EXPLAIN = '@explain', BACK = '<', CLOSE = 'x';
+const S = {
+  home:      { page:'dom/scr-01.html',  pull:true, taps:{ banner:EXPLAIN, 'chuyen-tien':BLOCK, 'nap-rut':BLOCK, 'quet-qr':BLOCK, qr:BLOCK, 'slide-cta':BLOCK, 'xem-them':'history', avatar:'account', 'bank-chip':'sources', bell:'noti' } },
+  history:   { page:'dom/scr-04c.html', taps:{ back:BACK, banner:EXPLAIN, 'row-1':'detail' } },
+  detail:    { page:'dom/scr-05.html',  taps:{ back:BACK, banner:EXPLAIN } },
+  account:   { page:'dom/scr-06.html',  taps:{ back:BACK, banner:EXPLAIN, 'xac-minh':BLOCK, 'cai-dat-thong-bao':BLOCK, 'doi-pin':BLOCK, 'sinh-trac':BLOCK, 'smart-otp':BLOCK, 'thanh-toan-tu-dong':BLOCK, logout:BLOCK } },
+  sources:   { page:'dom/scr-07.html',  taps:{ back:BACK, banner:EXPLAIN, 'add-account':BLOCK, 'item-tcb':'srcdetail', 'item-bidv':'srcdetail' } },
+  srcdetail: { page:'dom/scr-16.html',  taps:{ back:BACK, banner:EXPLAIN, more:BLOCK } },
+  noti:      { page:'dom/scr-13.html',  taps:{ back:BACK, banner:EXPLAIN } },
+  refreshing:{ page:'dom/scr-10.html',  auto:['restored', 1400] },
+  restored:  { page:'dom/scr-11b.html', toast:3200, taps:{} },
+  transfer:  { page:'dom/scr-08a.html', taps:{ cta:BLOCK } },
+  pending:   { page:'dom/scr-09.html',  taps:{ 'cta-dong':'home' } },
+};
+const OV = {
+  explain: { page:'dom/ov-explain.html', taps:{ 'dlg-close':CLOSE } },
+  block:   { page:'dom/ov-block.html',   taps:{ 'dlg-close':CLOSE, 'dlg-learn':EXPLAIN } },
+};
+const SCENES = [
+  { id:'open',     name:'DR mode bật · mở app',            desc:'Dialog giải thích → Trang chủ, các màn xem, action bị chặn, pull-to-refresh.', start:'home',     overlay:'explain', hint:'Bấm vào UI để tương tác. Ở Trang chủ, kéo xuống để làm mới.' },
+  { id:'transfer', name:'DR bật khi đang nhập giao dịch',  desc:'Đang ở màn Chuyển tiền, bấm CTA thì bị chặn, data giữ nguyên.',              start:'transfer', overlay:null,      hint:'Bấm “Chuyển tiền” để thử đi tiếp khi hệ thống đang bảo trì.' },
+  { id:'pending',  name:'DR bật sau khi đã submit',        desc:'Giao dịch đã gửi trước khi chuyển site: màn Đang xử lý.',                      start:'pending',  overlay:null,      hint:'Giao dịch đang xử lý. Bấm “Đóng” để về Trang chủ.' },
+];
+let scene = SCENES[0], cur = null, overlay = null, stack = [], timer = null;
+
+function hotspots(page, taps){
+  const A = ANCH[page] || {};
+  return Object.keys(taps).filter(k => A[k]).map(k => { const r = A[k];
+    return `<button type="button" class="hot" data-el="${k}" aria-label="${k}" style="left:${r[0]}px;top:${r[1]}px;width:${r[2]}px;height:${r[3]}px"></button>`; }).join('');
+}
+function show(id, {push = true} = {}){
+  clearTimeout(timer);
+  if (push && cur && cur !== id) stack.push(cur);
+  cur = id; overlay = null;
+  const s = S[id], H = (ANCH[s.page] && ANCH[s.page].__h) || 812, cv = document.getElementById('canvas');
+  cv.style.height = H + 'px'; cv.style.transform = '';
+  cv.innerHTML = `<iframe src="${s.page}" height="${H}" title="${id}" tabindex="-1"></iframe>` + hotspots(s.page, s.taps || {});
+  document.getElementById('scroller').scrollTop = 0;
+  document.getElementById('layer').innerHTML = '';
+  if (s.auto) timer = setTimeout(() => show(s.auto[0], {push:false}), s.auto[1]);
+  if (s.toast){  // toast nổi trên lớp riêng, không nằm trong nội dung màn; tự ẩn
+    document.getElementById('layer').innerHTML = `<iframe src="dom/ov-toast.html" title="toast" tabindex="-1"></iframe>`;
+    timer = setTimeout(() => { document.getElementById('layer').innerHTML = ''; }, s.toast);
+  }
+}
+function openOverlay(kind){
+  overlay = kind;
+  const o = OV[kind];
+  document.getElementById('layer').innerHTML = `<iframe src="${o.page}" title="${kind}" tabindex="-1"></iframe>` + hotspots(o.page, o.taps);
+}
+function act(to){
+  if (to === BLOCK) return openOverlay('block');
+  if (to === EXPLAIN) return openOverlay('explain');
+  if (to === CLOSE) { overlay = null; document.getElementById('layer').innerHTML = ''; return; }
+  if (to === BACK) { const prev = stack.pop(); if (prev) show(prev, {push:false}); return; }
+  show(to);
+}
+function startScene(sc){
+  scene = sc; stack = []; cur = null;
+  document.querySelectorAll('#scenes button').forEach(b => b.setAttribute('aria-current', String(b.dataset.id === sc.id)));
+  try { history.replaceState(null, '', '#' + sc.id); } catch(e) {}
+  document.getElementById('hint').innerHTML = `${sc.hint} <button type="button" id="again">Làm lại</button>`;
+  show(sc.start, {push:false});
+  if (sc.overlay) openOverlay(sc.overlay);
+}
+document.getElementById('scenes').innerHTML = '<div class="eyebrow">Prototype · DR Mode</div>' + SCENES.map(s => `<button type="button" data-id="${s.id}"><b>${s.name}</b><span>${s.desc}</span></button>`).join('');
+document.addEventListener('click', e => {
+  const sc = e.target.closest('#scenes button'); if (sc) return startScene(SCENES.find(s => s.id === sc.dataset.id));
+  if (e.target.id === 'again') return startScene(scene);
+  const h = e.target.closest('.hot');
+  if (h){
+    const inLayer = !!h.closest('#layer');
+    if (overlay && !inLayer) { document.querySelectorAll('#layer .hot').forEach(x => { x.classList.add('flash'); setTimeout(() => x.classList.remove('flash'), 420); }); return; }
+    const taps = inLayer ? OV[overlay].taps : S[cur].taps;
+    return act(taps[h.dataset.el]);
+  }
+  if (e.target.closest('#phone')){               // bấm trượt: nháy vùng bấm như Figma
+    const scope = overlay ? '#layer .hot' : '#canvas .hot';
+    document.querySelectorAll(scope).forEach(x => { x.classList.add('flash'); setTimeout(() => x.classList.remove('flash'), 420); });
+  }
+});
+/* Pull-to-refresh ở Trang chủ: kéo xuống khi đang ở đầu trang */
+let drag = null;
+const sc = document.getElementById('scroller');
+sc.addEventListener('pointerdown', e => { if (S[cur].pull && !overlay && sc.scrollTop <= 0) drag = { y:e.clientY, d:0 }; });
+window.addEventListener('pointermove', e => { if (!drag) return; drag.d = Math.max(0, Math.min(90, e.clientY - drag.y)); document.getElementById('canvas').style.transform = `translateY(${drag.d}px)`; });
+window.addEventListener('pointerup', () => { if (!drag) return; const d = drag.d; drag = null;
+  document.getElementById('canvas').style.transform = ''; if (d > 60) show('refreshing', {push:false}); });
+sc.addEventListener('wheel', e => { if (S[cur].pull && !overlay && sc.scrollTop <= 0 && e.deltaY < -60) show('refreshing', {push:false}); }, {passive:true});
+try { startScene(SCENES.find(s => s.id === location.hash.slice(1)) || SCENES[0]); }
+catch (err) { document.getElementById('hint').textContent = 'Không dựng được prototype: ' + err.name + ': ' + err.message; }
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>scr-06 · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:1046px"><style>
+.b-account{position:relative;width:375px;height:963px;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;padding-bottom:21px;box-sizing:border-box;font-family:Inter,sans-serif;color:var(--alias\/text\/text-primary,#0a0a0a);
+  background-image:linear-gradient(180deg,rgb(254,205,211) 0%,rgb(254,243,199) 50%),linear-gradient(180deg,var(--global\/lime\/10,rgb(236,252,203)) 0%,var(--global\/sky\/40,rgb(56,189,248)) 100%),linear-gradient(90deg,#fff 0%,#fff 100%)}
+.b-account *{box-sizing:border-box;margin:0}
+.b-account p{word-break:break-word}
+.b-account .hdr{display:flex;flex-direction:column;width:100%;flex-shrink:0}
+/* status bar */
+.b-account .sb{position:relative;width:100%;height:44px;overflow:hidden;flex-shrink:0}
+.b-account .sb img{position:absolute;display:block}
+.b-account .sb .bat{right:17px;top:17.33px;width:22px;height:11.333px}
+.b-account .sb .cap{right:14.67px;top:21px;width:1.328px;height:4px}
+.b-account .sb .fill{right:19px;top:19.33px;width:18px;height:7.333px}
+.b-account .sb .wifi{right:44.03px;top:17.33px;width:15.272px;height:10.966px}
+.b-account .sb .sig{right:64.33px;top:17.67px;width:17px;height:10.667px}
+.b-account .sb .time{left:33.45px;top:17.17px;width:28.426px;height:11.089px}
+/* nav */
+.b-account .nav{display:flex;gap:var(--gap\/gap-3,12px);align-items:center;padding:var(--gap\/gap-3,12px);width:100%}
+.b-account .nav .btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex-shrink:0}
+.b-account .nav .ttl{flex:1 0 0;min-width:1px;font-weight:600;font-size:16px;line-height:24px}
+/* icons */
+.b-account .ic{position:relative;overflow:hidden;flex-shrink:0}
+.b-account .ic .la{position:absolute;inset:5.56%}
+.b-account .ic img{position:absolute;display:block;inset:0;width:100%;height:100%;max-width:none}
+.b-account .ic .ex{position:absolute}
+.b-account .i24{width:24px;height:24px}
+.b-account .i20{width:20px;height:20px}
+.b-account .i16{width:16px;height:16px}
+/* body sheet */
+.b-account .body{display:flex;flex-direction:column;align-items:center;overflow:hidden;width:100%;flex-shrink:0;background:var(--alias\/layer\/layer-01,#fafafa);border-radius:var(--border-radius\/rounded-3xl,24px) var(--border-radius\/rounded-3xl,24px) 0 0}
+.b-account .body > .gp{margin-top:var(--gap\/gap-2,8px)}
+.b-account .acc{display:flex;flex-direction:column;align-items:center;padding:var(--gap\/gap-4,16px);width:100%;background:var(--alias\/background\/background,#fff)}
+.b-account .info{display:flex;flex-direction:column;gap:var(--gap\/gap-1,4px);align-items:center;justify-content:center;width:100%}
+.b-account .name{font-weight:600;font-size:var(--font-size\/text-lg,18px);line-height:var(--line-height\/leading-7,28px);white-space:nowrap}
+.b-account .phone{font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px);color:var(--alias\/text\/text-secondary,#737373);white-space:nowrap}
+.b-account .sec{display:flex;flex-direction:column;align-items:flex-start;width:100%;padding:0 var(--gap\/gap-4,16px);background:var(--alias\/background\/background,#fff)}
+.b-account .sec.t{padding-top:var(--gap\/gap-3,12px)}
+.b-account .sec-in{display:flex;flex-direction:column;align-items:flex-start;width:100%}
+.b-account .sttl{display:flex;align-items:center;width:343px}
+.b-account .sttl p{flex:1 0 0;min-width:1px;font-weight:600;font-size:var(--font-size\/text-lg,18px);line-height:var(--line-height\/leading-7,28px)}
+.b-account .li{display:flex;gap:var(--gap\/gap-3,12px);align-items:center;min-height:56px;padding:var(--gap\/gap-3,12px) 0;width:100%}
+.b-account .li.bd{border-bottom:1px solid var(--alias\/border\/border-subtle-00,#e5e5e5)}
+.b-account .iw{display:flex;height:24px;align-items:center;justify-content:center;flex-shrink:0}
+.b-account .lbl{flex:1 0 0;min-width:1px;font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px)}
+.b-account .trail{display:flex;gap:var(--gap\/gap-2,8px);align-items:center;flex-shrink:0}
+.b-account .warn{font-weight:600;font-size:var(--font-size\/text-sm,14px);line-height:var(--line-height\/leading-5,20px);color:var(--alias\/support\/support-warning,#f97316);white-space:nowrap}
+.b-account .sw{display:flex;align-items:center;overflow:hidden;padding:var(--gap\/gap-1,4px);width:48px;flex-shrink:0;border-radius:var(--border-radius\/rounded-circle,10000px);background:var(--alias\/miscellaneous\/switch-off,#737373)}
+.b-account .sw i{display:block;width:24px;height:24px;border-radius:var(--border-radius\/rounded-circle,10000px);background:var(--alias\/layer\/layer-02,#fff)}
+.b-account .nbtn{display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--alias\/border\/border-strong-01,#737373);border-radius:var(--border-radius\/rounded-circle,10000px);background:none;font-family:inherit;color:inherit;font-weight:500;white-space:nowrap}
+.b-account .nbtn.sm{height:32px;min-width:64px;padding:0 var(--gap\/gap-3,12px);font-size:var(--font-size\/text-sm,14px);line-height:var(--line-height\/leading-5,20px);flex-shrink:0}
+.b-account .nbtn.lg{flex:1 0 0;height:48px;min-width:80px;padding:0 var(--gap\/gap-4,16px);font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px)}
+.b-account .wrap2{display:flex;flex-direction:column;gap:2px;align-items:flex-start;flex-shrink:0}
+.b-account .wrap2 .lbl{flex:none;width:283px}
+.b-account .badge{position:relative;display:flex;gap:var(--gap\/gap-1,4px);align-items:center;padding:var(--gap\/gap-0\,5,2px) var(--gap\/gap-2,8px)}
+.b-account .badge::before{content:"";position:absolute;inset:0;border-radius:var(--border-radius\/rounded-circle,10000px);background:var(--alias\/support\/support-positive,#16a34a);opacity:calc(var(--opacity\/opacity-5,5) / 100)}
+.b-account .badge span{position:relative;font-weight:500;font-size:12px;line-height:16px;color:var(--alias\/support\/support-positive,#16a34a);white-space:nowrap}
+.b-account .bottom{display:flex;flex-direction:column;align-items:flex-start;width:100%;background:var(--alias\/background\/background,#fff)}
+.b-account .ver{display:flex;justify-content:center;align-items:center;padding-top:var(--gap\/gap-4,16px);width:100%}
+.b-account .ver p{font-size:var(--font-size\/text-sm,14px);line-height:var(--line-height\/leading-5,20px);color:var(--alias\/text\/text-secondary,#737373);white-space:nowrap}
+.b-account .bgrp{display:flex;flex-direction:column;gap:var(--gap\/gap-3,12px);padding:var(--gap\/gap-4,16px);width:100%;background:var(--alias\/background\/background,#fff)}
+.b-account .bwrap{display:flex;gap:var(--gap\/gap-2,8px);align-items:center;width:100%}
+.b-account .home{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;padding:8px 0;background:var(--alias\/background\/background,#fff)}
+.b-account .home i{display:block;width:139px;height:5px;border-radius:100px;background:var(--alias\/icon\/icon-primary,#0a0a0a)}
+</style>
+<div class="b-account" data-grow data-h="963">
+  <div class="hdr">
+    <div class="sb" data-mock="os">
+      <img class="bat" src="../assets/figma/account/sb-battery.svg" alt="">
+      <img class="cap" src="../assets/figma/account/sb-battery-cap.svg" alt="">
+      <img class="fill" src="../assets/figma/account/sb-battery-fill.svg" alt="">
+      <img class="wifi" src="../assets/figma/account/sb-wifi.svg" alt="">
+      <img class="sig" src="../assets/figma/account/sb-signal.svg" alt="">
+      <img class="time" src="../assets/figma/account/sb-time.svg" alt="">
+    </div>
+    <div class="nav">
+      <div class="btn" data-el="back"><div class="ic i24"><div class="la"><img src="../assets/figma/account/ic-back.svg" alt=""></div></div></div>
+      <p class="ttl">&#8203;</p>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="dr-banner-wrap" style="padding:16px 16px 8px"><button class="dr-banner" type="button" data-el="banner"><span class="ic warn"><i></i></span><span class="txt"><span class="t">Hệ thống đang bảo trì</span><span class="s">Dữ liệu tính đến 28/09/2026 14:30:00</span></span><span class="ic chev"><i></i></span></button></div>
+    <div class="acc">
+      <div class="info">
+        <p class="name">Nguyễn Văn A</p>
+        <p class="phone">0961689065</p>
+      </div>
+    </div>
+
+    <div class="gp sec">
+      <div class="li" data-el="xac-minh">
+        <div class="iw"><div class="ic i20"><div class="la"><div class="ex" style="inset:0 -6.25% -6.25% 0"><img src="../assets/figma/account/ic-user-check.svg" alt=""></div></div></div></div>
+        <p class="lbl">Xác minh tài khoản</p>
+        <div class="trail"><p class="warn">Chưa xác minh</p><div class="ic i16"><div class="la"><img src="../assets/figma/account/ic-chevron-right.svg" alt=""></div></div></div>
+      </div>
+    </div>
+
+    <div class="gp sec t">
+      <div class="sec-in">
+        <div class="sttl"><p>Cài đặt</p></div>
+        <div class="li bd" data-el="cai-dat-thong-bao">
+          <div class="iw"><div class="ic i20"><div class="la"><img src="../assets/figma/account/ic-bell.svg" alt=""></div></div></div>
+          <p class="lbl">Cài đặt thông báo</p>
+          <div class="trail"><div class="ic i16"><div class="la"><img src="../assets/figma/account/ic-chevron-right.svg" alt=""></div></div></div>
+        </div>
+        <div class="li bd" data-el="doi-pin">
+          <div class="iw"><div class="ic i20"><div class="la"><div class="ex" style="inset:0 -6.25% 0 0"><img src="../assets/figma/account/ic-pin.svg" alt=""></div></div></div></div>
+          <p class="lbl">Đổi mã PIN</p>
+          <div class="trail"><div class="ic i16"><div class="la"><img src="../assets/figma/account/ic-chevron-right.svg" alt=""></div></div></div>
+        </div>
+        <div class="li bd" data-el="sinh-trac">
+          <div class="iw"><div class="ic i20"><div class="la"><img src="../assets/figma/account/ic-biometric.svg" alt=""></div></div></div>
+          <p class="lbl">Đăng nhập bằng sinh trắc học (Khuôn mặt/Vân tay)</p>
+          <div class="trail"><div class="sw" role="switch" aria-checked="false"><i></i></div></div>
+        </div>
+        <div class="li">
+          <div class="iw"><div class="ic i20"><div class="la"><div class="ex" style="inset:-6.25% 0"><img src="../assets/figma/account/ic-otp.svg" alt=""></div></div></div></div>
+          <p class="lbl">Smart OTP</p>
+          <div class="trail"><button class="nbtn sm" type="button" data-el="smart-otp">Kích hoạt</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gp sec t">
+      <div class="sec-in">
+        <div class="sttl"><p>Quản lý thanh toán</p></div>
+        <div class="li" data-el="thanh-toan-tu-dong" style="width:343px">
+          <div class="iw"><div class="ic i20"><div class="la" style="inset:11.11%"><img src="../assets/figma/account/ic-facial.svg" alt=""></div></div></div>
+          <div class="wrap2">
+            <p class="lbl">Tiện ích thanh toán tự động</p>
+            <div class="badge"><span>Đang sử dụng</span></div>
+          </div>
+          <div class="trail"><div class="ic i16"><div class="la"><img src="../assets/figma/account/ic-chevron-right.svg" alt=""></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gp sec t">
+      <div class="sec-in">
+        <div class="sttl"><p>Hỗ trợ</p></div>
+        <div class="li bd" data-el="lien-he">
+          <div class="iw"><div class="ic i20"><div class="la" style="inset:5.56% 4.31% 5.56% 4.32%"><img src="../assets/figma/account/ic-headset.svg" alt=""></div></div></div>
+          <p class="lbl">Liên hệ hỗ trợ</p>
+          <div class="trail"><div class="ic i16"><div class="la"><img src="../assets/figma/account/ic-chevron-right.svg" alt=""></div></div></div>
+        </div>
+        <div class="li" data-el="dieu-khoan">
+          <div class="iw"><div class="ic i20"><div class="la"><img src="../assets/figma/account/ic-book.svg" alt=""></div></div></div>
+          <p class="lbl">Điều khoản &amp; Điều kiện sử dụng</p>
+          <div class="trail"><div class="ic i16"><div class="la"><img src="../assets/figma/account/ic-chevron-right.svg" alt=""></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom gp">
+      <div class="ver"><p>Phiên bản 1.0.0</p></div>
+      <div class="bgrp"><div class="bwrap"><button class="nbtn lg" type="button" data-el="logout">Đăng xuất</button></div></div>
+    </div>
+  </div>
+
+  <div class="home" data-mock="os"><i></i></div>
+</div>
+
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

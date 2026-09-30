@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>scr-07 · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:812px"><style>
+.b-sources{position:relative;width:375px;height:812px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;gap:var(--gap\/gap-1,4px);align-items:flex-start;font-family:Inter,sans-serif;color:var(--alias\/text\/text-primary,#0a0a0a);background-image:linear-gradient(180deg,var(--global\/lime\/10,#ecfccb) 0%,var(--global\/sky\/40,#38bdf8) 100%)}
+.b-sources *{box-sizing:border-box;margin:0}
+.b-sources p{word-break:break-word}
+.b-sources .hdr{position:relative;z-index:2;display:flex;flex-direction:column;width:100%;flex-shrink:0}
+.b-sources .sb{position:relative;width:100%;height:44px;overflow:hidden;flex-shrink:0}
+.b-sources .sb img{position:absolute;display:block}
+.b-sources .sb .bat{right:17px;top:17.33px;width:22px;height:11.333px}
+.b-sources .sb .cap{right:14.67px;top:21px;width:1.328px;height:4px}
+.b-sources .sb .fill{right:19px;top:19.33px;width:18px;height:7.333px}
+.b-sources .sb .wifi{right:44.03px;top:17.33px;width:15.272px;height:10.966px}
+.b-sources .sb .sig{right:64.33px;top:17.67px;width:17px;height:10.667px}
+.b-sources .sb .time{left:33.45px;top:17.17px;width:28.426px;height:11.089px}
+.b-sources .nav{display:flex;gap:var(--gap\/gap-3,12px);align-items:center;padding:var(--gap\/gap-3,12px);width:100%}
+.b-sources .nav .btn{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex-shrink:0}
+.b-sources .nav .ttl{flex:1 0 0;min-width:1px;font-weight:600;font-size:var(--font-size\/text-lg,18px);line-height:var(--line-height\/leading-7,28px)}
+.b-sources .ic{position:relative;overflow:hidden;flex-shrink:0}
+.b-sources .ic .la{position:absolute;inset:5.56%}
+.b-sources .ic img{position:absolute;display:block;inset:0;width:100%;height:100%;max-width:none}
+.b-sources .i24{width:24px;height:24px}
+.b-sources .i20{width:20px;height:20px}
+.b-sources .main{position:relative;z-index:1;flex:1 0 0;min-height:1px;display:flex;flex-direction:column;align-items:center;width:100%;background:var(--alias\/background\/background,#fff);border-radius:var(--border-radius\/rounded-3xl,24px) var(--border-radius\/rounded-3xl,24px) 0 0}
+.b-sources .content{display:flex;flex-direction:column;gap:var(--gap\/gap-4,16px);align-items:flex-start;padding:var(--gap\/gap-4,16px);width:100%}
+.b-sources .item{display:flex;gap:var(--gap\/gap-2,8px);align-items:center;padding:var(--gap\/gap-3,12px);width:100%;flex-shrink:0;background:var(--alias\/background\/background,#fff);border:1px solid var(--alias\/border\/border-subtle-00,#e5e5e5);border-radius:var(--border-radius\/rounded-2xl,16px)}
+.b-sources .logo{position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--border-radius\/rounded-circle,10000px);overflow:hidden;background:var(--alias\/background\/background,#fff)}
+.b-sources .logo img{position:absolute;inset:0;width:100%;height:100%;max-width:none;border-radius:var(--border-radius\/rounded-circle,10000px)}
+.b-sources .logo .cover{object-fit:cover}
+.b-sources .logo .contain{object-fit:contain}
+.b-sources .bn{flex:1 0 0;min-width:1px;font-weight:500;font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px)}
+.b-sources .no{flex-shrink:0;font-weight:500;font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px);white-space:nowrap}
+/* pinned bottom: button group + home indicator */
+.b-sources .bgrp{position:absolute;left:0;right:0;bottom:21px;display:flex;flex-direction:column;gap:var(--gap\/gap-3,12px);padding:var(--gap\/gap-4,16px);background:var(--alias\/background\/background,#fff)}
+.b-sources .bwrap{display:flex;flex-direction:column;gap:var(--gap\/gap-2,8px);justify-content:center;width:100%}
+.b-sources .pbtn{display:flex;gap:var(--gap\/gap-2,8px);align-items:center;justify-content:center;overflow:hidden;width:100%;height:48px;min-width:80px;padding:0 var(--gap\/gap-4,16px);border:0;border-radius:var(--border-radius\/rounded-circle,10000px);background:var(--alias\/background\/background-inverse,#262626);font-family:inherit;font-weight:500;font-size:var(--font-size\/text-base,16px);line-height:var(--line-height\/leading-6,24px);color:var(--alias\/text\/text-inverse,#fff);white-space:nowrap}
+.b-sources .home{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;padding:8px 0;background:var(--alias\/background\/background,#fff)}
+.b-sources .home i{display:block;width:139px;height:5px;border-radius:100px;background:var(--alias\/icon\/icon-primary,#0a0a0a)}
+</style>
+<div class="b-sources" data-h="812">
+  <div class="hdr">
+    <div class="sb" data-mock="os">
+      <img class="bat" src="../assets/figma/sources/sb-battery.svg" alt="">
+      <img class="cap" src="../assets/figma/sources/sb-battery-cap.svg" alt="">
+      <img class="fill" src="../assets/figma/sources/sb-battery-fill.svg" alt="">
+      <img class="wifi" src="../assets/figma/sources/sb-wifi.svg" alt="">
+      <img class="sig" src="../assets/figma/sources/sb-signal.svg" alt="">
+      <img class="time" src="../assets/figma/sources/sb-time.svg" alt="">
+    </div>
+    <div class="nav">
+      <div class="btn" data-el="back"><div class="ic i24"><div class="la"><img src="../assets/figma/sources/ic-back.svg" alt=""></div></div></div>
+      <p class="ttl">Quản lý tài khoản</p>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="dr-banner-wrap" style="padding:16px 16px 0"><button class="dr-banner" type="button" data-el="banner"><span class="ic warn"><i></i></span><span class="txt"><span class="t">Hệ thống đang bảo trì</span><span class="s">Dữ liệu tính đến 28/09/2026 14:30:00</span></span><span class="ic chev"><i></i></span></button></div>
+    <div class="content">
+      <div class="item" data-el="item-tcb">
+        <div class="logo"><img class="cover" src="../assets/figma/sources/logo-tcb.png" alt=""></div>
+        <p class="bn">Techcombank</p>
+        <p class="no">***** 0111</p>
+      </div>
+      <div class="item" data-el="item-bidv">
+        <div class="logo"><img class="contain" src="../assets/figma/sources/logo-bidv.png" alt=""></div>
+        <p class="bn">BIDV</p>
+        <p class="no">***** 7485</p>
+      </div>
+    </div>
+    <div class="bgrp">
+      <div class="bwrap">
+        <button class="pbtn" type="button" data-el="add-account">
+          <span class="ic i20"><span class="la"><img src="../assets/figma/sources/ic-plus.svg" alt=""></span></span>
+          Thêm tài khoản
+        </button>
+      </div>
+    </div>
+    <div class="home" data-mock="os"><i></i></div>
+  </div>
+</div>
+
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>ui-dialog-explain · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:812px"><div class="b-ui" style="width:375px;height:812px;background:#fff"></div><div class="dlg-overlay" data-el="d-overlay"><div class="dlg" data-el="dlg"><div class="content"><img alt="" src="../assets/illus-warning.png" data-el="d-illus"><p class="title" data-el="d-title">Hệ thống đang bảo trì</p><p class="body" data-el="d-body">Bạn vẫn xem được số dư, lịch sử giao dịch và thông tin tài khoản. Giao dịch và thay đổi thông tin sẽ thực hiện được sau khi bảo trì hoàn tất.</p><p class="body" data-el="d-eta">Dự kiến hoàn tất lúc 28/09/2026 16:00:00.</p></div><div class="btns"><button class="btn primary" type="button" data-el="dlg-close">Đóng</button></div></div></div>
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

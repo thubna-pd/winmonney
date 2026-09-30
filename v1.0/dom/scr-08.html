@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>scr-08 · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:812px"><style>
+.b-transfer{position:relative;width:375px;height:812px;overflow:hidden;display:flex;flex-direction:column;gap:var(--gap-1,4px);background:linear-gradient(180deg,var(--global-rose-20,#fecdd3) 0%,var(--global-amber-10,#fef3c7) 50%);font-family:Inter,sans-serif;color:var(--alias-text-text-primary,#0a0a0a);isolation:isolate}
+.b-transfer *{box-sizing:border-box;margin:0}
+.b-transfer .ic{position:relative;flex-shrink:0;overflow:hidden}
+.b-transfer .ic img{position:absolute;display:block;max-width:none}
+/* header */
+.b-transfer .hdr{display:flex;flex-direction:column;width:100%;flex-shrink:0;z-index:2}
+.b-transfer .sb{position:relative;height:44px;width:100%;overflow:hidden}
+.b-transfer .sb img{position:absolute;display:block}
+.b-transfer .nav{display:flex;align-items:center;gap:var(--gap-3,12px);padding:var(--gap-3,12px);width:100%}
+.b-transfer .nav-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.b-transfer .nav-title{flex:1 0 0;min-width:1px;font-size:var(--font-size-text-lg,18px);line-height:var(--line-height-leading-7,28px);font-weight:600}
+/* main */
+.b-transfer .main{flex:1 0 0;min-height:1px;width:100%;display:flex;flex-direction:column;align-items:center;background:var(--alias-background-background,#fff);border-radius:var(--border-radius-rounded-3xl,24px) var(--border-radius-rounded-3xl,24px) 0 0;z-index:1}
+.b-transfer .content{flex:1 0 0;min-height:1px;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:var(--gap-4,16px) var(--gap-4,16px) 0}
+.b-transfer .top{display:flex;flex-direction:column;align-items:center;gap:var(--gap-3,12px);width:100%;flex-shrink:0}
+.b-transfer .brand{display:flex;align-items:center;gap:var(--gap-1,4px);padding:var(--gap-1,4px) var(--gap-2,8px) var(--gap-1,4px) var(--gap-1,4px);background:var(--global-neutral-10,#f5f5f5);border-radius:10000px}
+.b-transfer .brand .av{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.b-transfer .t16{font-size:16px;line-height:24px;font-weight:400;white-space:nowrap}
+.b-transfer .bal{display:flex;align-items:center;justify-content:center;gap:var(--gap-2,8px);padding:0 var(--gap-4,16px)}
+.b-transfer .cur{display:flex;align-items:center;gap:1px;white-space:nowrap;text-align:center}
+.b-transfer .bal .cur p{font-size:16px;line-height:24px;font-weight:500}
+.b-transfer .bal .cur span{font-size:10.32px;line-height:24px;font-weight:500}
+.b-transfer .bcontent{flex:1 0 0;min-height:48px;width:100%;display:flex;align-items:center;justify-content:center}
+.b-transfer .amt{display:flex;flex-direction:column;align-items:center;gap:2px}
+.b-transfer .amt-in{position:relative;width:34px;display:flex;align-items:center;justify-content:space-between;padding:var(--gap-1,4px) 0}
+.b-transfer .amt-in .cur{color:var(--alias-text-text-placeholder,#a3a3a3);font-weight:600;line-height:40px}
+.b-transfer .amt-in .cur p{font-size:var(--font-size-text-3xl,30px)}
+.b-transfer .amt-in .cur span{font-size:19.35px}
+.b-transfer .caret{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:1.5px;height:24px;background:var(--alias-icon-icon-primary,#0a0a0a)}
+.b-transfer .tf{width:100%;height:48px;flex-shrink:0;display:flex;align-items:center;gap:8px;padding:0 var(--gap-4,16px);border:1px solid var(--alias-border-border-subtle-01,#d4d4d4);border-radius:var(--border-radius-rounded-xl,12px);overflow:hidden}
+.b-transfer .tf p{flex:1 0 0;min-width:1px;overflow:hidden;text-overflow:ellipsis}
+/* bottom */
+.b-transfer .bottom{display:flex;flex-direction:column;width:100%;flex-shrink:0}
+.b-transfer .btn-grp{display:flex;padding:var(--gap-4,16px);background:var(--alias-background-background,#fff);width:100%}
+.b-transfer .btn{flex:1 0 0;height:48px;min-width:80px;display:flex;align-items:center;justify-content:center;padding:0 16px;border-radius:10000px;background:var(--alias-background-background-inverse,#262626);color:var(--alias-text-text-inverse,#fff);font-size:16px;line-height:24px;font-weight:500;white-space:nowrap;overflow:hidden}
+.b-transfer .sug{display:flex;gap:var(--gap-3,12px);padding:0 var(--gap-4,16px) var(--gap-3,12px);background:var(--alias-background-background,#fff);width:100%}
+.b-transfer .sug-it{flex:1 0 0;min-width:1px;display:flex;align-items:center;justify-content:center;padding:var(--gap-2,8px) var(--gap-3,12px);border-radius:var(--border-radius-rounded-lg,8px);background:var(--alias-layer-layer-01,#fafafa);overflow:hidden}
+.b-transfer .sug-it .cur p{font-size:14px;line-height:20px;font-weight:500}
+.b-transfer .sug-it .cur span{font-size:9.03px;line-height:20px;font-weight:500}
+/* iOS keyboard (OS mock) */
+.b-transfer .kb{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;padding-top:6px;background:#d1d3d9}
+.b-transfer .kb-f{position:relative;width:100%;height:264px}
+.b-transfer .kb-row{position:absolute;left:0;right:0;height:46px;display:flex;gap:6px;padding:0 6px}
+.b-transfer .key{position:relative;flex:1 0 0;min-width:1px;height:100%;border-radius:5px;color:#000;text-align:center}
+.b-transfer .key.w{background:#fcfcfe;box-shadow:0 1px 0 #898a8d}
+.b-transfer .key .n{position:absolute;left:50%;top:calc(50% - 8px);transform:translate(-50%,-50%);font-size:25px;line-height:normal;font-weight:400;white-space:nowrap}
+.b-transfer .key .l{position:absolute;left:50%;top:calc(50% + 13px);transform:translate(-50%,-50%);font-size:10px;line-height:normal;font-weight:700;letter-spacing:2px;padding-left:2px;white-space:nowrap}
+.b-transfer .key .n.c{top:calc(50% - 1px)}
+.b-transfer .kb-home{position:relative;width:100%;height:21px}
+.b-transfer .kb-home i{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:139px;height:5px;border-radius:100px;background:#000}
+</style>
+<div class="b-transfer" data-h="812">
+  <div class="hdr">
+    <div class="sb" data-mock="os">
+      <img src="../assets/figma/transfer/sb-time.svg" alt="" style="left:33.45px;top:17.17px;width:28.426px;height:11.089px">
+      <img src="../assets/figma/transfer/sb-signal.svg" alt="" style="right:64.33px;top:17.67px;width:17px;height:10.667px">
+      <img src="../assets/figma/transfer/sb-wifi.svg" alt="" style="right:44.03px;top:17.33px;width:15.272px;height:10.966px">
+      <img src="../assets/figma/transfer/sb-battery-body.svg" alt="" style="right:17px;top:17.33px;width:22px;height:11.333px">
+      <img src="../assets/figma/transfer/sb-battery-cap.svg" alt="" style="right:14.67px;top:21px;width:1.328px;height:4px">
+      <img src="../assets/figma/transfer/sb-battery-fill.svg" alt="" style="right:19px;top:19.33px;width:18px;height:7.333px">
+    </div>
+    <div class="nav">
+      <div class="nav-btn"><div class="ic" style="width:24px;height:24px"><img src="../assets/figma/transfer/ic-chevron-left.svg" alt="" style="left:1.333px;top:1.333px;width:21.333px;height:21.333px"></div></div>
+      <p class="nav-title">Chuyển tiền</p>
+      <div class="nav-btn"><div class="ic" style="width:24px;height:24px"><img src="../assets/figma/transfer/ic-headset.svg" alt="" style="left:1.036px;top:1.333px;width:21.927px;height:21.333px"></div></div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="content">
+      <div class="top">
+        <div class="brand">
+          <div class="av"><div class="ic" style="width:20px;height:20px"><img src="../assets/figma/transfer/ic-circle-user.svg" alt="" style="left:1.111px;top:1.111px;width:17.778px;height:17.778px"></div></div>
+          <p class="t16">Nguyễn Trần Gia Minh</p>
+          <p class="t16">·</p>
+          <p class="t16">0382551782</p>
+        </div>
+        <div class="bal">
+          <p class="t16">Số dư: </p>
+          <div class="cur"><p>500.000</p><span>₫</span></div>
+          <div class="ic" style="width:24px;height:24px"><img src="../assets/figma/transfer/ic-eye-slash.svg" alt="" style="left:2px;top:2px;width:20px;height:20px"></div>
+        </div>
+      </div>
+      <div class="bcontent">
+        <div class="amt" data-el="amount">
+          <div class="amt-in">
+            <div class="cur"><p>0</p><span>₫</span></div>
+            <i class="caret"></i>
+          </div>
+        </div>
+      </div>
+      <div class="tf"><p class="t16">Dư Thị Bích Nhi chuyển tiền</p></div>
+    </div>
+    <div class="bottom">
+      <div class="btn-grp"><div class="btn" data-el="cta">Chuyển tiền</div></div>
+      <div class="sug">
+        <div class="sug-it"><div class="cur"><p>100.000</p><span>₫</span></div></div>
+        <div class="sug-it"><div class="cur"><p>200.000</p><span>₫</span></div></div>
+        <div class="sug-it"><div class="cur"><p>500.000</p><span>₫</span></div></div>
+      </div>
+      <div class="kb" data-mock="os">
+        <div class="kb-f">
+          <div class="kb-row" style="top:0">
+            <div class="key w"><span class="n">1</span><span class="l"> </span></div>
+            <div class="key w"><span class="n">2</span><span class="l">ABC</span></div>
+            <div class="key w"><span class="n">3</span><span class="l">DEF</span></div>
+          </div>
+          <div class="kb-row" style="top:54px">
+            <div class="key w"><span class="n">4</span><span class="l">GHI</span></div>
+            <div class="key w"><span class="n">5</span><span class="l">JKL</span></div>
+            <div class="key w"><span class="n">6</span><span class="l">MNO</span></div>
+          </div>
+          <div class="kb-row" style="top:106px">
+            <div class="key w"><span class="n">7</span><span class="l">PQRS</span></div>
+            <div class="key w"><span class="n">8</span><span class="l">TUV</span></div>
+            <div class="key w"><span class="n">9</span><span class="l">WXYZ</span></div>
+          </div>
+          <div class="kb-row" style="top:159px">
+            <div class="key"></div>
+            <div class="key w"><span class="n c">0</span></div>
+            <div class="key"><img src="../assets/figma/transfer/kb-delete.svg" alt="" style="position:absolute;left:calc(50% + 2.54px);top:calc(50% - 1.01px);transform:translate(-50%,-50%);width:23.983px;height:17.99px"></div>
+          </div>
+        </div>
+        <div class="kb-home"><i></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dlg-overlay"><div class="dlg"><div class="content"><img alt="" src="../assets/illus-warning.png"><p class="title">Tính năng đang bảo trì</p><p class="body">Hệ thống đang bảo trì nên chưa thực hiện được thao tác này. Bạn vui lòng thử lại sau khi bảo trì hoàn tất.</p></div><div class="btns"><button class="btn primary" type="button" data-el="dlg-close">Đóng</button><button class="btn secondary" type="button" data-el="dlg-learn">Tìm hiểu thêm</button></div></div></div>
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

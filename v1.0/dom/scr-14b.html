@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=375">
+<title>scr-14b · DR Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_dr.css"></head>
+<body class="page" style="--ph:812px"><style>
+.b-login{position:relative;width:375px;height:812px;overflow:hidden;display:flex;flex-direction:column;font-family:Inter,sans-serif;color:var(--alias-text-text-primary,#0a0a0a);background:var(--alias-background-background,#fff)}
+.b-login *{box-sizing:border-box;margin:0}
+.b-login .sb{position:relative;height:44px;width:100%;overflow:hidden;flex-shrink:0}
+.b-login .sb img{position:absolute;display:block}
+.b-login .body{flex:1 0 0;min-height:1px;width:100%;display:flex;flex-direction:column;align-items:center;gap:var(--gap-10,40px);padding:var(--gap-4,16px)}
+.b-login .title{display:flex;flex-direction:column;align-items:center;gap:var(--gap-1,4px);width:100%}
+.b-login .title h1{width:343px;text-align:center;font-size:var(--font-size-text-lg,20px);line-height:var(--line-height-leading-7,28px);font-weight:600}
+.b-login .title p{text-align:center;font-size:16px;line-height:24px}
+.b-login .title b{font-weight:600}
+.b-login .pin{display:flex;gap:12px;align-items:center}
+.b-login .pin i{width:16px;height:16px;border-radius:10000px;border:1px solid var(--alias-border-border-strong-01,#737373)}
+.b-login .btn{height:48px;min-width:80px;display:flex;align-items:center;justify-content:center;gap:var(--gap-2,8px);padding:0 var(--gap-4,16px);border-radius:10000px;font-size:var(--font-size-text-base,16px);line-height:24px;font-weight:500;white-space:nowrap;overflow:hidden;background:var(--alias-background-background,#fff);color:var(--alias-text-text-primary,#0a0a0a)}
+.b-login .btn.inv{width:100%;background:var(--alias-background-background-inverse,#262626);color:var(--alias-text-text-inverse,#fff)}
+.b-login .btn .ic{position:relative;width:20px;height:20px;flex-shrink:0}
+.b-login .btn .ic img{position:absolute;inset:11.11%;width:77.78%;height:77.78%;display:block}
+.b-login .grp{display:flex;flex-direction:column;gap:var(--gap-2,8px);padding:var(--gap-4,16px) var(--gap-4,16px) var(--gap-2,8px);width:100%;flex-shrink:0}
+.b-login .row{display:flex;align-items:center;gap:1px;width:100%}
+.b-login .row .btn{flex:1 0 0}
+.b-login .row .dv{width:1px;height:24px;background:var(--alias-border-border-subtle-01,#d4d4d4)}
+.b-login .kb{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;padding-top:6px;background:#d1d3d9}
+.b-login .kb-f{position:relative;width:100%;height:264px}
+.b-login .kb-row{position:absolute;left:0;right:0;height:46px;display:flex;gap:6px;padding:0 6px}
+.b-login .key{position:relative;flex:1 0 0;min-width:1px;height:100%;border-radius:5px;color:#000;text-align:center}
+.b-login .key.w{background:#fcfcfe;box-shadow:0 1px 0 #898a8d}
+.b-login .key .n{position:absolute;left:50%;top:calc(50% - 8px);transform:translate(-50%,-50%);font-size:25px;line-height:normal;font-weight:400;white-space:nowrap}
+.b-login .key .l{position:absolute;left:50%;top:calc(50% + 13px);transform:translate(-50%,-50%);font-size:10px;line-height:normal;font-weight:700;letter-spacing:2px;padding-left:2px;white-space:nowrap}
+.b-login .key .n.c{top:calc(50% - 1px)}
+.b-login .kb-home{position:relative;width:100%;height:21px}
+.b-login .kb-home i{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:139px;height:5px;border-radius:100px;background:#000}
+</style>
+<div class="b-login" data-h="812">
+    <div class="sb" data-mock="os">
+      <img src="../assets/figma/login/sb-time.svg" alt="" style="left:33.45px;top:17.17px;width:28.426px;height:11.089px">
+      <img src="../assets/figma/login/sb-signal.svg" alt="" style="right:64.33px;top:17.67px;width:17px;height:10.667px">
+      <img src="../assets/figma/login/sb-wifi.svg" alt="" style="right:44.03px;top:17.33px;width:15.272px;height:10.966px">
+      <img src="../assets/figma/login/sb-battery-body.svg" alt="" style="right:17px;top:17.33px;width:22px;height:11.333px">
+      <img src="../assets/figma/login/sb-battery-cap.svg" alt="" style="right:14.67px;top:21px;width:1.328px;height:4px">
+      <img src="../assets/figma/login/sb-battery-fill.svg" alt="" style="right:19px;top:19.33px;width:18px;height:7.333px">
+    </div>
+  <div class="dr-banner-wrap" style="padding:16px 16px 0"><button class="dr-banner" type="button" data-el="banner"><span class="ic warn"><i></i></span><span class="txt"><span class="t">Hệ thống đang bảo trì</span><span class="s">Dữ liệu tính đến 28/09/2026 14:30:00</span></span><span class="ic chev"><i></i></span></button></div>
+  <div class="body">
+    <div class="title">
+      <h1>Đăng nhập</h1>
+      <p>Số điện thoại <b>0961689062</b></p>
+    </div>
+    <div class="pin" data-el="pin"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="btn" data-el="face"><span class="ic"><img src="../assets/figma/login/ic-face.svg" alt=""></span>Đăng nhập bằng khuôn mặt</div>
+  </div>
+  <div class="grp">
+    <div class="btn inv" data-el="cta">Đăng nhập</div>
+    <div class="row">
+      <div class="btn" data-el="forgot">Quên mã PIN?</div><span class="dv"></span><div class="btn" data-el="switch">Đổi tài khoản</div>
+    </div>
+  </div>
+  <div class="kb" data-mock="os">
+        <div class="kb-f">
+          <div class="kb-row" style="top:0">
+            <div class="key w"><span class="n">1</span><span class="l"> </span></div>
+            <div class="key w"><span class="n">2</span><span class="l">ABC</span></div>
+            <div class="key w"><span class="n">3</span><span class="l">DEF</span></div>
+          </div>
+          <div class="kb-row" style="top:54px">
+            <div class="key w"><span class="n">4</span><span class="l">GHI</span></div>
+            <div class="key w"><span class="n">5</span><span class="l">JKL</span></div>
+            <div class="key w"><span class="n">6</span><span class="l">MNO</span></div>
+          </div>
+          <div class="kb-row" style="top:106px">
+            <div class="key w"><span class="n">7</span><span class="l">PQRS</span></div>
+            <div class="key w"><span class="n">8</span><span class="l">TUV</span></div>
+            <div class="key w"><span class="n">9</span><span class="l">WXYZ</span></div>
+          </div>
+          <div class="kb-row" style="top:159px">
+            <div class="key"></div>
+            <div class="key w"><span class="n c">0</span></div>
+            <div class="key"><img src="../assets/figma/login/kb-delete.svg" alt="" style="position:absolute;left:calc(50% + 2.54px);top:calc(50% - 1.01px);transform:translate(-50%,-50%);width:23.983px;height:17.99px"></div>
+          </div>
+        </div>
+        <div class="kb-home"><i></i></div>
+      </div>
+</div>
+<div class="dlg-overlay"><div class="dlg"><div class="content"><img alt="" src="../assets/illus-warning.png"><p class="title">Tính năng đang bảo trì</p><p class="body">Hệ thống đang bảo trì nên chưa thực hiện được thao tác này. Bạn vui lòng thử lại sau khi bảo trì hoàn tất.</p></div><div class="btns"><button class="btn primary" type="button" data-el="dlg-close">Đóng</button><button class="btn secondary" type="button" data-el="dlg-learn">Tìm hiểu thêm</button></div></div></div>
+<script>
+/* đo toạ độ [data-el] trong màn (375 × H) — dùng làm điểm neo mũi tên flow */
+(document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+  var root=document.querySelector('[class^="b-"]'); var R=root.getBoundingClientRect(); var out={__h:Math.round(root.hasAttribute('data-grow')?root.scrollHeight:root.offsetHeight)};
+  document.querySelectorAll('[data-el]').forEach(function(e){var r=e.getBoundingClientRect(); out[e.dataset.el]=[r.left-R.left,r.top-R.top,r.width,r.height].map(function(v){return Math.round(v*10)/10;});});
+  document.documentElement.setAttribute('data-anchors',JSON.stringify(out));
+});
+</script></body></html>

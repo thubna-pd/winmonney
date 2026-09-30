@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Handoff · DR Mode WinMoney</title>
+<style>
+:root{
+  --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --text-primary:#0a0a0a; --text-secondary:#737373; --text-placeholder:#a3a3a3;
+  --bg:#fff; --layer-01:#fafafa; --border-subtle:#e5e5e5; --bg-inverse:#262626;
+  --negative:#dc2626; --link:#2563eb;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-body);color:var(--text-primary);background:var(--layer-01);
+  line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:64px 24px 96px}
+.eyebrow{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-placeholder)}
+h1{font-size:30px;line-height:1.2;margin:6px 0 12px;letter-spacing:-.015em}
+.lead{color:var(--text-secondary);max-width:62ch;margin:0 0 8px}
+.meta{font-size:14px;color:var(--text-placeholder);margin:0 0 40px}
+.meta code{background:var(--bg);border:1px solid var(--border-subtle);padding:1px 5px;border-radius:6px;
+  font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-placeholder);
+  margin:40px 0 12px;font-weight:600}
+.ver{display:block;background:var(--bg);border:1px solid var(--border-subtle);border-radius:16px;
+  padding:20px 24px;margin-bottom:12px;text-decoration:none;color:inherit;transition:box-shadow .15s}
+.ver:hover{box-shadow:0 2px 14px rgba(0,0,0,.08)}
+.ver .row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.ver .name{font-size:18px;font-weight:600}
+.ver .tag{font-size:11px;padding:2px 9px;border-radius:9999px;background:#dcfce7;color:#15803d;
+  border:1px solid #bbf7d0;font-weight:600}
+.ver .date{font-size:14px;color:var(--text-placeholder);margin-left:auto}
+.ver p{margin:8px 0 0;font-size:14px;color:var(--text-secondary)}
+.ver .stats{margin-top:12px;display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text-placeholder)}
+.ver .stats b{color:var(--text-primary)}
+.prop{display:block;background:#fef2f2;border:1px solid #fecaca;border-left:3px solid var(--negative);
+  border-radius:12px;padding:16px 20px;text-decoration:none;color:inherit}
+.prop:hover{background:#fee2e2}
+.prop b{display:block;font-size:15px;margin-bottom:4px}
+.prop p{margin:0;font-size:14px;color:#7f1d1d}
+.foot{margin-top:48px;padding-top:20px;border-top:1px solid var(--border-subtle);
+  font-size:13px;color:var(--text-placeholder)}
+.foot a{color:var(--link)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Bản bàn giao thiết kế · ticket #17137</div>
+  <h1>DR Mode trên App WinMoney · Phase 1</h1>
+  <p class="lead">Khi site chính gặp sự cố, app chạy từ site dự phòng: người dùng chỉ xem được thông tin tài khoản,
+  mọi thao tác làm thay đổi tiền hoặc dữ liệu bị chặn ngay khi chạm. Trên UI gọi là “Hệ thống đang bảo trì”.</p>
+  <p class="meta">Nguồn: Figma <code>[Overview] WinMoney Masterflow</code> · file <code>L8SweQCDdHX93TJFBPjGsp</code>.
+  Token theo WIN-DLS, câu chữ theo WIN-UXW.</p>
+  <h2>Các bản</h2>
+  <a class="ver" href="v1.0/index.html">
+    <div class="row"><span class="name">v1.0</span><span class="tag">Bản hiện tại</span><span class="date">29/09/2026</span></div>
+    <p>Bản Người đọc: Overview, 5 luồng theo UC1–UC5 (sơ đồ + bảng case theo màn) và Handoff UI (Banner, Dialog). Màn xem trước ngay trên flow.
+    Bản AI của dev đọc: markdown máy đọc sinh từ cùng nguồn — node & cạnh của từng sơ đồ, điểm neo data-el, token kèm giá trị, hình học, chuỗi chữ; file ở <code>v1.0/out/ai/</code>.</p>
+    <div class="stats"><span><b>5</b> luồng</span><span><b>14</b> màn có thiết kế</span><span><b>2</b> component</span></div>
+  </a>
+  <div class="foot">Mở trực tiếp file này vẫn đọc được chữ và sơ đồ. Muốn xem đủ ảnh và preview:
+  <code>python3 -m http.server 4323</code></div>
+</div>
+</body>
+</html>

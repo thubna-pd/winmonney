@@ -1,0 +1,101 @@
+/* DR Mode · component mới + dùng lại — token WIN-DLS (Figma Variables alias/*)
+   Nguồn giá trị: Masterflow L8SweQCDdHX93TJFBPjGsp · WIN DLS library (get_variable_defs / importVariableByKeyAsync) */
+:root{
+  --font-inter:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  --text-primary:#0a0a0a;           /* alias/text/text-primary */
+  --text-secondary:#737373;         /* alias/text/text-secondary */
+  --text-inverse:#ffffff;           /* alias/text/text-inverse */
+  --bg:#ffffff;                     /* alias/background/background */
+  --bg-inverse:#262626;             /* alias/background/background-inverse */
+  --border-strong-01:#737373;       /* alias/border/border-strong-01 */
+  --overlay:rgba(10,10,10,.5);      /* alias/miscellaneous/overlay */
+  --support-warning:#f97316;        /* alias/support/support-warning */
+  --support-warning-subtle:#fff7ed; /* alias/support/support-warning-subtle → global/orange/05 */
+  --support-positive-subtle:#f0fdf4;/* alias/support/support-positive-subtle */
+  --icon-primary:#0a0a0a;           /* alias/icon/icon-primary */
+  --icon-secondary:#737373;         /* alias/icon/icon-secondary */
+  --gap-0-5:2px;--gap-2:8px;--gap-2-5:10px;--gap-3:12px;--gap-4:16px;--gap-6:24px;--gap-12:48px;
+  --rounded-xl:12px;--rounded-2xl:16px;--rounded-circle:10000px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:375px;overflow:hidden;background:#fff;font-family:var(--font-inter);color:var(--text-primary);-webkit-font-smoothing:antialiased}
+[data-grow]{height:auto!important;min-height:812px;overflow:visible!important}
+[data-grow]>*{flex:0 0 auto!important}
+/* lớp phủ (dialog, toast) nằm NGOÀI root màn nền để không dính CSS của màn */
+body.page{position:relative;margin:0}
+[class^="b-"]{position:relative}
+.screen{position:relative;width:375px;height:812px;overflow:hidden}
+.stack{position:absolute;inset:0;overflow:hidden}
+.stack.scroll{overflow-y:auto;scrollbar-width:none}
+.stack.scroll::-webkit-scrollbar{display:none}
+/* Màn nền: render 2x xuất từ Figma (KHÔNG dựng lại — màn hiện có) */
+.slice{width:375px;background-repeat:no-repeat;background-size:375px auto}
+.edgefix{position:relative}.edgefix::before,.edgefix::after{content:'';position:absolute;top:0;width:2px;height:8px;background:#fff}.edgefix::before{left:0}.edgefix::after{right:0}
+.sticky-top{position:sticky;top:0;z-index:5}
+.pin-bottom{position:absolute;left:0;right:0;bottom:0}
+.home-indicator{position:absolute;left:0;right:0;bottom:0;height:21px;display:flex;align-items:center;justify-content:center}
+.home-indicator i{display:block;width:139px;height:5px;border-radius:100px;background:var(--icon-primary)}
+
+/* MỚI · DR Banner */
+.dr-banner-wrap{width:375px;background:transparent}
+.dr-banner{display:flex;align-items:flex-start;gap:var(--gap-2);padding:var(--gap-2-5) var(--gap-3);background:var(--support-warning-subtle);border-radius:var(--rounded-xl);width:100%;border:none;font-family:inherit;text-align:left}
+.ic{flex:none;width:20px;height:20px;display:flex;align-items:center;justify-content:center}
+.ic i{display:block;width:17.78px;height:17.78px;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.ic.warn{color:var(--support-warning);--m:url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOSAxQzEzLjQxODMgMSAxNyA0LjU4MTc5IDE3IDlDMTcgMTMuNDE4MiAxMy40MTgzIDE3IDkgMTdDNC41ODE2OCAxNyAxIDEzLjQxODIgMSA5QzEgNC41ODE3OSA0LjU4MTY4IDEgOSAxWk05IDIuNUM1LjQxMDEyIDIuNSAyLjUgNS40MTAyMSAyLjUgOUMyLjUgMTIuNTg5OCA1LjQxMDEyIDE1LjUgOSAxNS41QzEyLjU4OTkgMTUuNSAxNS41IDEyLjU4OTggMTUuNSA5QzE1LjUgNS40MTAyMSAxMi41ODk5IDIuNSA5IDIuNVpNOSAxMS40MTdDOS41NTIgMTEuNDE3IDEwIDExLjg2NiAxMCAxMi40MTdDMTAgMTIuOTY4IDkuNTUyIDEzLjQxNyA5IDEzLjQxN0M4LjQ0OCAxMy40MTcgOCAxMi45NjggOCAxMi40MTdDOCAxMS44NjYgOC40NDggMTEuNDE3IDkgMTEuNDE3Wk05IDQuNjgwNjZDOS40MTQwOSA0LjY4MDY2IDkuNzQ5OCA1LjAxNjYyIDkuNzUgNS40MzA2NlY5LjVDOS43NDk4MiA5LjkxNDA2IDkuNDE0MSAxMC4yNSA5IDEwLjI1QzguNTg1OSAxMC4yNSA4LjI1MDE4IDkuOTE0MDYgOC4yNSA5LjVWNS40MzA2NkM4LjI1MDIgNS4wMTY2MiA4LjU4NTkxIDQuNjgwNjYgOSA0LjY4MDY2WiIgZmlsbD0iYmxhY2siLz48L3N2Zz4K")}
+.ic.chev{color:var(--icon-secondary);--m:url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTMuMjggOC40Njk5OUw3LjAyOTk5IDIuMjE5OTlDNi43MzY5OSAxLjkyNjk5IDYuMjYxOTkgMS45MjY5OSA1Ljk2ODk5IDIuMjE5OTlDNS42NzU5OSAyLjUxMjk5IDUuNjc1OTkgMi45ODc5OSA1Ljk2ODk5IDMuMjgwOTlMMTEuNjg5IDkuMDAwOTlMNS45Njg5OSAxNC43MjFDNS42NzU5OSAxNS4wMTQgNS42NzU5OSAxNS40ODkgNS45Njg5OSAxNS43ODJDNi4xMTQ5OSAxNS45MjggNi4zMDY5OSAxNi4wMDIgNi40OTg5OSAxNi4wMDJDNi42OTA5OSAxNi4wMDIgNi44ODI5OSAxNS45MjkgNy4wMjg5OSAxNS43ODJMMTMuMjc5IDkuNTMxOTlDMTMuNTcyIDkuMjM4OTkgMTMuNTcyIDguNzYzOTkgMTMuMjc5IDguNDcwOTlMMTMuMjggOC40Njk5OVoiIGZpbGw9ImJsYWNrIi8+PC9zdmc+Cg==")}
+.dr-banner .txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--gap-0-5)}
+.dr-banner .t{font-size:14px;line-height:20px;font-weight:600}                          /* Small/Semi Bold */
+.dr-banner .s{font-size:12px;line-height:16px;font-weight:400;color:var(--text-secondary)} /* X-Small/Regular */
+
+/* MỚI · Ghi chú cuối danh sách Lịch sử */
+.dr-list-note{padding:var(--gap-4);font-size:12px;line-height:16px;color:var(--text-secondary);text-align:center;background:var(--bg)}
+
+/* DÙNG LẠI · Dialog (Dialog 1672:2730 — cùng khuôn "Dialog - Feature locked" 107:6796) */
+.dlg-overlay{position:absolute;top:0;left:0;width:375px;height:var(--ph,812px);z-index:50;background:var(--overlay);display:flex;align-items:center;justify-content:center;padding:var(--gap-12) var(--gap-6)}
+.dlg{width:100%;max-width:540px;background:var(--bg);border-radius:var(--rounded-2xl);padding:var(--gap-4);display:flex;flex-direction:column;gap:var(--gap-4);align-items:center}
+.dlg .content{display:flex;flex-direction:column;gap:var(--gap-2);align-items:center;width:100%;text-align:center}
+.dlg .content img{width:80px;height:80px;object-fit:cover}
+.dlg .title{font-size:18px;line-height:28px;font-weight:600}  /* Large/Semi Bold */
+.dlg .body{font-size:14px;line-height:20px;font-weight:400}   /* Small/Regular */
+.btns{display:flex;flex-direction:column;gap:var(--gap-2);width:100%}
+.btn{height:48px;min-width:80px;border-radius:var(--rounded-circle);padding:0 var(--gap-4);font:500 16px/24px var(--font-inter);display:flex;align-items:center;justify-content:center;width:100%;border:none} /* Base/Medium */
+.btn.primary{background:var(--bg-inverse);color:var(--text-inverse)}
+.btn.secondary{background:none;border:1px solid var(--border-strong-01);color:var(--text-primary)}
+
+/* DÙNG LẠI · Toast bar (Type=Positive, 1:218) */
+/* Toast nổi (floaty): cố định theo khung nhìn, trên nội dung, cách đáy 37px như Figma (y=735 trên 812), trượt lên khi hiện.
+   Bóng đổ: WIN DLS chưa có effect style — giá trị dưới là đề xuất, cần chốt. */
+.toast{position:fixed;left:16px;bottom:37px;width:343px;z-index:40;display:flex;align-items:flex-start;background:var(--support-positive-subtle);border-radius:var(--rounded-xl);
+  box-shadow:0 8px 24px rgba(10,10,10,.12),0 2px 6px rgba(10,10,10,.08);animation:toast-in .24s ease-out both}
+@keyframes toast-in{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.toast{animation:none}}
+.toast .tc{display:flex;flex:1;gap:var(--gap-2);align-items:flex-start;padding:var(--gap-2-5) var(--gap-3)}
+.toast .tc img{width:17.78px;height:17.78px;margin:1.11px}
+.toast p{flex:1;font-size:14px;line-height:20px}
+
+/* DÙNG LẠI · Loading (icon 24, WIN DLS "Loading") — vùng kéo để làm mới */
+.ptr{height:56px;display:flex;align-items:center;justify-content:center}
+.ic.loading{width:24px;height:24px;color:var(--icon-primary);--m:url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMjRDOS4yMjcgMjQgNi41MjEgMjMuMDMyIDQuMzgzIDIxLjI3M0MzLjk1NyAyMC45MjIgMy44OTUgMjAuMjkyIDQuMjQ2IDE5Ljg2NUM0LjU5NyAxOS40MzkgNS4yMjggMTkuMzc4IDUuNjU0IDE5LjcyOEM3LjQzNSAyMS4xOTMgOS42ODkgMjIgMTIgMjJDMTcuNTE0IDIyIDIyIDE3LjUxNCAyMiAxMkMyMiA2LjQ4NiAxNy41MTQgMiAxMiAyQzYuNDg2IDIgMiA2LjQ4NiAyIDEyQzIgMTMuNDI1IDIuMjkzIDE0LjgwMSAyLjg3MiAxNi4wOTFDMy4wOTggMTYuNTk1IDIuODcyIDE3LjE4NyAyLjM2OSAxNy40MTNDMS44NjQgMTcuNjM4IDEuMjczIDE3LjQxMyAxLjA0NyAxNi45MUMwLjM1MiAxNS4zNjEgMCAxMy43MDkgMCAxMkMwIDUuMzgzIDUuMzgzIDAgMTIgMEMxOC42MTcgMCAyNCA1LjM4MyAyNCAxMkMyNCAxOC42MTcgMTguNjE3IDI0IDEyIDI0WiIgZmlsbD0iIzBBMEEwQSIvPjwvc3ZnPgo=")}
+.ic.loading i{width:24px;height:24px;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.ic.loading i{animation-duration:2.4s}}
+
+/* Q14 · dòng giao dịch "Đang xử lý" — thay nhãn "Thất bại" (alias/support/support-negative) bằng support-warning, cùng vị trí */
+.row-pending{position:absolute;left:300px;width:59px;height:20px;background:var(--bg);display:flex;justify-content:flex-end;align-items:center}
+.row-pending span{font-size:12px;line-height:16px;font-weight:600;color:var(--support-warning);white-space:nowrap}
+
+/* Q20 · số tiền dòng "Đang xử lý" = text-primary (Base/Semi Bold 16/24; ₫ 10.32 Medium như Figma) */
+.amt-pending{position:absolute;right:16px;height:24px;background:var(--bg);display:flex;align-items:flex-start;gap:2px;padding-left:6px;color:var(--text-primary)}
+.amt-pending span{font-size:16px;line-height:24px;font-weight:600}
+.amt-pending sup{font-size:10.32px;line-height:24px;font-weight:500;vertical-align:top;position:relative;top:-6px;margin-left:1px}
+/* Q15 · Noti item (Figma I21:8494;40:477) */
+.noti{display:flex;gap:12px;padding:0 16px;background:var(--bg)}
+.noti .nic{padding:16px 0}
+.noti .nic .ic{width:36px;height:36px;border-radius:10000px;background:#fafafa} /* alias/layer/layer-01 */
+.noti .nic .ic i{width:17.78px;height:17.78px}
+.ic.warn-k{color:var(--icon-primary);--m:url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOSAxQzEzLjQxODMgMSAxNyA0LjU4MTc5IDE3IDlDMTcgMTMuNDE4MiAxMy40MTgzIDE3IDkgMTdDNC41ODE2OCAxNyAxIDEzLjQxODIgMSA5QzEgNC41ODE3OSA0LjU4MTY4IDEgOSAxWk05IDIuNUM1LjQxMDEyIDIuNSAyLjUgNS40MTAyMSAyLjUgOUMyLjUgMTIuNTg5OCA1LjQxMDEyIDE1LjUgOSAxNS41QzEyLjU4OTkgMTUuNSAxNS41IDEyLjU4OTggMTUuNSA5QzE1LjUgNS40MTAyMSAxMi41ODk5IDIuNSA5IDIuNVpNOSAxMS40MTdDOS41NTIgMTEuNDE3IDEwIDExLjg2NiAxMCAxMi40MTdDMTAgMTIuOTY4IDkuNTUyIDEzLjQxNyA5IDEzLjQxN0M4LjQ0OCAxMy40MTcgOCAxMi45NjggOCAxMi40MTdDOCAxMS44NjYgOC40NDggMTEuNDE3IDkgMTEuNDE3Wk05IDQuNjgwNjZDOS40MTQwOSA0LjY4MDY2IDkuNzQ5OCA1LjAxNjYyIDkuNzUgNS40MzA2NlY5LjVDOS43NDk4MiA5LjkxNDA2IDkuNDE0MSAxMC4yNSA5IDEwLjI1QzguNTg1OSAxMC4yNSA4LjI1MDE4IDkuOTE0MDYgOC4yNSA5LjVWNS40MzA2NkM4LjI1MDIgNS4wMTY2MiA4LjU4NTkxIDQuNjgwNjYgOSA0LjY4MDY2WiIgZmlsbD0iYmxhY2siLz48L3N2Zz4K")}
+.noti .nd{flex:1;min-width:0;padding:16px 0;border-bottom:1px solid #e5e5e5;display:flex;flex-direction:column;gap:2px} /* border-subtle-00 */
+.noti .nt{display:flex;gap:8px;align-items:center;font-size:14px;line-height:20px}
+.noti .cat{flex:1}.noti .tm{color:var(--text-secondary)}
+.noti .dot{width:6px;height:6px;border-radius:10000px;background:#dc2626} /* global/red/60 */
+.noti .nb{font-size:16px;line-height:24px;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
