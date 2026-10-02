@@ -43,15 +43,15 @@ Ticket #17137 · bản 1.0 · 29/09/2026 · Figma file `L8SweQCDdHX93TJFBPjGsp` 
 | SCR-03 | Dialog chặn action | khuôn 107:6796 | `dom/scr-03.html` | Đóng: ở lại màn cũ. Tìm hiểu thêm: mở SCR-02. |
 | SCR-04 | Lịch sử giao dịch · DR mode | 1:37591 | `dom/scr-04.html` | Data tới mốc. Cuối list có note; giao dịch chưa có kết quả hiện “Đang xử lý”. |
 | SCR-05 | Chi tiết giao dịch · DR mode | 1:37605 | `dom/scr-05.html` | Như thường, thêm banner. |
-| SCR-06 | Tài khoản · DR mode | 1:41327 | `dom/scr-06.html` | Xem như thường. Bảo mật, định danh, thanh toán, thông báo, Đăng xuất: tap thì bị chặn. |
+| SCR-06 | Tài khoản · DR mode | 1:41327 | `dom/scr-06.html` | Xem như thường. Bảo mật, định danh, thanh toán, thông báo: tap thì bị chặn. Đăng xuất: như thường. |
 | SCR-07 | Quản lý tài khoản/thẻ · DR mode | 1:27571 | `dom/scr-07.html` | List như thường. Thêm tài khoản: bị chặn. |
 | SCR-08 | Chuyển tiền · DR bật giữa luồng | 1:31946 | `dom/scr-08.html` | Màn không bị đóng. Bấm Chuyển tiền khi DR còn on: Dialog chặn, data giữ nguyên. |
 | SCR-09 | Kết quả · đang xử lý | 1:31824 | `dom/scr-09.html` | Dùng lại màn Pending hiện có, không đổi. |
 | SCR-10 | Trang chủ · pull-to-refresh | 1:13043 + Loading | `dom/scr-10.html` | Icon Loading 24 xoay trong vùng cao 56 dưới banner. |
 | SCR-11 | Trang chủ · DR tắt | 1:13043 + Toast bar | `dom/scr-11.html` | Banner mất. Toast Positive chỉ khi vừa pull-to-refresh. |
 | SCR-13 | Notification center · DR mode | 21:8494 | `dom/scr-13.html` | List như thường + banner + 1 noti “Hệ thống đang bảo trì” (demo). |
-| SCR-14 | Login · DR mode | 1:8132 | `dom/scr-14.html` | Không cho đăng nhập. Banner dưới status bar; tap nút đăng nhập bất kỳ: Dialog giải thích. |
-| SCR-17 | Nhập số điện thoại · DR mode | 1:8028 | `dom/scr-17.html` | Màn đầu của luồng đăng nhập khi máy chưa lưu tài khoản. Banner dưới status bar; tap Tiếp tục hoặc chọn SĐT đã dùng: Dialog giải thích. |
+| SCR-14 | Login · DR mode | 1:8132 | `dom/scr-14.html` | Đăng nhập như thường, banner dưới status bar. Quên mã PIN?: Dialog chặn. |
+| SCR-17 | Nhập số điện thoại · DR mode | 1:8028 | `dom/scr-17.html` | Nhập SĐT như thường, banner dưới status bar. SĐT chưa có tài khoản (đăng ký mới): Dialog chặn. |
 | SCR-16 | Chi tiết nguồn tiền · DR mode | 1:27572 | `dom/scr-16.html` | Như thường, thêm banner. ⋯ → Huỷ liên kết: Dialog chặn. |
 
 ## Sơ đồ Overview

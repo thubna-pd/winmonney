@@ -94,7 +94,7 @@ Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ đ
 
 - Figma node: 1:41327
 - Markup: `dom/scr-06.html` · khổ 375×1046
-- Mục đích: Xem như thường. Bảo mật, định danh, thanh toán, thông báo, Đăng xuất: tap thì bị chặn.
+- Mục đích: Xem như thường. Bảo mật, định danh, thanh toán, thông báo: tap thì bị chặn. Đăng xuất: như thường.
 
 | data-el | X | Y | W | H |
 |---|---|---|---|---|
@@ -204,7 +204,7 @@ Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ đ
 
 - Figma node: 1:8132
 - Markup: `dom/scr-14.html` · khổ 375×812
-- Mục đích: Không cho đăng nhập. Banner dưới status bar; tap nút đăng nhập bất kỳ: Dialog giải thích.
+- Mục đích: Đăng nhập như thường, banner dưới status bar. Quên mã PIN?: Dialog chặn.
 
 | data-el | X | Y | W | H |
 |---|---|---|---|---|
@@ -219,7 +219,7 @@ Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ đ
 
 - Figma node: 1:8028
 - Markup: `dom/scr-17.html` · khổ 375×812
-- Mục đích: Màn đầu của luồng đăng nhập khi máy chưa lưu tài khoản. Banner dưới status bar; tap Tiếp tục hoặc chọn SĐT đã dùng: Dialog giải thích.
+- Mục đích: Nhập SĐT như thường, banner dưới status bar. SĐT chưa có tài khoản (đăng ký mới): Dialog chặn.
 
 | data-el | X | Y | W | H |
 |---|---|---|---|---|

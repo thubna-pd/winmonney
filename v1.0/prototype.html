@@ -923,7 +923,13 @@ window.ANCH = {
 ],
 "dlg-close": [
 40,
-506,
+454,
+295,
+48
+],
+"dlg-learn": [
+40,
+510,
 295,
 48
 ]
@@ -983,7 +989,13 @@ window.ANCH = {
 ],
 "dlg-close": [
 40,
-506,
+454,
+295,
+48
+],
+"dlg-learn": [
+40,
+510,
 295,
 48
 ]
@@ -1437,7 +1449,9 @@ const S = {
   home:      { page:'dom/scr-01.html',  pull:true, taps:{ banner:EXPLAIN, 'chuyen-tien':BLOCK, 'nap-rut':BLOCK, 'quet-qr':BLOCK, qr:BLOCK, 'slide-cta':BLOCK, 'xem-them':'history', avatar:'account', 'bank-chip':'sources', bell:'noti' } },
   history:   { page:'dom/scr-04c.html', taps:{ back:BACK, banner:EXPLAIN, 'row-1':'detail' } },
   detail:    { page:'dom/scr-05.html',  taps:{ back:BACK, banner:EXPLAIN } },
-  account:   { page:'dom/scr-06.html',  taps:{ back:BACK, banner:EXPLAIN, 'xac-minh':BLOCK, 'cai-dat-thong-bao':BLOCK, 'doi-pin':BLOCK, 'sinh-trac':BLOCK, 'smart-otp':BLOCK, 'thanh-toan-tu-dong':BLOCK, logout:BLOCK } },
+  account:   { page:'dom/scr-06.html',  taps:{ back:BACK, banner:EXPLAIN, 'xac-minh':BLOCK, 'cai-dat-thong-bao':BLOCK, 'doi-pin':BLOCK, 'sinh-trac':BLOCK, 'smart-otp':BLOCK, 'thanh-toan-tu-dong':BLOCK, logout:'login' } },
+  login:     { page:'dom/scr-14.html',  taps:{ banner:EXPLAIN, cta:'home', face:'home', forgot:BLOCK, switch:'phone' } },
+  phone:     { page:'dom/scr-17.html',  taps:{ banner:EXPLAIN, cta:'login', 'phone-saved':'login' } },
   sources:   { page:'dom/scr-07.html',  taps:{ back:BACK, banner:EXPLAIN, 'add-account':BLOCK, 'item-tcb':'srcdetail', 'item-bidv':'srcdetail' } },
   srcdetail: { page:'dom/scr-16.html',  taps:{ back:BACK, banner:EXPLAIN, more:BLOCK } },
   noti:      { page:'dom/scr-13.html',  taps:{ back:BACK, banner:EXPLAIN } },
