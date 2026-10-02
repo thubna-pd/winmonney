@@ -1,0 +1,81 @@
+<style>
+.b-otp{position:relative;width:375px;height:812px;overflow:hidden;display:flex;flex-direction:column;font-family:Inter,sans-serif;color:var(--alias-text-text-primary,#0a0a0a);background:var(--alias-background-background,#fff)}
+.b-otp *{box-sizing:border-box;margin:0}
+.b-otp .sb{position:relative;height:44px;width:100%;overflow:hidden;flex-shrink:0}
+.b-otp .sb img{position:absolute;display:block}
+.b-otp .nav{display:flex;align-items:center;gap:12px;padding:12px;flex-shrink:0}
+.b-otp .nav .bk{width:32px;height:32px;display:flex;align-items:center;justify-content:center}
+.b-otp .nav .bk img{width:21.33px;height:21.33px;display:block}
+.b-otp .title{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%}
+.b-otp .title h1{width:343px;text-align:center;font-size:var(--font-size-text-lg,20px);line-height:28px;font-weight:600}
+.b-otp .title p{text-align:center;font-size:16px;line-height:24px}
+.b-otp .title b{font-weight:600}
+.b-otp .btn{height:48px;width:100%;display:flex;align-items:center;justify-content:center;padding:0 16px;border-radius:10000px;background:var(--alias-background-background-inverse,#262626);color:var(--alias-text-text-inverse,#fff);font-size:16px;line-height:24px;font-weight:500}
+.b-otp .kb{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;padding-top:6px;background:#d1d3d9}
+.b-otp .kb-f{position:relative;width:100%;height:264px}
+.b-otp .kb-row{position:absolute;left:0;right:0;height:46px;display:flex;gap:6px;padding:0 6px}
+.b-otp .key{position:relative;flex:1 0 0;min-width:1px;height:100%;border-radius:5px;color:#000;text-align:center}
+.b-otp .key.w{background:#fcfcfe;box-shadow:0 1px 0 #898a8d}
+.b-otp .key .n{position:absolute;left:50%;top:calc(50% - 8px);transform:translate(-50%,-50%);font-size:25px;line-height:normal;font-weight:400;white-space:nowrap}
+.b-otp .key .l{position:absolute;left:50%;top:calc(50% + 13px);transform:translate(-50%,-50%);font-size:10px;line-height:normal;font-weight:700;letter-spacing:2px;padding-left:2px;white-space:nowrap}
+.b-otp .key .n.c{top:calc(50% - 1px)}
+.b-otp .kb-home{position:relative;width:100%;height:21px}
+.b-otp .kb-home i{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:139px;height:5px;border-radius:100px;background:#000}
+.b-otp .body{flex:1 0 0;min-height:160px;display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 16px 16px}
+.b-otp .cells{display:flex;gap:8px}
+.b-otp .cells span{position:relative;width:40px;height:48px;border:1px solid var(--alias-border-border-subtle-01,#d4d4d4);border-radius:12px}
+.b-otp .cells span.on{border-color:var(--alias-border-border-strong-01,#737373)}
+.b-otp .cells span.on i{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:1.5px;height:24px;background:#0a0a0a}
+.b-otp .grp{display:flex;flex-direction:column;gap:4px;padding:16px;flex-shrink:0}
+.b-otp .resend{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;color:rgba(10,10,10,.25);font-size:16px;line-height:24px;font-weight:500}
+.b-otp .resend img{width:17.78px;height:20px;opacity:.25}
+.b-otp .cd{text-align:center;font-size:16px;line-height:24px;margin-bottom:12px}
+.b-otp .sug{display:flex;align-items:center;padding:0 1px 5px;width:100%}
+.b-otp .sug .sep{width:33px;height:25px;display:flex;justify-content:center}.b-otp .sug .sep i{width:1px;height:25px;background:#000;opacity:.1}
+.b-otp .sug .v{flex:1;text-align:center;letter-spacing:-.43px}.b-otp .sug .v p:first-child{font-size:15px;line-height:16px}.b-otp .sug .v p:last-child{font-size:17px;line-height:22px}
+</style>
+<div class="b-otp" data-h="812">
+    <div class="sb" data-mock="os">
+      <img src="../assets/figma/signup/sb-time.svg" alt="" style="left:33.45px;top:17.17px;width:28.426px;height:11.089px">
+      <img src="../assets/figma/signup/sb-signal.svg" alt="" style="right:64.33px;top:17.67px;width:17px;height:10.667px">
+      <img src="../assets/figma/signup/sb-wifi.svg" alt="" style="right:44.03px;top:17.33px;width:15.272px;height:10.966px">
+      <img src="../assets/figma/signup/sb-battery-body.svg" alt="" style="right:17px;top:17.33px;width:22px;height:11.333px">
+      <img src="../assets/figma/signup/sb-battery-cap.svg" alt="" style="right:14.67px;top:21px;width:1.328px;height:4px">
+      <img src="../assets/figma/signup/sb-battery-fill.svg" alt="" style="right:19px;top:19.33px;width:18px;height:7.333px">
+    </div>
+  <div class="nav"><div class="bk" data-el="back"><img src="../assets/figma/signup/ic-chevron-left.svg" alt=""></div></div>
+  <div class="body">
+    <div class="title"><h1>Xác thực số điện thoại</h1><p>Nhập mã OTP được gửi đến số điện thoại <b>0961689062</b></p></div>
+    <div class="cells" data-el="otp"><span class="on"><i></i></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="grp">
+    <div class="resend"><img src="../assets/figma/signup/ic-refresh.svg" alt="">Gửi lại OTP (00:59)</div>
+    <p class="cd">OTP hết hạn sau 04:59</p>
+    <div class="btn" data-el="cta">Xác nhận</div>
+  </div>
+  <div class="kb" data-mock="os"><div class="sug"><span class="sep"><i></i></span><div class="v"><p>From Messages</p><p>123456</p></div><span class="sep"><i></i></span></div>
+        <div class="kb-f">
+          <div class="kb-row" style="top:0">
+            <div class="key w"><span class="n">1</span><span class="l"> </span></div>
+            <div class="key w"><span class="n">2</span><span class="l">ABC</span></div>
+            <div class="key w"><span class="n">3</span><span class="l">DEF</span></div>
+          </div>
+          <div class="kb-row" style="top:54px">
+            <div class="key w"><span class="n">4</span><span class="l">GHI</span></div>
+            <div class="key w"><span class="n">5</span><span class="l">JKL</span></div>
+            <div class="key w"><span class="n">6</span><span class="l">MNO</span></div>
+          </div>
+          <div class="kb-row" style="top:106px">
+            <div class="key w"><span class="n">7</span><span class="l">PQRS</span></div>
+            <div class="key w"><span class="n">8</span><span class="l">TUV</span></div>
+            <div class="key w"><span class="n">9</span><span class="l">WXYZ</span></div>
+          </div>
+          <div class="kb-row" style="top:159px">
+            <div class="key"></div>
+            <div class="key w"><span class="n c">0</span></div>
+            <div class="key"><img src="../assets/figma/signup/kb-delete.svg" alt="" style="position:absolute;left:calc(50% + 2.54px);top:calc(50% - 1.01px);transform:translate(-50%,-50%);width:23.983px;height:17.99px"></div>
+          </div>
+        </div>
+        <div class="kb-home"><i></i></div>
+      </div>
+</div>

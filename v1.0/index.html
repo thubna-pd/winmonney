@@ -1031,21 +1031,15 @@ window.ANCH = {
 },
 "dom/scr-14.html": {
 "__h": 812,
-"banner": [
-16,
-60,
-343,
-58
-],
 "pin": [
 109.5,
-230,
+156,
 156,
 16
 ],
 "face": [
 16,
-286,
+212,
 343,
 48
 ],
@@ -1070,21 +1064,15 @@ window.ANCH = {
 },
 "dom/scr-14b.html": {
 "__h": 812,
-"banner": [
-16,
-60,
-343,
-58
-],
 "pin": [
 109.5,
-230,
+156,
 156,
 16
 ],
 "face": [
 16,
-286,
+212,
 343,
 48
 ],
@@ -1121,21 +1109,15 @@ window.ANCH = {
 },
 "dom/scr-17.html": {
 "__h": 812,
-"banner": [
-16,
-60,
-343,
-58
-],
 "phone-input": [
 16,
-178,
+104,
 343,
 48
 ],
 "phone-saved": [
 16,
-242,
+168,
 192,
 78
 ],
@@ -1148,23 +1130,119 @@ window.ANCH = {
 },
 "dom/scr-17b.html": {
 "__h": 812,
-"banner": [
-16,
-60,
-343,
-58
-],
 "phone-input": [
 16,
-178,
+104,
 343,
 48
 ],
 "phone-saved": [
 16,
-242,
+168,
 192,
 78
+],
+"cta": [
+16,
+457,
+343,
+48
+],
+"dlg-close": [
+40,
+506,
+295,
+48
+]
+},
+"dom/scr-18.html": {
+"__h": 812,
+"back": [
+12,
+56,
+32,
+32
+],
+"otp": [
+47.5,
+196,
+280,
+48
+],
+"cta": [
+16,
+414,
+343,
+48
+]
+},
+"dom/scr-18b.html": {
+"__h": 812,
+"back": [
+12,
+56,
+32,
+32
+],
+"otp": [
+47.5,
+196,
+280,
+48
+],
+"cta": [
+16,
+414,
+343,
+48
+],
+"dlg-close": [
+40,
+454,
+295,
+48
+],
+"dlg-learn": [
+40,
+510,
+295,
+48
+]
+},
+"dom/scr-19.html": {
+"__h": 812,
+"back": [
+12,
+56,
+32,
+32
+],
+"pin": [
+109.5,
+196,
+156,
+16
+],
+"cta": [
+16,
+457,
+343,
+48
+]
+},
+"dom/scr-19b.html": {
+"__h": 812,
+"back": [
+12,
+56,
+32,
+32
+],
+"pin": [
+109.5,
+196,
+156,
+16
 ],
 "cta": [
 16,
@@ -1705,7 +1783,7 @@ flows: [
         { id: "e2", type: "terminal", label: "Giữ màn đang xem", x: 200, y: 230 } ],
       edges: [ { from: "s", to: "d" }, { from: "d", to: "a", label: "YES" }, { from: "d", to: "e2", label: "NO" } ] } },
     { id: "sc-2", name: "Đăng nhập khi đang DR mode",
-      note: "Đăng nhập và đăng xuất chạy như thường, có banner. Chỉ chặn khi backend xác định SĐT chưa có tài khoản (đăng ký mới). Đăng nhập xong vào Trang chủ, dialog giải thích theo rule session DR (sc-0).",
+      note: "Đăng nhập, đăng xuất chạy như thường. Màn Login và nhập SĐT không hiện banner. SĐT chưa có tài khoản (đăng ký mới): Dialog giải thích. Đăng nhập xong vào Trang chủ, dialog giải thích theo rule session DR (sc-0).",
       dg: { nodes: [
         { id: "s", type: "terminal", label: "Mở app, cần đăng nhập", x: 0, y: 0 },
         { id: "d2", type: "decision", label: "Máy đã lưu tài khoản?", x: 200, y: 0 },
@@ -1719,14 +1797,32 @@ flows: [
         { from: "d2", to: "p", label: "NO", via: [{ x: 200, y: 280 }] },
         { from: "p", to: "d3", fromEl: "cta", fromSide: "right" },
         { from: "d3", to: "pb", label: "NO" },
-        { from: "d3", to: "a", label: "YES", via: [{ x: 640, y: 160 }, { x: 420, y: 160 }], toSide: "down" } ] } }
+        { from: "d3", to: "a", label: "YES", via: [{ x: 640, y: 160 }, { x: 420, y: 160 }], toSide: "down" } ] } },
+    { id: "sc-3", name: "DR bật giữa luồng đăng ký",
+      note: "Đăng ký bắt đầu khi DR còn tắt (đã qua check SĐT). App check DR status mỗi lần user submit một bước xác thực (OTP, tạo PIN, xác nhận PIN…). DR bật ở bước nào thì Dialog chặn hiện ở bước đó. Đóng: ở lại màn, giữ dữ liệu đã nhập.",
+      dg: { nodes: [
+        { id: "s", type: "terminal", label: "Đang đăng ký, đã qua check SĐT", x: 0, y: 0 },
+        { id: "o", ref: "SCR-18", type: "screen", x: 200, y: 0 },
+        { id: "d1", type: "decision", label: "DR mode on khi submit?", x: 420, y: 0 },
+        { id: "ob", ref: "SCR-18", dom: "dom/scr-18b.html", type: "screen", x: 420, y: 280 },
+        { id: "pn", ref: "SCR-19", type: "screen", x: 640, y: 0 },
+        { id: "d2", type: "decision", label: "DR mode on khi submit?", x: 860, y: 0 },
+        { id: "pb", ref: "SCR-19", dom: "dom/scr-19b.html", type: "screen", x: 860, y: 280 },
+        { id: "e", type: "terminal", label: "Bước xác thực tiếp theo: check lại như trên", x: 1080, y: 0 } ],
+      edges: [ { from: "s", to: "o" }, { from: "o", to: "d1", fromEl: "cta", fromSide: "right" },
+        { from: "d1", to: "ob", label: "YES" }, { from: "d1", to: "pn", label: "NO" },
+        { from: "pn", to: "d2", fromEl: "cta", fromSide: "right" },
+        { from: "d2", to: "pb", label: "YES" }, { from: "d2", to: "e", label: "NO" } ] } }
   ],
   cases: [
-    ["Mở app, chưa lưu tài khoản (cài mới, Đổi tài khoản)", "SCR-17", "Màn nhập SĐT + banner, nhập như thường", "—"],
+    ["Mở app, chưa lưu tài khoản (cài mới, Đổi tài khoản)", "SCR-17", "Màn nhập SĐT, không banner, nhập như thường", "—"],
     ["Tap Tiếp tục, SĐT đã có tài khoản", "SCR-14", "Đăng nhập như thường", "Nhập PIN → SCR-01"],
-    ["Tap Tiếp tục, SĐT chưa có tài khoản (đăng ký mới)", "SCR-17 + Dialog chặn", "Dialog chặn; không tạo tài khoản, không gửi OTP", "Đóng → SCR-17, giữ SĐT đã nhập. Tìm hiểu thêm → SCR-02"],
-    ["Mở app, đã lưu tài khoản (hết phiên)", "SCR-14", "Màn nhập PIN + banner; PIN, khuôn mặt, Đổi tài khoản như thường", "Đăng nhập thành công → SCR-01"],
+    ["Tap Tiếp tục, SĐT chưa có tài khoản (đăng ký mới)", "SCR-17 + Dialog giải thích", "Dialog giải thích; không tạo tài khoản, không gửi OTP", "Đóng → SCR-17, giữ SĐT đã nhập"],
+    ["Mở app, đã lưu tài khoản (hết phiên)", "SCR-14", "Màn nhập PIN, không banner; PIN, khuôn mặt, Đổi tài khoản như thường", "Đăng nhập thành công → SCR-01"],
     ["Tap Quên mã PIN?", "SCR-14 + Dialog chặn", "Dialog chặn (đặt lại PIN là thay đổi thông tin)", "Đóng → SCR-14"],
+    ["DR bật khi user đang ở màn OTP đăng ký", "SCR-18 + Dialog chặn", "Tap Xác nhận → Dialog chặn; không verify OTP", "Đóng → SCR-18, giữ OTP đã nhập"],
+    ["DR bật khi user đang ở màn Tạo mã PIN", "SCR-19 + Dialog chặn", "Tap Tiếp tục → Dialog chặn; không lưu PIN", "Đóng → SCR-19"],
+    ["DR bật ở bước xác thực khác (xác nhận PIN…)", "Màn tương ứng", "Check DR status khi submit; DR on thì Dialog chặn tại bước đó", "Đóng → ở lại màn"],
     ["Mở app, lần đầu trong session DR", "SCR-02 trên SCR-01", "Dialog giải thích + banner", "Đóng → SCR-01"],
     ["Mở lại app, cùng session", "SCR-01", "Chỉ banner", "—"],
     ["App quay lại foreground", "Màn đang xem", "Check DR status trước khi nhận tap vào action giao dịch", "—"],
@@ -1894,13 +1990,14 @@ ui: [
     ["Scroll nội dung", "Banner sticky ở mép trên vùng cuộn, ngay dưới header/navbar của màn. Nội dung cuộn phía dưới banner. Nền quanh banner (phần lề) lấy đúng màu nền của vùng cuộn để nội dung không lộ qua lề."],
     ["Pull-to-refresh", "Banner đứng yên; vùng Loading cao 56 hiện ngay dưới banner (SCR-10)."],
     ["DR mode tắt", "Banner mất ở lần refresh / chuyển màn kế tiếp. Nếu vừa pull-to-refresh thì hiện Toast Positive (SCR-11)."],
+    ["Không hiện ở", "Màn Login, nhập SĐT và các màn trong luồng đăng ký (OTP, tạo PIN…)."],
     ["Lề theo màn", "Lề 16 hai bên. Khoảng cách trên/dưới banner giữ theo layout của từng màn (vd Tài khoản 16 / 8, Trang chủ 0)."]
   ],
   scroll: [
     { name: "Đầu trang", dom: "dom/ui-scroll-0.html" },
     { name: "Đã scroll 260px", dom: "dom/ui-scroll-1.html" }
   ],
-  usedIn: ["SCR-01", "SCR-04", "SCR-05", "SCR-06", "SCR-07", "SCR-10", "SCR-13", "SCR-14", "SCR-16", "SCR-17"],
+  usedIn: ["SCR-01", "SCR-04", "SCR-05", "SCR-06", "SCR-07", "SCR-10", "SCR-13", "SCR-16"],
   assets: [["icon-warning.svg", "WIN DLS icon Warning", "dùng làm mask, tô màu bằng token"], ["icon-chevron-right.svg", "WIN DLS icon Chevron right", "dùng làm mask"]]
 },
 {
@@ -1909,10 +2006,10 @@ ui: [
   css: ".dlg-overlay > .dlg",
   variants: [
     { id: "explain", name: "Giải thích", dom: "dom/ui-dialog-explain.html", screen: "dom/scr-02.html",
-      when: "Tự bật 1 lần mỗi session DR khi mở app (kể cả ngay sau khi đăng nhập); khi tap banner; khi tap Tìm hiểu thêm ở Dialog chặn.",
+      when: "Tự bật 1 lần mỗi session DR khi mở app (kể cả ngay sau khi đăng nhập); khi tap banner; khi tap Tìm hiểu thêm ở Dialog chặn; khi nhập SĐT đăng ký mới (SCR-17).",
       strings: ["Hệ thống đang bảo trì", "Bạn vẫn xem được số dư, lịch sử giao dịch và thông tin tài khoản. Giao dịch và thay đổi thông tin sẽ thực hiện được sau khi bảo trì hoàn tất.", "Dự kiến hoàn tất lúc {dd/mm/yyyy hh:mm:ss}.", "Đóng"] },
     { id: "block", name: "Chặn action", dom: "dom/ui-dialog-block.html", screen: "dom/scr-03.html",
-      when: "Tap vào action bị chặn: giao dịch, thay đổi thông tin, đăng ký tài khoản mới (SCR-17), Quên mã PIN (SCR-14).",
+      when: "Tap vào action bị chặn: giao dịch, thay đổi thông tin, Quên mã PIN (SCR-14); submit bước xác thực khi DR bật giữa luồng đăng ký (SCR-18, SCR-19).",
       strings: ["Tính năng đang bảo trì", "Hệ thống đang bảo trì nên chưa thực hiện được thao tác này. Bạn vui lòng thử lại sau khi bảo trì hoàn tất.", "Đóng", "Tìm hiểu thêm"] }
   ],
   anatomy: [
@@ -1933,7 +2030,7 @@ ui: [
     ["Tự bật (variant Giải thích)", "Tối đa 1 lần mỗi session DR. Session DR mới (DR bật lại) thì bật lại 1 lần."],
     ["Motion", "Overlay fade in 200ms; dialog fade + scale 0.96 → 1, 200ms ease-out. prefers-reduced-motion: chỉ fade."]
   ],
-  usedIn: ["SCR-02", "SCR-03", "SCR-06", "SCR-08", "SCR-14", "SCR-16", "SCR-17"],
+  usedIn: ["SCR-02", "SCR-03", "SCR-06", "SCR-08", "SCR-14", "SCR-16", "SCR-17", "SCR-18", "SCR-19"],
   assets: [["illus-warning.png", "Illus/Warning (Figma)", "dùng chung 2 variant"]]
 }
 ],
@@ -1952,8 +2049,10 @@ screens: [
 { id: "SCR-10", name: "Trang chủ · pull-to-refresh", node: "1:13043 + Loading", dom: "dom/scr-10.html", purpose: "Icon Loading 24 xoay trong vùng cao 56 dưới banner." },
 { id: "SCR-11", name: "Trang chủ · DR tắt", node: "1:13043 + Toast bar", dom: "dom/scr-11.html", purpose: "Banner mất. Toast Positive chỉ khi vừa pull-to-refresh." },
 { id: "SCR-13", name: "Notification center · DR mode", node: "21:8494", dom: "dom/scr-13.html", purpose: "List như thường + banner + 1 noti “Hệ thống đang bảo trì” (demo)." },
-{ id: "SCR-14", name: "Login · DR mode", node: "1:8132", dom: "dom/scr-14.html", purpose: "Đăng nhập như thường, banner dưới status bar. Quên mã PIN?: Dialog chặn." },
-{ id: "SCR-17", name: "Nhập số điện thoại · DR mode", node: "1:8028", dom: "dom/scr-17.html", purpose: "Nhập SĐT như thường, banner dưới status bar. SĐT chưa có tài khoản (đăng ký mới): Dialog chặn." },
+{ id: "SCR-14", name: "Login · DR mode", node: "1:8132", dom: "dom/scr-14.html", purpose: "Đăng nhập như thường, không hiện banner. Quên mã PIN?: Dialog chặn." },
+{ id: "SCR-17", name: "Nhập số điện thoại · DR mode", node: "1:8028", dom: "dom/scr-17.html", purpose: "Nhập SĐT như thường, không hiện banner. SĐT chưa có tài khoản (đăng ký mới): Dialog giải thích." },
+{ id: "SCR-18", name: "Đăng ký · nhập OTP", node: "1:40102", dom: "dom/scr-18.html", purpose: "Màn hiện có, không banner. DR bật giữa luồng: tap Xác nhận → Dialog chặn." },
+{ id: "SCR-19", name: "Đăng ký · tạo mã PIN", node: "1:8076", dom: "dom/scr-19.html", purpose: "Màn hiện có, không banner. DR bật giữa luồng: tap Tiếp tục → Dialog chặn." },
 { id: "SCR-16", name: "Chi tiết nguồn tiền · DR mode", node: "1:27572", dom: "dom/scr-16.html", purpose: "Như thường, thêm banner. ⋯ → Huỷ liên kết: Dialog chặn." }
 ]
 };
@@ -2024,7 +2123,7 @@ function renderOverview(){
   <h2 id="overview--o-so-do" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">Overview
     <a class="lnk" href="prototype.html" target="_blank" rel="noopener" style="font-size:14px;font-weight:500;letter-spacing:0">Xem prototype ↗</a></h2>
   ${renderFlowSVG(D.overallFlow,'ov')}
-  <p class="muted" style="font-size:var(--text-xs)">Bấm vào màn để xem lớn. SCR-06, SCR-07, SCR-16 nằm trong FL-02, FL-03; SCR-14, SCR-17 nằm trong FL-01.</p>
+  <p class="muted" style="font-size:var(--text-xs)">Bấm vào màn để xem lớn. SCR-06, SCR-07, SCR-16 nằm trong FL-02, FL-03; SCR-14, SCR-17, SCR-18, SCR-19 nằm trong FL-01.</p>
 
   <h2 id="overview--o-luong">Luồng người dùng</h2>
   <div class="cardgrid">${fl}</div>

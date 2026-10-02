@@ -204,13 +204,12 @@ Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ đ
 
 - Figma node: 1:8132
 - Markup: `dom/scr-14.html` · khổ 375×812
-- Mục đích: Đăng nhập như thường, banner dưới status bar. Quên mã PIN?: Dialog chặn.
+- Mục đích: Đăng nhập như thường, không hiện banner. Quên mã PIN?: Dialog chặn.
 
 | data-el | X | Y | W | H |
 |---|---|---|---|---|
-| `banner` | 16 | 60 | 343 | 58 |
-| `pin` | 110 | 230 | 156 | 16 |
-| `face` | 16 | 286 | 343 | 48 |
+| `pin` | 110 | 156 | 156 | 16 |
+| `face` | 16 | 212 | 343 | 48 |
 | `cta` | 16 | 409 | 343 | 48 |
 | `forgot` | 16 | 465 | 170 | 48 |
 | `switch` | 189 | 465 | 170 | 48 |
@@ -219,13 +218,36 @@ Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ đ
 
 - Figma node: 1:8028
 - Markup: `dom/scr-17.html` · khổ 375×812
-- Mục đích: Nhập SĐT như thường, banner dưới status bar. SĐT chưa có tài khoản (đăng ký mới): Dialog chặn.
+- Mục đích: Nhập SĐT như thường, không hiện banner. SĐT chưa có tài khoản (đăng ký mới): Dialog giải thích.
 
 | data-el | X | Y | W | H |
 |---|---|---|---|---|
-| `banner` | 16 | 60 | 343 | 58 |
-| `phone-input` | 16 | 178 | 343 | 48 |
-| `phone-saved` | 16 | 242 | 192 | 78 |
+| `phone-input` | 16 | 104 | 343 | 48 |
+| `phone-saved` | 16 | 168 | 192 | 78 |
+| `cta` | 16 | 457 | 343 | 48 |
+
+## SCR-18 · Đăng ký · nhập OTP
+
+- Figma node: 1:40102
+- Markup: `dom/scr-18.html` · khổ 375×812
+- Mục đích: Màn hiện có, không banner. DR bật giữa luồng: tap Xác nhận → Dialog chặn.
+
+| data-el | X | Y | W | H |
+|---|---|---|---|---|
+| `back` | 12 | 56 | 32 | 32 |
+| `otp` | 48 | 196 | 280 | 48 |
+| `cta` | 16 | 414 | 343 | 48 |
+
+## SCR-19 · Đăng ký · tạo mã PIN
+
+- Figma node: 1:8076
+- Markup: `dom/scr-19.html` · khổ 375×812
+- Mục đích: Màn hiện có, không banner. DR bật giữa luồng: tap Tiếp tục → Dialog chặn.
+
+| data-el | X | Y | W | H |
+|---|---|---|---|---|
+| `back` | 12 | 56 | 32 | 32 |
+| `pin` | 110 | 196 | 156 | 16 |
 | `cta` | 16 | 457 | 343 | 48 |
 
 ## SCR-16 · Chi tiết nguồn tiền · DR mode
