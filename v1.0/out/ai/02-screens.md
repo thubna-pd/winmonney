@@ -215,6 +215,19 @@ Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ đ
 | `forgot` | 16 | 465 | 170 | 48 |
 | `switch` | 189 | 465 | 170 | 48 |
 
+## SCR-17 · Nhập số điện thoại · DR mode
+
+- Figma node: 1:8028
+- Markup: `dom/scr-17.html` · khổ 375×812
+- Mục đích: Màn đầu của luồng đăng nhập khi máy chưa lưu tài khoản. Banner dưới status bar; tap Tiếp tục hoặc chọn SĐT đã dùng: Dialog chặn.
+
+| data-el | X | Y | W | H |
+|---|---|---|---|---|
+| `banner` | 16 | 60 | 343 | 58 |
+| `phone-input` | 16 | 178 | 343 | 48 |
+| `phone-saved` | 16 | 242 | 192 | 78 |
+| `cta` | 16 | 457 | 343 | 48 |
+
 ## SCR-16 · Chi tiết nguồn tiền · DR mode
 
 - Figma node: 1:27572

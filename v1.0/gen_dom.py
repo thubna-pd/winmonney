@@ -87,6 +87,8 @@ PAGES = {
   'scr-13':  slot(with_banner('notification'), 'noti-first', noti(COPY['notiDr'])),
   'scr-14':  with_banner('login'),
   'scr-14b': overlay(with_banner('login'), dialog('block')),
+  'scr-17':  with_banner('phone'),
+  'scr-17b': overlay(with_banner('phone'), dialog('block')),
   'scr-16':  grow(with_banner('source-detail')),
   'scr-16b': overlay(grow(with_banner('source-detail')), dialog('block')),
 }
