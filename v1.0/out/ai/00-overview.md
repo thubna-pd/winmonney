@@ -50,8 +50,8 @@ Ticket #17137 · bản 1.0 · 29/09/2026 · Figma file `L8SweQCDdHX93TJFBPjGsp` 
 | SCR-10 | Trang chủ · pull-to-refresh | 1:13043 + Loading | `dom/scr-10.html` | Icon Loading 24 xoay trong vùng cao 56 dưới banner. |
 | SCR-11 | Trang chủ · DR tắt | 1:13043 + Toast bar | `dom/scr-11.html` | Banner mất. Toast Positive chỉ khi vừa pull-to-refresh. |
 | SCR-13 | Notification center · DR mode | 21:8494 | `dom/scr-13.html` | List như thường + banner + 1 noti “Hệ thống đang bảo trì” (demo). |
-| SCR-14 | Login · DR mode | 1:8132 | `dom/scr-14.html` | Không cho đăng nhập. Banner dưới status bar; tap nút đăng nhập bất kỳ: Dialog chặn. |
-| SCR-17 | Nhập số điện thoại · DR mode | 1:8028 | `dom/scr-17.html` | Màn đầu của luồng đăng nhập khi máy chưa lưu tài khoản. Banner dưới status bar; tap Tiếp tục hoặc chọn SĐT đã dùng: Dialog chặn. |
+| SCR-14 | Login · DR mode | 1:8132 | `dom/scr-14.html` | Không cho đăng nhập. Banner dưới status bar; tap nút đăng nhập bất kỳ: Dialog giải thích. |
+| SCR-17 | Nhập số điện thoại · DR mode | 1:8028 | `dom/scr-17.html` | Màn đầu của luồng đăng nhập khi máy chưa lưu tài khoản. Banner dưới status bar; tap Tiếp tục hoặc chọn SĐT đã dùng: Dialog giải thích. |
 | SCR-16 | Chi tiết nguồn tiền · DR mode | 1:27572 | `dom/scr-16.html` | Như thường, thêm banner. ⋯ → Huỷ liên kết: Dialog chặn. |
 
 ## Sơ đồ Overview

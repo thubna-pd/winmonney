@@ -204,7 +204,7 @@ Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ đ
 
 - Figma node: 1:8132
 - Markup: `dom/scr-14.html` · khổ 375×812
-- Mục đích: Không cho đăng nhập. Banner dưới status bar; tap nút đăng nhập bất kỳ: Dialog chặn.
+- Mục đích: Không cho đăng nhập. Banner dưới status bar; tap nút đăng nhập bất kỳ: Dialog giải thích.
 
 | data-el | X | Y | W | H |
 |---|---|---|---|---|
@@ -219,7 +219,7 @@ Mỗi màn là markup HTML/CSS dựng từ Figma (không phải ảnh). Toạ đ
 
 - Figma node: 1:8028
 - Markup: `dom/scr-17.html` · khổ 375×812
-- Mục đích: Màn đầu của luồng đăng nhập khi máy chưa lưu tài khoản. Banner dưới status bar; tap Tiếp tục hoặc chọn SĐT đã dùng: Dialog chặn.
+- Mục đích: Màn đầu của luồng đăng nhập khi máy chưa lưu tài khoản. Banner dưới status bar; tap Tiếp tục hoặc chọn SĐT đã dùng: Dialog giải thích.
 
 | data-el | X | Y | W | H |
 |---|---|---|---|---|
